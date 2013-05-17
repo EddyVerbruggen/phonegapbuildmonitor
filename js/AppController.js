@@ -28,7 +28,6 @@ function AppController() {
   };
 
   this._init = function() {
-    alert("init appController");
     this.loadApps();
   };
 

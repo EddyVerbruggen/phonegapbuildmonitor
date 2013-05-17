@@ -5,6 +5,7 @@ var appController;
 
 // construct and execute a System setup class
 (function System() {
+
   var onDeviceReady = function() {
     alert("device ready")
   };
