@@ -12,7 +12,7 @@ function UserController() {
   };
 
   this.signIn = function(username, password) {
-    alert("TODO impl signIn");
+    alert("Signing in...");
     var xml = new XMLHttpRequest();
     $.ajax({
       type : 'POST',
@@ -20,7 +20,7 @@ function UserController() {
       dataType : 'json',
       headers : {"Authorization" : "Basic " + btoa(username + ":" + password) },
       success : function(data) {
-        alert(data);
+        alert(JSON.stringify(data));
       },
       error : function(XMLHttpRequest, textStatus, errorThrown) {
         alert("XMLHttpRequest:" + XMLHttpRequest + ", Status: " + textStatus + ", error: " + errorThrown);
