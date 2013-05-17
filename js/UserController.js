@@ -28,7 +28,6 @@ function UserController() {
   };
 
   this._init = function() {
-    alert("init userController");
     this.loadUsers();
   };
 
