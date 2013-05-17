@@ -27,7 +27,6 @@ function UserController() {
     localStorage.setItem(LSKEY_USERS, JSON.stringify(this.users));
   };
 
-  // override any defaults with user values
   this._init = function() {
     alert("init userController");
     this.loadUsers();
