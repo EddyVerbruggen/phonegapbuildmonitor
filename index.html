@@ -1,64 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Bootstrap, from Twitter</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-    <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
-    </style>
-    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-  </head>
+<head>
+  <meta charset="utf-8">
+  <title>Bootstrap, from Twitter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="css/custom.css" rel="stylesheet">
+  <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+</head>
+<body>
 
-  <body>
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a href="#accountsModal" role="button" class="btn btn-primary" data-toggle="modal">Accounts</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="#about">About</a></li>
-              <li><a href="#settings">Settings</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
     <div class="container">
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="#accountsModal" role="button" class="btn btn-primary" data-toggle="modal">Accounts</a>
 
-      <h1>Hier de apps..</h1>
-      <p>Dat wordt lachen!</p>
-    </div>
-
-
-    <div id="accountsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="accountsModalLabel" aria-hidden="true">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="accountsModalLabel">Accounts</h3>
-      </div>
-      <div class="modal-body">
-        <p>djhoek@lifestyleinteractive.nl</p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-        <button class="btn btn-primary">Add account</button>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <li class="active"><a href="#about">About</a></li>
+          <li><a href="#settings">Settings</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
       </div>
     </div>
+  </div>
+</div>
 
+<div class="container">
+  <h1>Hier de apps..</h1>
+  <p>Dat wordt lachen!</p>
+</div>
 
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/lib/jquery-1.9.1.min.js"></script>
-    <script src="bootstrap/js/bootstrap.js"></script>
-  </body>
+<div id="accountsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="accountsModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="accountsModalLabel">Accounts</h3>
+  </div>
+  <div class="modal-body">
+    <p>djhoek@lifestyleinteractive.nl</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary">Add account</button>
+  </div>
+</div>
+
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/lib/jquery-1.9.1.min.js"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
+<script src="js/UserController.js"></script>
+<script src="js/AppController.js"></script>
+<script src="js/System.js"></script>
+</body>
 </html>
