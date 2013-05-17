@@ -13,6 +13,19 @@ function UserController() {
 
   this.signIn = function(username, password) {
     alert("TODO impl signIn");
+    var xml = new XMLHttpRequest();
+    $.ajax({
+      type : 'POST',
+      url : 'https://build.phonegap.com/token',
+      dataType : 'json',
+      headers : {"Authorization" : "Basic " + btoa(username + ":" + password) },
+      success : function(data) {
+        alert(data);
+      },
+      error : function(XMLHttpRequest, textStatus, errorThrown) {
+        alert("XMLHttpRequest:" + XMLHttpRequest + ", Status: " + textStatus + ", error: " + errorThrown);
+      }
+    });
   };
 
   this.storeToken = function(token) {
