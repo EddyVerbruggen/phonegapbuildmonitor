@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets"
+        xmlns:gap="http://phonegap.com/ns/1.0"
+        id="nl.x-services.phonegapbuildmonitor"
+        version="0.1">
+
+  <name>Phonegap Build Monitor</name><!-- is also the name of the icon on the device -->
+
+  <description>
+    Monitor your Phonegap Build apps
+  </description>
+
+  <author href="http://www.x-services.nl"
+          email="eddy@x-services.nl">
+    X-Services, Eddy Verbruggen
+  </author>
+
+  <feature name="http://api.phonegap.com/1.0/network"/>
+  <feature name="http://api.phonegap.com/1.0/file"/>
+
+  <preference name="phonegap-version" value="2.3.0"/><!-- 2.5.0 has splash screen shifting, which is fixed in 2.6.0 (so lets use it asap) -->
+  <preference name="target-device" value="handset"/><!-- 2.5.0 is not hiding the splashscreen on ipad AND 2.3.0 is not supporting ipad retina images, which Apple requires -->
+  <preference name="webviewbounce" value="false"/><!-- iOS rubber banding -->
+  <preference name="ios-statusbarstyle" value="black-opaque"/>
+  <preference name="android-minSdkVersion" value="8" />
+  <preference name="android-installLocation" value="auto" /><!-- preferExternal; preferably install on SD-card -->
+  <preference name="show-splash-screen-spinner" value="false" />
+  <preference name="stay-in-webview" value="false" /><!-- external sites -->
+  <preference name="prerendered-icon" value="true" /><!-- gloss effect on iOS (false=add) -->
+  <preference name="auto-hide-splash-screen" value="true" /><!-- hide with js or not -->
+  <preference name="exit-on-suspend" value="false" />
+
+  <!-- allow loading any url in the webview -->
+  <access origin="*" />
+
+</widget>
