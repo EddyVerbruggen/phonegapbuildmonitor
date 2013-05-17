@@ -7,7 +7,6 @@ var appController;
 (function System() {
 
   var onDeviceReady = function() {
-    alert("device ready")
   };
 
   var init = function() {

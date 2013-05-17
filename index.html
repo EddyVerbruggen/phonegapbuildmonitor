@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Bootstrap, from Twitter</title>
+  <title>Phonegap Build Monitor App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
   <link href="css/custom.css" rel="stylesheet">
@@ -34,37 +34,42 @@
 <div class="container">
   <table class="table" id="appTable">
     <tbody>
-
-    <!-- TODO dynamically replace these rows -->
       <tr>
         <td class="iconcolumn"><img src="img/tempicons/tfg.png" width="72px" height="72px"/></td>
         <td>
           <h4>FutureApp <span class="appversion">0.8</span></h4>
           <div class="buildcount">build 113</div>
           <div class="buildfromrepobutton"><a href="#" role="button" class="btn btn-mini btn-inverse">build from repo</a></div>
-          <div class="actionbutton"><a href="#" role="button" class="btn btn-success">install</a></div>
+          <div class="actionbutton">building..</div>
         </td>
       </tr>
-
       <tr>
         <td class="iconcolumn"><img src="img/tempicons/mijnparamax.png" width="72px" height="72px"/></td>
         <td>
           <h4>MijnParaMax <span class="appversion">0.6</span></h4>
           <div class="buildcount">build 78 (new)</div>
-          <div class="buildfromrepobutton"><a href="#" role="button" class="btn btn-mini btn-inverse">build from repo</a></div>
+          <div class="buildfromrepobutton"><img src="img/private-app.png" width="17px" height="11px"/></div>
           <div class="actionbutton"><a href="#" role="button" class="btn btn-success">install</a></div>
         </td>
       </tr>
-
-    <tr>
-      <td class="iconcolumn"><img src="img/tempicons/kaartsaldo.png" width="72px" height="72px"/></td>
-      <td>
-        <h4>Kaartsaldo <span class="appversion">1.0</span></h4>
-        <div class="buildcount">build 34</div>
-        <div class="buildfromrepobutton"><a href="#" role="button" class="btn btn-mini btn-inverse">build from repo</a></div>
-        <div class="actionbutton"><a href="#" role="button" class="btn btn-info">install</a></div>
-      </td>
-    </tr>
+      <tr>
+        <td class="iconcolumn"><img src="img/tempicons/kaartsaldo.png" width="72px" height="72px"/></td>
+        <td>
+          <h4>Kaartsaldo <span class="appversion">1.0</span></h4>
+          <div class="buildcount">build 34</div>
+          <div class="buildfromrepobutton"><a href="#" role="button" class="btn btn-mini btn-inverse">build from repo</a></div>
+          <div class="actionbutton"><a href="#" role="button" class="btn">install</a></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="iconcolumn"><img src="img/tempicons/gametv.png" width="72px" height="72px"/></td>
+        <td>
+          <h4>Game TV <span class="appversion">1.1</span></h4>
+          <div class="buildcount">build 72</div>
+          <div class="buildfromrepobutton"><a href="#" role="button" class="btn btn-mini btn-inverse">build from repo</a></div>
+          <div class="actionbutton"><a href="#" role="button" class="btn btn-danger" onclick="alert('iOS signing key is locked')">error</a></div>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>
@@ -76,7 +81,38 @@
     <h3 id="accountsModalLabel">Accounts</h3>
   </div>
   <div class="modal-body">
-    <p>djhoek@lifestyleinteractive.nl</p>
+    <br/>
+    <table class="table" id="userTable">
+      <tbody>
+        <tr>
+          <td>
+            <h5>basterbrugge@gmail.com</h5>
+            <div class="appcount">2 apps</div>
+          </td>
+          <td class="deletebuttoncolumn">
+            <a href="#" role="button" class="btn btn-danger">delete</a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h5>djhoek@lifestyleinteractive.nl</h5>
+            <div class="appcount">1 app</div>
+          </td>
+          <td class="deletebuttoncolumn">
+            <a href="#" role="button" class="btn btn-danger">delete</a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h5>eddyverbruggen@gmail.com</h5>
+            <div class="appcount">6 apps</div>
+          </td>
+          <td class="deletebuttoncolumn">
+            <a href="#" role="button" class="btn btn-danger">delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
