@@ -1,3 +1,5 @@
+"use strict";
+
 function UserController() {
 
   var LSKEY_USERS = "UserController.users";
@@ -12,20 +14,11 @@ function UserController() {
   };
 
   this.signIn = function(username, password) {
-    alert("Signing in...");
-    var xml = new XMLHttpRequest();
-    $.ajax({
-      type : 'POST',
-      url : 'https://build.phonegap.com/token',
-      dataType : 'json',
-      headers : {"Authorization" : "Basic " + btoa(username + ":" + password) },
-      success : function(data) {
-        alert(JSON.stringify(data));
-      },
-      error : function(XMLHttpRequest, textStatus, errorThrown) {
-        alert("XMLHttpRequest:" + XMLHttpRequest + ", Status: " + textStatus + ", error: " + errorThrown);
-      }
-    });
+    PhonegapBuildApiProxy.doGET('me', username, password, null);
+  };
+
+  this.signInByToken = function(token) {
+    PhonegapBuildApiProxy.doGET('me', null, null, token);
   };
 
   this.storeToken = function(token) {

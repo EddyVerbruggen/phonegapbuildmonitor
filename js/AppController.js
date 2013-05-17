@@ -1,3 +1,5 @@
+"use strict";
+
 function AppController() {
 
   var LSKEY_APPS = "AppController.apps";
