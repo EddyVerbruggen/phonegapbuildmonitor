@@ -1,3 +1,43 @@
 body {
   padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
 }
+
+h4 {
+  margin: 0;
+}
+
+#appTable.table tr td {
+  padding: 16px 6px;
+}
+
+/* remove the top border from the first row */
+#appTable.table tr:nth-child(1) td {
+  border-top: 0;
+}
+
+#appTable .iconcolumn {
+  width: 74px;
+}
+
+#appTable .iconcolumn img {
+  border: 1px solid #eee;
+}
+
+#appTable .buildcount {
+  font-size: 0.8em;
+  color: #bbb;
+}
+
+#appTable .appversion {
+  font-size: 0.7em;
+  font-weight: normal;
+}
+
+#appTable .buildfromrepobutton {
+  float: left;
+  margin-top: 7px;
+}
+
+#appTable .actionbutton {
+  float: right;
+}

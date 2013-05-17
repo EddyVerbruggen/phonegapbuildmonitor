@@ -20,7 +20,6 @@
         <span class="icon-bar"></span>
       </button>
       <a href="#accountsModal" role="button" class="btn btn-primary" data-toggle="modal">Accounts</a>
-
       <div class="nav-collapse collapse">
         <ul class="nav">
           <li class="active"><a href="#about">About</a></li>
@@ -33,20 +32,44 @@
 </div>
 
 <div class="container">
-  <h1>Hier de apps..</h1>
-  <p>Dat wordt lachen!</p>
-  <table class="table">
+  <table class="table" id="appTable">
+    <tbody>
+
+    <!-- TODO dynamically replace these rows -->
+      <tr>
+        <td class="iconcolumn"><img src="img/tempicons/tfg.png" width="72px" height="72px"/></td>
+        <td>
+          <h4>FutureApp <span class="appversion">0.8</span></h4>
+          <div class="buildcount">build 113</div>
+          <div class="buildfromrepobutton"><a href="#" role="button" class="btn btn-mini btn-inverse">build from repo</a></div>
+          <div class="actionbutton"><a href="#" role="button" class="btn btn-success">install</a></div>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="iconcolumn"><img src="img/tempicons/mijnparamax.png" width="72px" height="72px"/></td>
+        <td>
+          <h4>MijnParaMax <span class="appversion">0.6</span></h4>
+          <div class="buildcount">build 78 (new)</div>
+          <div class="buildfromrepobutton"><a href="#" role="button" class="btn btn-mini btn-inverse">build from repo</a></div>
+          <div class="actionbutton"><a href="#" role="button" class="btn btn-success">install</a></div>
+        </td>
+      </tr>
+
     <tr>
-      <td>img 1</td>
-      <td>naam etc</td>
+      <td class="iconcolumn"><img src="img/tempicons/kaartsaldo.png" width="72px" height="72px"/></td>
+      <td>
+        <h4>Kaartsaldo <span class="appversion">1.0</span></h4>
+        <div class="buildcount">build 34</div>
+        <div class="buildfromrepobutton"><a href="#" role="button" class="btn btn-mini btn-inverse">build from repo</a></div>
+        <div class="actionbutton"><a href="#" role="button" class="btn btn-info">install</a></div>
+      </td>
     </tr>
-    <tr>
-      <td>img 2</td>
-      <td>naam etc</td>
-    </tr>
+    </tbody>
   </table>
 </div>
 
+<!-- see http://twitter.github.io/bootstrap/base-css.html#forms -->
 <div id="accountsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="accountsModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
