@@ -67,7 +67,7 @@
           <h4>Kaartsaldo <span class="appversion">1.0</span></h4>
           <div class="buildcount">build 34</div>
           <div class="buildfromrepobutton"><a href="#" role="button" class="btn btn-mini btn-inverse">build from repo</a></div>
-          <div class="actionbutton"><a href="http://build.phonegap.com/apps/338153/install" target="_system" role="button" class="btn">install</a></div>
+          <div class="actionbutton"><a href="http://build.phonegap.com/apps/338153/install" role="button" class="btn">install</a></div>
         </td>
       </tr>
       <tr>
@@ -83,7 +83,6 @@
   </table>
 </div>
 
-<!-- see http://twitter.github.io/bootstrap/base-css.html#forms -->
 <div id="accountsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="accountsModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -125,7 +124,42 @@
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-primary">Add account</button>
+    <a href="#addAccountModal" class="btn btn-primary" data-toggle="modal" data-dismiss="modal">Add account</a>
+  </div>
+</div>
+
+<div id="addAccountModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="addAccountModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="addAccountModalLabel">Add account</h3>
+  </div>
+  <div class="modal-body">
+    <form>
+      <fieldset>
+        <div>Signing in with Email or Adobeid?</div>
+        <div class="input-prepend">
+          <span class="add-on">@</span>
+          <input type="email" placeholder="Email / Adobeid">
+        </div>
+        <div class="input-prepend">
+          <span class="add-on">*</span>
+          <input type="password" placeholder="Password">
+        </div>
+      </fieldset>
+      <hr/>
+      <fieldset>
+        <div>Signing in with a Github account?</div>
+        <div style="color: #bbb">see your account setings in pgbuild</div>
+        <div class="input-prepend">
+          <span class="add-on">T</span>
+          <input type="text" placeholder="Authentication Token">
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary">Sign in</button>
   </div>
 </div>
 
