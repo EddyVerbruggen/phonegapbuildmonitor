@@ -7,32 +7,32 @@ PhonegapBuildApiProxy.getEndpoint = function () {
   return "https://build.phonegap.com/api/v1/";
 };
 
-PhonegapBuildApiProxy.doGET = function (service, username, password, token, onSuccessCallback) {
-  return this._doApiCall('GET', service, null, username, password, token, onSuccessCallback);
+PhonegapBuildApiProxy.doGET = function (service, phonegappLogin, onSuccessCallback) {
+  return this._doApiCall('GET', service, null, phonegappLogin, onSuccessCallback);
 };
 
-PhonegapBuildApiProxy.doPOST = function (service, data, username, password, token, onSuccessCallback) {
-  return this._doApiCall('POST', service, data, username, password, token, onSuccessCallback);
+PhonegapBuildApiProxy.doPOST = function (service, data, phonegappLogin, onSuccessCallback) {
+  return this._doApiCall('POST', service, data, phonegappLogin, onSuccessCallback);
 };
 
-PhonegapBuildApiProxy.doPUT = function (service, data, username, password, token, onSuccessCallback) {
-  return this._doApiCall('PUT', service, data, username, password, token, onSuccessCallback);
+PhonegapBuildApiProxy.doPUT = function (service, data, phonegappLogin, onSuccessCallback) {
+  return this._doApiCall('PUT', service, data, phonegappLogin, onSuccessCallback);
 };
 
-PhonegapBuildApiProxy._doApiCall = function (type, service, data, username, password, token, onSuccessCallback) {
+PhonegapBuildApiProxy._doApiCall = function (type, service, data, phonegappLogin, onSuccessCallback) {
   var headers = {};
-  if (username != null && username != "") {
-    headers = {"Authorization": "Basic " + btoa(username + ":" + password) };
+  if (!phonegappLogin.isTokenLogin()) {
+    headers = {"Authorization": "Basic " + btoa(phonegappLogin.email + ":" + phonegappLogin.password) };
   }
   $.ajax({
     type: type,
     data: data,
-    url: this.getEndpoint() + service + (token == null || token == "" ? "" : "?auth_token=" + token),
+    url: this.getEndpoint() + service + (phonegappLogin.isTokenLogin() ? "?auth_token=" + phonegappLogin.token : ""),
     headers: headers,
     dataType: 'json',
     success: function (data) {
       if (onSuccessCallback != null) {
-        onSuccessCallback(data);
+        onSuccessCallback(phonegappLogin, data);
       } else {
         alert("TODO implement callback for this data: " + JSON.stringify(data));
       }

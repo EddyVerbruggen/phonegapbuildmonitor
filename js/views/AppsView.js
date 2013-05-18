@@ -5,8 +5,10 @@
   var init = function() {
     $(document).ready(function() {
       $(".buildfromrepobutton a").on("click", function(e) {
+        var userid = $(this).attr("data-userid");
         var appid = $(this).attr("data-appid");
-        appController.buildFromRepo(appid); // TODO app object (with related user, required for logon to PGBuild API)
+        var phonegappLogin = userController.getPhonegappLogin(userid);
+        appController.buildFromRepo(phonegappLogin, appid);
         return false;
       })
     });

@@ -2,22 +2,36 @@
 
 function UserController() {
 
-  var LSKEY_USERS = "UserController.users";
+  var LSKEY_PHONEGAPPLOGINS = "UserController.phonegappLogins";
 
-  this.users = [];
+  // an array of PhonegapLogin, stored in LS which also holds the API user and user.apps
+  this.phonegappLogins = [];
 
   this.loadUsers = function() {
-    var loadedUsers = JSON.parse(localStorage.getItem(LSKEY_USERS));
+    var loadedUsers = JSON.parse(localStorage.getItem(LSKEY_PHONEGAPPLOGINS));
     if (loadedUsers != null) {
-      this.users = loadedUsers;
+      this.phonegappLogins = loadedUsers;
     }
+  };
+
+  this.getPhonegappLogin = function(userid) {
+    for (var i=0; i<this.phonegappLogins.length; i++) {
+      if (userid == this.phonegappLogins[i].user.id) {
+        return this.phonegappLogins[i];
+      }
+    }
+    return null;
   };
 
   this.signIn = function(email, password, token /* for example: Rt9jJoTxCgDBQrYfuHLk */) {
     if ((email == "" || password == "") && token == "") {
       alert("Please fill in one of the authentication options");
     } else {
-      PhonegapBuildApiProxy.doGET('me', email, password, token, this.onSignInSuccess);
+      var phonegappLogin = new PhonegappLogin();
+      phonegappLogin.email = email;
+      phonegappLogin.password = password;
+      phonegappLogin.token = token;
+      PhonegapBuildApiProxy.doGET('me', phonegappLogin, this.onSignInSuccess);
     }
   };
 
@@ -30,18 +44,30 @@ function UserController() {
   };
 
   // NOTE: this method is called async, so has no context of 'this'
-  this.onSignInSuccess = function(user) {
-    userController.save(user);
+  this.onSignInSuccess = function(phonegappLogin, user) {
+    phonegappLogin.user = user;
+    userController.save(phonegappLogin);
   };
 
-  this.save = function(user) {
-    this.users.push(user);
+  this.save = function(phonegappLogin) {
+    var existingUser = false;
+    for (var i=0; i<this.phonegappLogins.length; i++) {
+      // TODO this.phonegappLogins[i] is not an object
+      if (phonegappLogin.equals(this.phonegappLogins[i])) {
+        this.phonegappLogins[i] = phonegappLogin;
+        existingUser = true;
+        break;
+      }
+    }
+    if (!existingUser) {
+      this.phonegappLogins.push(phonegappLogin);
+    }
     this.persistUsers();
-    alert("known users: (" + this.users.length + "): " + JSON.stringify(this.users));
+    alert("known users: (" + this.phonegappLogins.length + "): " + JSON.stringify(this.phonegappLogins));
   };
 
   this.persistUsers = function() {
-    localStorage.setItem(LSKEY_USERS, JSON.stringify(this.users));
+    localStorage.setItem(LSKEY_PHONEGAPPLOGINS, JSON.stringify(this.phonegappLogins));
   };
 
   this._init = function() {
