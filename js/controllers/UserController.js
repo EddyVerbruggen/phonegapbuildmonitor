@@ -17,7 +17,7 @@ function UserController() {
     if ((email == "" || password == "") && token == "") {
       alert("Please fill in one of the authentication options");
     } else {
-      PhonegapBuildApiProxy.doGET('me', email, password, token, this.save);
+      PhonegapBuildApiProxy.doGET('me', email, password, token, this.onMeSuccess);
     }
   };
 
@@ -29,11 +29,15 @@ function UserController() {
     alert("TODO impl delete");
   };
 
+  // NOTE: this method is called async, so has no context of 'this'
+  this.onMeSuccess = function(user) {
+    userController.save(user);
+  };
+
   this.save = function(user) {
-    // TODO check if already exists before storing
-    userController.users.push(user);
-    userController.persistUsers();
-    alert("known users: (" + userController.users.length + "): " + JSON.stringify(userController.users));
+    this.users.push(user);
+    this.persistUsers();
+    alert("known users: (" + this.users.length + "): " + JSON.stringify(this.users));
   };
 
   this.persistUsers = function() {
