@@ -58,3 +58,10 @@ h4, h5 {
     text-overflow: ellipsis;
   }
 }
+
+/* trying hardware accelleration on menu*/
+.nav-collapse,
+nav-collapse ul,
+nav-collapse ul li {
+  -webkit-transform: translate3d(0,0,0);
+}
