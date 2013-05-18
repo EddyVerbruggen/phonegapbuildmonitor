@@ -133,17 +133,17 @@
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="addAccountModalLabel">Add account</h3>
   </div>
-  <div class="modal-body">
-    <form>
+  <form>
+    <div class="modal-body">
       <fieldset>
         <div>Signing in with Email or Adobeid?</div>
-        <div class="input-prepend">
+        <div class="input-prepend input-block-level">
           <span class="add-on">@</span>
-          <input type="email" placeholder="Email / Adobeid">
+          <input id="addAccount_Email" type="email" placeholder="Email / Adobeid">
         </div>
         <div class="input-prepend">
           <span class="add-on">*</span>
-          <input type="password" placeholder="Password">
+          <input id="addAccount_Password" type="password" placeholder="Password">
         </div>
       </fieldset>
       <hr/>
@@ -152,31 +152,24 @@
         <div style="color: #bbb">see your account setings in pgbuild</div>
         <div class="input-prepend">
           <span class="add-on">T</span>
-          <input type="text" placeholder="Authentication Token">
+          <input id="addAccount_Token" type="text" placeholder="Authentication Token">
         </div>
       </fieldset>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-primary">Sign in</button>
-  </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      <button class="btn btn-primary" id="signInButton">Sign in</button>
+    </div>
+  </form>
 </div>
 
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="js/lib/jquery-1.9.1.min.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
 <script src="js/PhonegapBuildApiProxy.js"></script>
-<script src="js/UserController.js"></script>
-<script src="js/AppController.js"></script>
+<script src="js/controllers/UserController.js"></script>
+<script src="js/controllers/AppController.js"></script>
+<script src="js/views/AddAccountView.js"></script>
 <script src="js/System.js"></script>
-<script language="JavaScript">
-  $('#accountsModal').on('show', function () {
-//    alert("we doen eerst een username/pwd sing in, daarna een token sign in..");
-//    userController.signIn("eddyverbruggen@gmail.com", "xs4all");
-//    userController.signInByToken("Rt9jJoTxCgDBQrYfuHLk");
-  })
-</script>
-
 </body>
 </html>

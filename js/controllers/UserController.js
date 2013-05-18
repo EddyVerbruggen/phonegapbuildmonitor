@@ -13,12 +13,12 @@ function UserController() {
     }
   };
 
-  this.signIn = function(username, password) {
-    PhonegapBuildApiProxy.doGET('me', username, password, null);
-  };
-
-  this.signInByToken = function(token) {
-    PhonegapBuildApiProxy.doGET('me', null, null, token);
+  this.signIn = function(email, password, token /* for example: Rt9jJoTxCgDBQrYfuHLk */) {
+    if ((email == "" || password == "") && token == "") {
+      alert("Please fill in one of the authentication options");
+    } else {
+      PhonegapBuildApiProxy.doGET('me', email, password, token);
+    }
   };
 
   this.storeToken = function(token) {

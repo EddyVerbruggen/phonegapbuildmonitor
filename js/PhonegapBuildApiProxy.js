@@ -16,14 +16,13 @@ PhonegapBuildApiProxy.doPOST = function (service, username, password, token) {
 };
 
 PhonegapBuildApiProxy._doApiCall = function (type, service, username, password, token) {
-  var xml = new XMLHttpRequest();
   var headers = {};
-  if (username != null) {
+  if (username != null && username != "") {
     headers = {"Authorization": "Basic " + btoa(username + ":" + password) };
   }
   $.ajax({
     type: type,
-    url: this.getEndpoint() + service + (token == null ? '' : '?auth_token=' + token),
+    url: this.getEndpoint() + service + (token == null || token == "" ? "" : "?auth_token=" + token),
     headers: headers,
     dataType: 'json',
     success: function (data) {
