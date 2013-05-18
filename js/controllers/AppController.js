@@ -17,8 +17,24 @@ function AppController() {
     alert("TODO impl getBuildStatus");
   };
 
-  this.buildFromRepo = function(app) {
-    alert("TODO impl buildFromRepo");
+  this.buildFromRepo = function(appid) { // TODO pass in 'app' and remove the mock below
+    alert('Building app from repo');
+    var app = {
+      appid: appid,
+      user: {
+        email: 'eddyverbruggen@gmail.com',
+        password: 'xs4all'
+      }
+    };
+    var data = {
+      pull: true
+    };
+    PhonegapBuildApiProxy.doPUT('apps/'+app.appid, data, app.user.email, app.user.password, null, this.onBuildSuccess);
+  };
+
+  // NOTE: this method is called async, so has no context of 'this'
+  this.onBuildSuccess = function(data) {
+    alert("success: " + JSON.stringify(data));
   };
 
   this.install = function(app) {

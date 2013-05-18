@@ -17,7 +17,7 @@ function UserController() {
     if ((email == "" || password == "") && token == "") {
       alert("Please fill in one of the authentication options");
     } else {
-      PhonegapBuildApiProxy.doGET('me', email, password, token, this.onMeSuccess);
+      PhonegapBuildApiProxy.doGET('me', email, password, token, this.onSignInSuccess);
     }
   };
 
@@ -30,7 +30,7 @@ function UserController() {
   };
 
   // NOTE: this method is called async, so has no context of 'this'
-  this.onMeSuccess = function(user) {
+  this.onSignInSuccess = function(user) {
     userController.save(user);
   };
 
