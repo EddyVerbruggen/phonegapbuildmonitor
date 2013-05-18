@@ -1,5 +1,5 @@
 body {
-  padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+  margin-top: 60px; /* 160px to make the container go all the way to the bottom of the topbar */
 }
 
 h4, h5 {
@@ -8,6 +8,10 @@ h4, h5 {
 
 #appTable.table tr td {
   padding: 16px 6px;
+}
+
+#appTable .table {
+  margin-bottom: 0;
 }
 
 /* remove the top border from the first row */
@@ -59,9 +63,8 @@ h4, h5 {
   }
 }
 
-/* trying hardware accelleration on menu*/
-.nav-collapse,
-nav-collapse ul,
-nav-collapse ul li {
-  -webkit-transform: translate3d(0,0,0);
+.navbar-fixed-top {
+  position: fixed !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }

@@ -4,7 +4,7 @@
         id="nl.x-services.phonegapps"
         version="0.2">
 
-  <name>Phonegapp</name><!-- is also the name of the icon on the device -->
+  <name>Phonegapps</name><!-- is also the name of the icon on the device -->
 
   <description>
     Monitor your Phonegap Build apps
