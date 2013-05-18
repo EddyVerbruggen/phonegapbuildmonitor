@@ -50,3 +50,11 @@ h4, h5 {
 #userTable .deletebuttoncolumn {
   text-align: right;
 }
+
+@media (max-width: 400px) {
+  #userTable h5 {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

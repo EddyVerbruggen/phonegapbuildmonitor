@@ -17,7 +17,7 @@ function UserController() {
     if ((email == "" || password == "") && token == "") {
       alert("Please fill in one of the authentication options");
     } else {
-      PhonegapBuildApiProxy.doGET('me', email, password, token);
+      PhonegapBuildApiProxy.doGET('me', email, password, token, this.save);
     }
   };
 
@@ -29,7 +29,14 @@ function UserController() {
     alert("TODO impl delete");
   };
 
-  this._saveUsers = function() {
+  this.save = function(user) {
+    // TODO check if already exists before storing
+    userController.users.push(user);
+    userController.persistUsers();
+    alert("known users: (" + userController.users.length + "): " + JSON.stringify(userController.users));
+  };
+
+  this.persistUsers = function() {
     localStorage.setItem(LSKEY_USERS, JSON.stringify(this.users));
   };
 
