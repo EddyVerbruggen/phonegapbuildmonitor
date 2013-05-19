@@ -31,20 +31,23 @@
 
             content += '' +
                 '    </div>' +
-//                '  </td>' +
-                '  <div class="deletebuttoncolumn">' +
-                '    <a class="btn btn-danger deletebutton" data-userid="' + phonegappLogin.user.id + '" href="#" role="button">del</a>' +
-                '  </div>' +
+                '    <div class="deletebuttoncolumn">' +
+                '      <a class="btn btn-danger deletebutton" data-userid="' + phonegappLogin.user.id + '" href="#" role="button">del</a>' +
+                '    </div>' +
+                '  </td>' +
                 '</tr>';
           }
         }
-        $("#userTable")
+        $("#userTableBody")
             .html(content)
             .find(".deletebutton")
             .on('click', function() {
               if (confirm("Are you sure?")) {
                 userController.delete($(this).attr('data-userid'));
-                alert("The user was deleted");
+                // reload all data, because apps may be shared between accounts (duplicates), which not may not reappear because they were removed when the app was started
+                userController = new UserController();
+                alert("The user was deleted.. now close this modal..");
+                // TODO close modal
               }
             });
       })

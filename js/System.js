@@ -2,6 +2,7 @@
 
 var userController;
 var appController;
+var appsView;
 
 // construct and execute a System setup class
 (function System() {
@@ -12,8 +13,10 @@ var appController;
   var init = function() {
     $(document).ready(function() {
       document.addEventListener('deviceready', onDeviceReady, false);
-      userController = new UserController();
+      appsView = new AppsView();
       appController = new AppController();
+      userController = new UserController();
+      userController.loadUsers();
     });
   };
 

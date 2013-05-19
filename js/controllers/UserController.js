@@ -3,6 +3,7 @@
 function UserController() {
 
   var LSKEY_PHONEGAPPLOGINS = "UserController.phonegappLogins";
+  var buildCheckIntervalMillis = 30000;
 
   // an array of PhonegapLogin, stored in LS which also holds the API user and user.apps
   this.phonegappLogins = [];
@@ -11,7 +12,55 @@ function UserController() {
     var loadedUsers = JSON.parse(localStorage.getItem(LSKEY_PHONEGAPPLOGINS));
     if (loadedUsers != null) {
       this.phonegappLogins = loadedUsers;
+      this.loadAppsForUsers();
     }
+  };
+
+  this.loadAppsForUsers = function() {
+    for (var i=0; i<userController.phonegappLogins.length; i++) {
+      appController.loadApps(userController.getPhonegappLogin(userController.phonegappLogins[i].user.id), userController.onLoadAppsSuccess);
+    }
+
+
+    // TODO keep polling forever (note: this must be done in the success function of the last user we retrieve the app details for
+//    setTimeout(this._loadAppsForUsers, buildCheckIntervalMillis)
+  };
+
+  this.onLoadAppsSuccess = function(phonegappLogin, data) {
+    // store the apps for the user
+    for (var i=0; i<userController.phonegappLogins.length; i++) {
+      if (phonegappLogin.user.id == userController.phonegappLogins[i].user.id) {
+        userController.phonegappLogins[i].apps = data.apps;
+        userController.persistUsers();
+        break;
+      }
+    }
+
+    var isLastCallback = phonegappLogin.user.id == userController.phonegappLogins[userController.phonegappLogins.length-1].user.id;
+
+    if (isLastCallback) {
+      // remove duplicate apps (shared between users)
+
+      // remove duplicate apps we already know
+      var knownApps = [];
+      for (i=0; i<userController.phonegappLogins.length; i++) {
+        for (var k=0; k<userController.phonegappLogins[i].apps.length; k++) {
+          var appid = userController.phonegappLogins[i].apps[k].id;
+          if (knownApps.indexOf(appid) == -1) {
+            knownApps.push(appid);
+          } else {
+            userController.phonegappLogins[i].apps.splice(k, 1);
+          }
+        }
+      }
+      userController.persistUsers();
+
+      appsView.refreshView();
+
+      // load the list again after a timeout
+      setTimeout(userController.loadAppsForUsers, buildCheckIntervalMillis);
+    }
+
   };
 
   this.getPhonegappLogin = function(userid) {
@@ -75,11 +124,4 @@ function UserController() {
   this.persistUsers = function() {
     localStorage.setItem(LSKEY_PHONEGAPPLOGINS, JSON.stringify(this.phonegappLogins));
   };
-
-  this._init = function() {
-    this.loadUsers();
-  };
-
-  // call this 'private' method upon class construction
-  this._init();
 }

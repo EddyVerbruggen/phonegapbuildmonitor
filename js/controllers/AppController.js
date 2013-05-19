@@ -2,28 +2,8 @@
 
 function AppController() {
 
-  var LSKEY_APPS = "AppController.apps";
-  var buildCheckIntervalMillis = 10000;
-
-//  this.apps = [];
-
-//  this._loadLocalApps = function() {
-//    var loadedApps = JSON.parse(localStorage.getItem(LSKEY_APPS));
-//    if (loadedApps != null) {
-//      this.apps = loadedApps;
-//    }
-//  };
-
-  this.loadAppsFromServer = function(user, platform) {
-    PhonegapBuildApiProxy.doGET('apps/'+app.appid, app.user.email, app.user.password, null, this.onLoadAppsFromServerSuccess);
-  };
-
-  this.onLoadAppsFromServerSuccess = function(data) {
-    alert("Build status for app details: " + JSON.stringify(data));
-    // TODO move this to AppsView?
-    setTimeout(function() {
-      appController.loadAppsFromServer();
-    }, buildCheckIntervalMillis);
+  this.loadApps = function(phonegappLogin, callback) {
+    PhonegapBuildApiProxy.doGET('apps', phonegappLogin, callback);
   };
 
   this.buildFromRepo = function(phonegappLogin, appid) {
@@ -36,12 +16,16 @@ function AppController() {
     alert("Build trigger success. details: " + JSON.stringify(data));
   };
 
-  this.install = function(app) {
-    alert("TODO impl install");
+  this.getBuildStatus = function(app) {
+    return eval('app.status.'+getPlatformName());
   };
 
-  this._saveApps = function() {
-    localStorage.setItem(LSKEY_APPS, JSON.stringify(this.apps));
+  this.getBuildError = function(app) {
+    return eval('app.error.'+getPlatformName());
+  };
+
+  this.install = function(app) {
+    alert("TODO impl install");
   };
 
   this._init = function() {
