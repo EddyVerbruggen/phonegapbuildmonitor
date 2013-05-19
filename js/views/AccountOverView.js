@@ -31,10 +31,10 @@
 
             content += '' +
                 '    </div>' +
-                '  </td>' +
-                '  <td class="deletebuttoncolumn">' +
+//                '  </td>' +
+                '  <div class="deletebuttoncolumn">' +
                 '    <a class="btn btn-danger deletebutton" data-userid="' + phonegappLogin.user.id + '" href="#" role="button">del</a>' +
-                '  </td>' +
+                '  </div>' +
                 '</tr>';
           }
         }

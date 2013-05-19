@@ -61,8 +61,12 @@ h4, h5 {
   margin-bottom: 0;
 }
 
+#userTable .appcount {
+  float: left;
+}
+
 #userTable .deletebuttoncolumn {
-  text-align: right;
+  float: right;
 }
 
 #accountsModal .modal-body {
@@ -72,20 +76,12 @@ h4, h5 {
 
 @media (max-height: 600px) {
   #accountsModal .modal-body {
-    max-height: 420px;
+    max-height: 400px;
   }
 }
 
 @media (max-height: 500px) {
   #accountsModal .modal-body {
-    max-height: 320px;
-  }
-}
-
-@media (max-width: 400px) {
-  #userTable h5 {
-    max-width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    max-height: 300px;
   }
 }
