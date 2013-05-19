@@ -17,13 +17,13 @@ function UserController() {
   };
 
   this.loadAppsForUsers = function() {
-    for (var i=0; i<userController.phonegappLogins.length; i++) {
-      appController.loadApps(userController.getPhonegappLogin(userController.phonegappLogins[i].user.id), userController.onLoadAppsSuccess);
+    if (userController.phonegappLogins.length == 0) {
+      appsView.displayNoUsersContent();
+    } else {
+      for (var i=0; i<userController.phonegappLogins.length; i++) {
+        appController.loadApps(userController.getPhonegappLogin(userController.phonegappLogins[i].user.id), userController.onLoadAppsSuccess);
+      }
     }
-
-
-    // TODO keep polling forever (note: this must be done in the success function of the last user we retrieve the app details for
-//    setTimeout(this._loadAppsForUsers, buildCheckIntervalMillis)
   };
 
   this.onLoadAppsSuccess = function(phonegappLogin, data) {
@@ -36,6 +36,7 @@ function UserController() {
       }
     }
 
+    // TODO determined by nroftimes callback was received, NOT the element itself because the last one may come first
     var isLastCallback = phonegappLogin.user.id == userController.phonegappLogins[userController.phonegappLogins.length-1].user.id;
 
     if (isLastCallback) {

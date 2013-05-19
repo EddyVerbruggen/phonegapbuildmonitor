@@ -7,6 +7,13 @@ function AppsView() { // which is the homepage
     this.bindBuildFromRepoButton();
   };
 
+  this.displayNoUsersContent = function() {
+    $("#appTableBody").html('' +
+        '<tr>' +
+        '  <td>TODO: in this no-accounts-yet state, add a caroussel with explanation about this app (images)</td>' +
+        '</tr>');
+  };
+
   this.bindBuildFromRepoButton = function() {
     $(".buildfromrepobutton a").on("click", function(e) {
       var userid = $(this).attr("data-userid");
@@ -19,14 +26,7 @@ function AppsView() { // which is the homepage
 
   this.loadApps = function() {
     var content = '';
-    if (userController.phonegappLogins.length == 0) {
-      content += '' +
-          '<tr>' +
-          '  <td>' +
-          '    <h5>TODO a caroussel with explanation (images)</h5>' +
-          '  </td>' +
-          '</tr>';
-    } else {
+    if (userController.phonegappLogins.length > 0) {
       // TODO make a method in usercontroller which returns a list sorted by buildstate for the current platform (en ontdubbeld!)
       for (var i=0; i<userController.phonegappLogins.length; i++) {
         var phonegappLogin = userController.getPhonegappLogin(userController.phonegappLogins[i].user.id);
