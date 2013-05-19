@@ -17,17 +17,6 @@ function AppsView() { // which is the homepage
     });
   };
 
-  this.bindInstallButton = function() {
-    // TODO impl call to GET https://build.phonegap.com/api/v1/apps/:id/:platform
-//    $(".buildfromrepobutton a").on("click", function(e) {
-//      var userid = $(this).attr("data-userid");
-//      var appid = $(this).attr("data-appid");
-//      var phonegappLogin = userController.getPhonegappLogin(userid);
-//      appController.buildFromRepo(phonegappLogin, appid);
-//      return false;
-//    });
-  };
-
   this.loadApps = function() {
     var content = '';
     if (userController.phonegappLogins.length == 0) {
@@ -52,7 +41,7 @@ function AppsView() { // which is the homepage
           if (app.private) {
             content += '    <div class="buildfromrepobutton"><img src="img/private-app.png" width="17px" height="11px"/></div>';
           } else {
-            content += '    <div class="buildfromrepobutton"><a data-userid="48211" data-appid="246013" href="#" role="button" class="btn btn-mini btn-inverse">build from repo</a></div>';
+            content += '    <div class="buildfromrepobutton"><a data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" href="#" role="button" class="btn btn-mini btn-inverse">build from repo</a></div>';
           }
           content += '' +
               '    <div class="actionbutton">' + getActionButton(app) + '</div>' +
@@ -62,22 +51,22 @@ function AppsView() { // which is the homepage
       }
     }
     $("#appTableBody").html(content);
+    // TODO some indication that we're constantly polling
 //    $("#lastCheck").html("last check @ " + new Date());
-
-//    setTimeout(loadApps, 5000); // TODO in the last callback..
   };
 
 
 //  <div class="actionbutton"><a href="#" role="button" class="btn btn-danger" onclick="alert('iOS signing key is locked')">error</a></div>
 
+  // TODO annimate when state changes
   var getActionButton = function(app) {
     var buildStatus = appController.getBuildStatus(app);
     if (buildStatus == "error") {
       return '<a href="#" role="button" class="btn btn-danger" onclick="alert(\''+appController.getBuildError(app)+'\')">error</a><br/>';
     } else if (buildStatus == "complete") {
-      return '<a href="#" role="button" class="btn btn-success">install</a>';
+      return '<a href="https://build.phonegap.com/api/v1/apps/'+app.id+'/'+getPlatformName()+'" target="_system" role="button" class="btn btn-success">install</a>';
     } else {
-      // pending or null
+      // TODO prepend spinner icon
       return '<a href="#" role="button" class="btn btn-info">pending</a>';
     }
   };
