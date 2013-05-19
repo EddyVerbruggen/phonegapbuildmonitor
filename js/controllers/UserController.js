@@ -3,7 +3,7 @@
 function UserController() {
 
   var LSKEY_PHONEGAPPLOGINS = "UserController.phonegappLogins";
-  var buildCheckIntervalMillis = 30000;
+  var buildCheckIntervalMillis = isMobile() ? 10000 : 60000; // relax on the desktop
 
   // an array of PhonegapLogin, stored in LS which also holds the API user and user.apps
   this.phonegappLogins = [];
@@ -101,12 +101,13 @@ function UserController() {
   this.onSignInSuccess = function(phonegappLogin, user) {
     phonegappLogin.user = user;
     userController.save(phonegappLogin);
+    // hide the modal and load the apps.. so why not just load the index ;)
+    window.location = "index.html";
   };
 
   this.save = function(phonegappLogin) {
     var existingUser = false;
-    for (var i=0; i<this.phonegappLogins.length; i++) {
-      // TODO this.phonegappLogins[i] is not an object
+    for (var i=0; i<userController.phonegappLogins.length; i++) {
       if (phonegappLogin.equals(this.phonegappLogins[i])) {
         this.phonegappLogins[i] = phonegappLogin;
         existingUser = true;
@@ -117,7 +118,7 @@ function UserController() {
       this.phonegappLogins.push(phonegappLogin);
     }
     this.persistUsers();
-    alert("known users: (" + this.phonegappLogins.length + "): " + JSON.stringify(this.phonegappLogins));
+    alert("save succeeded");
   };
 
   this.persistUsers = function() {

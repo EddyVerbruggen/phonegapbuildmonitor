@@ -39,6 +39,7 @@ function AppsView() { // which is the homepage
           } else {
             url = 'https://'+phonegappLogin.email+':'+phonegappLogin.password+'@build.phonegap.com/api/v1/apps/'+app.id+'/icon';
           }
+          alert(url);
           content += '' +
               '<tr>' +
               '  <td class="iconcolumn"><img src="'+url+'" width="72px" height="72px"/></td>' +
@@ -74,6 +75,7 @@ function AppsView() { // which is the homepage
       } else {
         url = 'https://'+phonegappLogin.email+':'+phonegappLogin.password+'@build.phonegap.com/api/v1/apps/'+app.id+'/'+getPlatformName();
       }
+      alert(url);
       return '<a href="'+url+'" role="button" class="btn btn-success">install</a>';
     } else {
       // TODO prepend spinner icon
