@@ -10,19 +10,17 @@ function UserController() {
 
   this.loadUsers = function() {
     var loadedUsers = JSON.parse(localStorage.getItem(LSKEY_PHONEGAPPLOGINS));
-    if (loadedUsers != null) {
+    if (loadedUsers == null || loadedUsers == "") {
+      appsView.displayNoUsersContent();
+    } else {
       this.phonegappLogins = loadedUsers;
       this.loadAppsForUsers();
     }
   };
 
   this.loadAppsForUsers = function() {
-    if (userController.phonegappLogins.length == 0) {
-      appsView.displayNoUsersContent();
-    } else {
-      for (var i=0; i<userController.phonegappLogins.length; i++) {
-        appController.loadApps(userController.getPhonegappLogin(userController.phonegappLogins[i].user.id), userController.onLoadAppsSuccess);
-      }
+    for (var i=0; i<userController.phonegappLogins.length; i++) {
+      appController.loadApps(userController.getPhonegappLogin(userController.phonegappLogins[i].user.id), userController.onLoadAppsSuccess);
     }
   };
 
