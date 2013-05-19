@@ -17,7 +17,7 @@
         } else {
           for (var i=0; i<userController.phonegappLogins.length; i++) {
             var phonegappLogin = userController.phonegappLogins[i];
-            var nrOfApps = phonegappLogin.user.apps.all.length;
+            var nrOfApps = phonegappLogin.apps.length;
             content += '' +
                 '<tr>' +
                 '  <td>' +
@@ -25,7 +25,7 @@
                 '    <div class="appcount">' +
                        nrOfApps + (nrOfApps == 1 ? ' app' : ' apps');
 
-            $(phonegappLogin.user.apps.all).each(function(i,d) {
+            $(phonegappLogin.apps).each(function(i,d) {
               content += '<br/> - ' + d.title;
             });
 
