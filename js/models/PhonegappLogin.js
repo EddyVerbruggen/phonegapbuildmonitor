@@ -6,6 +6,14 @@ function PhonegappLogin() {
   this.token = null;
   this.user = null; // this is what we get from the API, which contains an array: user.apps
 
+  this.createFromObj = function(obj) {
+    this.email = obj.email;
+    this.password = obj.password;
+    this.token = obj.token;
+    this.user = obj.user;
+    return this;
+  };
+
   this.equals = function(phonegappLogin) {
     if (this.email == null) {
       return this.token == phonegappLogin.token;

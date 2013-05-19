@@ -17,7 +17,7 @@ function UserController() {
   this.getPhonegappLogin = function(userid) {
     for (var i=0; i<this.phonegappLogins.length; i++) {
       if (userid == this.phonegappLogins[i].user.id) {
-        return this.phonegappLogins[i];
+        return new PhonegappLogin().createFromObj(this.phonegappLogins[i]);
       }
     }
     return null;
@@ -39,8 +39,14 @@ function UserController() {
     alert("TODO impl storeToken");
   };
 
-  this.delete = function(user) {
-    alert("TODO impl delete");
+  this.delete = function(userid) {
+    for (var i=0; i<this.phonegappLogins.length; i++) {
+      if (userid == this.phonegappLogins[i].user.id) {
+        this.phonegappLogins.splice(i, 1);
+        this.persistUsers();
+        break;
+      }
+    }
   };
 
   // NOTE: this method is called async, so has no context of 'this'
