@@ -23,7 +23,7 @@
                 '  <td>' +
                 '    <h5>'+phonegappLogin.email+'</h5>' +
                 '    <div class="appcount">' +
-                       nrOfApps+' app'+(nrOfApps == 1 ? '' : 's');
+                       nrOfApps + (nrOfApps == 1 ? ' app' : ' apps');
 
             $(phonegappLogin.user.apps.all).each(function(i,d) {
               content += '<br/> - ' + d.title;

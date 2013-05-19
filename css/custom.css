@@ -6,6 +6,12 @@ h4, h5 {
   margin: 0;
 }
 
+.navbar-fixed-top {
+  position: fixed !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
 #appTable.table tr td {
   padding: 16px 6px;
 }
@@ -51,8 +57,29 @@ h4, h5 {
   margin-top: 12px;
 }
 
+#userTable.table {
+  margin-bottom: 0;
+}
+
 #userTable .deletebuttoncolumn {
   text-align: right;
+}
+
+#accountsModal .modal-body {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+@media (max-height: 600px) {
+  #accountsModal .modal-body {
+    max-height: 420px;
+  }
+}
+
+@media (max-height: 500px) {
+  #accountsModal .modal-body {
+    max-height: 320px;
+  }
 }
 
 @media (max-width: 400px) {
@@ -61,10 +88,4 @@ h4, h5 {
     overflow: hidden;
     text-overflow: ellipsis;
   }
-}
-
-.navbar-fixed-top {
-  position: fixed !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
 }
