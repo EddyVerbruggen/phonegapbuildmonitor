@@ -92,6 +92,14 @@ function AppsView() { // which is the homepage
       } else {
         url = 'https://'+encodeURIComponent(phonegappLogin.email)+':'+encodeURIComponent(phonegappLogin.password)+'@build.phonegap.com/api/v1/apps/'+app.id+'/'+getPlatformName();
       }
+      if (isAndroid()) {
+        // TODO Android doesnt allow basic auth in the url
+        url = '#';
+      }
+
+//      PhonegapBuildApiProxy.doGET("/apps/"+app.id+"/"+getPlatformName(), phonegappLogin, function(data){alert('result ' + JSON.stringify(data))});
+      PhonegapBuildApiProxy.loadWithRedirect("/apps/"+app.id+"/"+getPlatformName(), phonegappLogin);
+
       return '<a href="'+url+'" target="_system" role="button" class="btn btn-success">install</a>';
     } else {
       // TODO prepend spinner icon

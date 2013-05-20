@@ -30,12 +30,37 @@ PhonegapBuildApiProxy._doApiCall = function (type, service, data, phonegappLogin
     url: this.getEndpoint() + service + (phonegappLogin.isTokenLogin() ? "?auth_token=" + phonegappLogin.token : ""),
     headers: headers,
     dataType: 'json',
+    statusCode: {
+      302: function() {alert(302)}
+    },
     success: function (data) {
       if (onSuccessCallback != null) {
         onSuccessCallback(phonegappLogin, data);
       } else {
         alert("TODO implement callback for this data: " + JSON.stringify(data));
       }
+    },
+    error: function (XMLHttpRequest, textStatus, errorThrown) {
+      alert("XMLHttpRequest:" + XMLHttpRequest + ", Status: " + textStatus + ", error: " + errorThrown);
+    }
+  });
+};
+
+PhonegapBuildApiProxy.loadWithRedirect = function (service, phonegappLogin) {
+  var headers = {};
+  if (!phonegappLogin.isTokenLogin()) {
+    headers = {"Authorization": "Basic " + btoa(phonegappLogin.email + ":" + phonegappLogin.password) };
+  }
+  $.ajax({
+    type: 'GET',
+    url: this.getEndpoint() + service + (phonegappLogin.isTokenLogin() ? "?auth_token=" + phonegappLogin.token : ""),
+    headers: headers,
+    statusCode: {
+      302: function() {alert(302)}
+    },
+//    dataType: 'json',
+    success: function (data) {
+      alert("TODO implement callback for this data: " + JSON.stringify(data));
     },
     error: function (XMLHttpRequest, textStatus, errorThrown) {
       alert("XMLHttpRequest:" + XMLHttpRequest + ", Status: " + textStatus + ", error: " + errorThrown);
