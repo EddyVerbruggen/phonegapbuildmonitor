@@ -75,13 +75,11 @@ function AppsView() { // which is the homepage
 
   // TODO animate button/row when state changes
   var getActionButton = function(app, phonegappLogin) {
-//    PhonegapBuildApiProxy.doGET("apps/"+app.id+"/ios", phonegappLogin, function(phonegappLogin, data){alert(data)});
     var buildStatus = appController.getBuildStatus(app);
     if (buildStatus == "error") {
       return '<a href="#" role="button" class="btn btn-danger" onclick="alert(\''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
     } else if (buildStatus == "complete") {
-//      var url = 'https://build.phonegap.com/api/v1/apps/'+app.id+'/'+getPlatformName()+'?auth_token='+phonegappLogin.token;
-      var url = 'https://'+encodeURIComponent(phonegappLogin.email)+':'+encodeURIComponent(phonegappLogin.password)+'@build.phonegap.com/api/v1/apps/'+app.id+'/'+getPlatformName(); //+'?auth_token='+phonegappLogin.token;
+      var url = 'http://build.phonegap.com/apps/'+app.id+'/download/'+getPlatformName(); //+'?auth_token='+phonegappLogin.token;
       return '<a href="'+url+'" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install</a>';
     } else {
       return '<a href="#" role="button" class="btn btn-info btn-spinner"><i class="icon-spinner icon-spin"></i> pending</a>';
