@@ -80,7 +80,7 @@ function AppsView() { // which is the homepage
       return '<a href="#" role="button" class="btn btn-danger" onclick="alert(\''+appController.getBuildError(app)+'\')">error</a><br/>';
     } else if (buildStatus == "complete") {
       var url = 'https://build.phonegap.com/api/v1/apps/'+app.id+'/'+getPlatformName()+'?auth_token='+phonegappLogin.token;
-      return '<a href="'+url+'" target="_system" role="button" class="btn btn-success">install</a>';
+      return '<a href="#" onclick="window.open(\''+url+'\')" role="button" class="btn btn-success">install</a>';
     } else {
       // TODO prepend spinner icon
       return '<a href="#" role="button" class="btn btn-info">pending</a>';
