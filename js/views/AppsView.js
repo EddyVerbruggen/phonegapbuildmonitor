@@ -53,6 +53,10 @@ function AppsView() { // which is the homepage
         } else {
           url = 'https://'+encodeURIComponent(phonegappLogin.email)+':'+encodeURIComponent(phonegappLogin.password)+'@build.phonegap.com/api/v1/apps/'+app.id+'/icon';
         }
+        if (isAndroid()) {
+          // TODO Android doesnt allow basic auth in the url
+          url = '';
+        }
         content += '' +
             '<tr>' +
             '  <td class="iconcolumn"><img src="'+url+'" width="72px" height="72px"/></td>' +
