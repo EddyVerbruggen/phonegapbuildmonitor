@@ -3,7 +3,7 @@
 function UserController() {
 
   var LSKEY_PHONEGAPPLOGINS = "UserController.phonegappLogins";
-  var buildCheckIntervalMillis = isMobile() ? 10000 : 60000; // relax on the desktop
+  var buildCheckIntervalMillis = isMobile() ? 10000 : 99990000; // relax on the desktop
 
   // an array of PhonegapLogin, stored in LS which also holds the API user and user.apps
   this.phonegappLogins = [];

@@ -47,19 +47,12 @@ function AppsView() { // which is the homepage
       for (var i=0; i<theApps.length; i++) {
         var app = theApps[i];
         var phonegappLogin = userController.getPhonegappLogin(theAppUsers[i].user.id);
-        var url = null;
-        if (phonegappLogin.isTokenLogin()) {
-          url = 'https://build.phonegap.com/api/v1/apps/'+app.id+'/icon?auth_token='+phonegappLogin.token;
-        } else {
-          url = 'https://'+encodeURIComponent(phonegappLogin.email)+':'+encodeURIComponent(phonegappLogin.password)+'@build.phonegap.com/api/v1/apps/'+app.id+'/icon';
-        }
-        if (isAndroid()) {
-          // TODO Android doesnt allow basic auth in the url
-          url = '';
-        }
+        var url = 'https://build.phonegap.com/api/v1/apps/'+app.id+'/icon?auth_token=Rt9jJoTxCgDBQrYfuHLk';
         content += '' +
             '<tr>' +
-            '  <td class="iconcolumn"><img src="'+url+'" width="72px" height="72px"/></td>' +
+            // TODO different placeholder
+//            '  <td class="iconcolumn"><img class="replace-image" src="img/tempicons/tfg.png" data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" width="72px" height="72px"/></td>' +
+            '  <td class="iconcolumn"><img src="'+url+'" data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" width="72px" height="72px"/></td>' +
             '  <td>' +
             '    <h4>' + app.title + ' <span class="appversion">' + app.version + '</span></h4>' +
             '    <div class="buildcount">build ' + app.build_count + '</div>'; // TODO add ' - new' when applicable
@@ -74,7 +67,24 @@ function AppsView() { // which is the homepage
             '</tr>';
       }
     }
-    $("#appTableBody").html(content);
+    $("#appTableBody")
+        .html(content);
+    /*
+        .find("img.replace-image")
+        .each(function(i, img) {
+          if (i==0) { // TODO remove
+            var that = this;
+            var appid = $(that).attr("data-appid");
+            var userid = $(that).attr("data-userid");
+            var phonegappLogin = userController.getPhonegappLogin(userid);
+            PhonegapBuildApiProxy.loadWithRedirect("apps/"+appid+"/icon", phonegappLogin, function(data) {
+              alert("result: " + JSON.stringify(data));
+              $(that).attr('src', data);
+            });
+          }
+        });
+        */
+
 
     // TODO some indication that we're constantly polling (with an 'check now button?')
 //    $("#lastCheck").html("Next check in .. seconds. Check now (button)");
@@ -87,18 +97,18 @@ function AppsView() { // which is the homepage
       return '<a href="#" role="button" class="btn btn-danger" onclick="alert(\''+appController.getBuildError(app)+'\')">error</a><br/>';
     } else if (buildStatus == "complete") {
       var url = null;
-      if (phonegappLogin.isTokenLogin()) {
-        url = 'https://build.phonegap.com/api/v1/apps/'+app.id+'/'+getPlatformName()+'?auth_token='+phonegappLogin.token;
-      } else {
-        url = 'https://'+encodeURIComponent(phonegappLogin.email)+':'+encodeURIComponent(phonegappLogin.password)+'@build.phonegap.com/api/v1/apps/'+app.id+'/'+getPlatformName();
-      }
-      if (isAndroid()) {
+//      if (phonegappLogin.isTokenLogin()) {
+//        url = 'https://build.phonegap.com/api/v1/apps/'+app.id+'/'+getPlatformName()+'?auth_token='+phonegappLogin.token;
+//      } else {
+//        url = 'https://'+encodeURIComponent(phonegappLogin.email)+':'+encodeURIComponent(phonegappLogin.password)+'@build.phonegap.com/api/v1/apps/'+app.id+'/'+getPlatformName();
+//      }
+//      if (isAndroid()) {
         // TODO Android doesnt allow basic auth in the url
         url = '#';
-      }
+//      }
 
 //      PhonegapBuildApiProxy.doGET("/apps/"+app.id+"/"+getPlatformName(), phonegappLogin, function(data){alert('result ' + JSON.stringify(data))});
-      PhonegapBuildApiProxy.loadWithRedirect("/apps/"+app.id+"/"+getPlatformName(), phonegappLogin);
+//      PhonegapBuildApiProxy.loadWithRedirect("/apps/"+app.id+"/"+getPlatformName(), phonegappLogin);
 
       return '<a href="'+url+'" target="_system" role="button" class="btn btn-success">install</a>';
     } else {

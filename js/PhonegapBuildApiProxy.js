@@ -46,7 +46,7 @@ PhonegapBuildApiProxy._doApiCall = function (type, service, data, phonegappLogin
   });
 };
 
-PhonegapBuildApiProxy.loadWithRedirect = function (service, phonegappLogin) {
+PhonegapBuildApiProxy.loadWithRedirect = function (service, phonegappLogin, onSuccessCallback) {
   var headers = {};
   if (!phonegappLogin.isTokenLogin()) {
     headers = {"Authorization": "Basic " + btoa(phonegappLogin.email + ":" + phonegappLogin.password) };
@@ -55,15 +55,30 @@ PhonegapBuildApiProxy.loadWithRedirect = function (service, phonegappLogin) {
     type: 'GET',
     url: this.getEndpoint() + service + (phonegappLogin.isTokenLogin() ? "?auth_token=" + phonegappLogin.token : ""),
     headers: headers,
+    complete: function(response, textStatus) {
+      alert("tx: " + textStatus);
+      alert(JSON.stringify(response));
+    },
     statusCode: {
-      302: function() {alert(302)}
+      200: function() {alert(200)},
+      302: function() {alert(302)},
+      400: function() {alert(400)},
+      404: function() {alert(404)} // TODO default img (like pgbuild does)
     },
 //    dataType: 'json',
-    success: function (data) {
-      alert("TODO implement callback for this data: " + JSON.stringify(data));
-    },
+    success: function () {
+      alert("ok");
+      if (onSuccessCallback != null) {
+        onSuccessCallback(data);
+      }
+//      alert("TODO implement callback for this data: " + JSON.stringify(data));
+    }
+    ,
     error: function (XMLHttpRequest, textStatus, errorThrown) {
-      alert("XMLHttpRequest:" + XMLHttpRequest + ", Status: " + textStatus + ", error: " + errorThrown);
+      var contentType = XMLHttpRequest.getResponseHeader("Content-Type");
+      alert(contentType);
+//      return ""; // TODO default img (like pgbuild does)
+//      alert("XMLHttpRequest:" + XMLHttpRequest + ", Status: " + textStatus + ", error: " + errorThrown);
     }
   });
 };
