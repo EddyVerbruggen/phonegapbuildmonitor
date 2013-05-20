@@ -42,17 +42,16 @@ function AppsView() { // which is the homepage
           }
         }
       }
+
       // sort the apps (newest first)
       theApps.sort(); // TODO anonymous sort function
       for (var i=0; i<theApps.length; i++) {
         var app = theApps[i];
         var phonegappLogin = userController.getPhonegappLogin(theAppUsers[i].user.id);
-        var url = 'https://build.phonegap.com/api/v1/apps/'+app.id+'/icon?auth_token=Rt9jJoTxCgDBQrYfuHLk';
+        var imgUrl = app.icon.filename == null ? 'img/default-appicon.png' : 'https://build.phonegap.com/api/v1/apps/'+app.id+'/icon?auth_token=Rt9jJoTxCgDBQrYfuHLk';
         content += '' +
             '<tr>' +
-            // TODO different placeholder
-//            '  <td class="iconcolumn"><img class="replace-image" src="img/tempicons/tfg.png" data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" width="72px" height="72px"/></td>' +
-            '  <td class="iconcolumn"><img src="'+url+'" data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" width="72px" height="72px"/></td>' +
+            '  <td class="iconcolumn"><img class="replace-image" src="'+imgUrl+'" data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" width="72px" height="72px"/></td>' +
             '  <td>' +
             '    <h4>' + app.title + ' <span class="appversion">' + app.version + '</span></h4>' +
             '    <div class="buildcount">build ' + app.build_count + '</div>'; // TODO add ' - new' when applicable
@@ -67,24 +66,7 @@ function AppsView() { // which is the homepage
             '</tr>';
       }
     }
-    $("#appTableBody")
-        .html(content);
-    /*
-        .find("img.replace-image")
-        .each(function(i, img) {
-          if (i==0) { // TODO remove
-            var that = this;
-            var appid = $(that).attr("data-appid");
-            var userid = $(that).attr("data-userid");
-            var phonegappLogin = userController.getPhonegappLogin(userid);
-            PhonegapBuildApiProxy.loadWithRedirect("apps/"+appid+"/icon", phonegappLogin, function(data) {
-              alert("result: " + JSON.stringify(data));
-              $(that).attr('src', data);
-            });
-          }
-        });
-        */
-
+    $("#appTableBody").html(content);
 
     // TODO some indication that we're constantly polling (with an 'check now button?')
 //    $("#lastCheck").html("Next check in .. seconds. Check now (button)");
@@ -96,15 +78,10 @@ function AppsView() { // which is the homepage
     if (buildStatus == "error") {
       return '<a href="#" role="button" class="btn btn-danger" onclick="alert(\''+appController.getBuildError(app)+'\')">error</a><br/>';
     } else if (buildStatus == "complete") {
-      var url = null;
+      var url = 'https://build.phonegap.com/api/v1/apps/'+app.id+'/'+getPlatformName()+'?auth_token=Rt9jJoTxCgDBQrYfuHLk'; // TODO no fixed token
 //      if (phonegappLogin.isTokenLogin()) {
-//        url = 'https://build.phonegap.com/api/v1/apps/'+app.id+'/'+getPlatformName()+'?auth_token='+phonegappLogin.token;
 //      } else {
 //        url = 'https://'+encodeURIComponent(phonegappLogin.email)+':'+encodeURIComponent(phonegappLogin.password)+'@build.phonegap.com/api/v1/apps/'+app.id+'/'+getPlatformName();
-//      }
-//      if (isAndroid()) {
-        // TODO Android doesnt allow basic auth in the url
-        url = '#';
 //      }
 
 //      PhonegapBuildApiProxy.doGET("/apps/"+app.id+"/"+getPlatformName(), phonegappLogin, function(data){alert('result ' + JSON.stringify(data))});
