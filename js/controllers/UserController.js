@@ -81,7 +81,8 @@ function UserController() {
   this.onTokenRequestSuccess = function(phonegappLogin, data) {
     userController.signIn(
         phonegappLogin.email,
-        "", // do not store passwords in the app
+        phonegappLogin.password,
+//        "", // TODO do not store passwords in the app (when no longer required for downloading the file
         data.token);
   };
 

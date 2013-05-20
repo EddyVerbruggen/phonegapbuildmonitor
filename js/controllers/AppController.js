@@ -18,7 +18,7 @@ function AppController() {
 
   // NOTE: this method is called async, so has no context of 'this'
   this.onBuildSuccess = function(phonegappLogin, data) {
-    alert("Build trigger success. details: " + JSON.stringify(data));
+//    alert("Build trigger success. details: " + JSON.stringify(data));
   };
 
   this.getBuildStatus = function(app) {
