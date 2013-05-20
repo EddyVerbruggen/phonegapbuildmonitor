@@ -8,6 +8,7 @@ function AppsView() { // which is the homepage
   };
 
   this.displayNoUsersContent = function() {
+    // TODO see http://twitter.github.io/bootstrap/javascript.html#carousel
     $("#appTableBody").html('' +
         '<tr>' +
         '  <td>TODO: in this no-accounts-yet state, add a caroussel with explanation about this app (images)</td>' +

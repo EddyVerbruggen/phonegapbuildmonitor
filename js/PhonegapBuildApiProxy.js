@@ -30,7 +30,6 @@ PhonegapBuildApiProxy.getToken = function (phonegappLogin, onSuccessCallback) {
 PhonegapBuildApiProxy._doApiCall = function (type, service, data, phonegappLogin, onSuccessCallback) {
   var headers = {};
   if (!phonegappLogin.isTokenLogin()) {
-    // TODO should only be used when signing in with user/pass, all other calls must be with token
     headers = {"Authorization": "Basic " + btoa(phonegappLogin.email + ":" + phonegappLogin.password) };
   }
   $.ajax({

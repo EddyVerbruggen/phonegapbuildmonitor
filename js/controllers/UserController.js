@@ -79,7 +79,10 @@ function UserController() {
 
   // sign in with the token
   this.onTokenRequestSuccess = function(phonegappLogin, data) {
-    userController.signIn("", "", data.token);
+    userController.signIn(
+        phonegappLogin.email,
+        "", // do not store passwords in the app
+        data.token);
   };
 
   this.delete = function(userid) {
