@@ -11,8 +11,46 @@ function AppsView() { // which is the homepage
     // TODO see http://twitter.github.io/bootstrap/javascript.html#carousel
     $("#appTableBody").html('' +
         '<tr>' +
-        '  <td>TODO: in this no-accounts-yet state, add a caroussel with explanation about this app (images)</td>' +
+        '  <td>' +
+        '    <div id="myCarousel" class="carousel slide">' +
+        '      <ol class="carousel-indicators">' +
+        '        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>' +
+        '        <li data-target="#myCarousel" data-slide-to="1"></li>' +
+        '        <li data-target="#myCarousel" data-slide-to="2"></li>' +
+        '      </ol>' +
+        // items
+        '      <div class="carousel-inner">' +
+        '        <div class="active item">' +
+        '          <img src="img/tutorial/slide1.jpg"/>' +
+        '          <div class="carousel-caption">' +
+        '            <h4>TODO Tutorial images</h4>' +
+        '            <p>A nice quick and easy slideshow about the features of Phonegapps. Met optioneel deze caption.</p>' +
+        '          </div>' +
+        '        </div>' +
+        '        <div class="item">' +
+        '          <img src="img/tutorial/slide2.jpg"/>' +
+        '          <div class="carousel-caption">' +
+        '            <h4>TODO Nog meer tekst</h4>' +
+        '            <p>Of eigenlijk.. zo min mogelijk tekst!</p>' +
+        '          </div>' +
+        '        </div>' +
+        '        <div class="item">' +
+        '          <img src="img/tutorial/slide3.jpg"/>' +
+        '          <div class="carousel-caption">' +
+        '            <h4>TODO Wellicht nog een slide</h4>' +
+        '            <p>En weer een beetje bla bla.</p>' +
+        '          </div>' +
+        '        </div>' +
+        '      </div>' +
+        // nav
+        '      <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>' +
+        '      <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>' +
+        '    </div>' +
+        '  </td>' +
         '</tr>');
+//    $('#myCarousel').carousel({
+//      interval: 2000
+//    })
   };
 
   this.bindBuildFromRepoButton = function() {
@@ -82,7 +120,7 @@ function AppsView() { // which is the homepage
       var url = 'http://build.phonegap.com/apps/'+app.id+'/download/'+getPlatformName(); //+'?auth_token='+phonegappLogin.token;
       return '<a href="'+url+'" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install</a>';
     } else {
-      return '<a href="#" role="button" class="btn btn-info btn-spinner"><i class="icon-spinner icon-spin"></i> pending</a>';
+      return '<a href="#" onclick="return false" role="button" class="btn btn-info btn-spinner"><i class="icon-spinner icon-spin"></i> pending</a>';
     }
   };
 }
