@@ -29,6 +29,8 @@ function UserController() {
     for (var i=0; i<userController.phonegappLogins.length; i++) {
       if (phonegappLogin.user.id == userController.phonegappLogins[i].user.id) {
         userController.phonegappLogins[i].apps = data.apps;
+        // putting the newest app on top, note: does not work with multiple users
+        userController.phonegappLogins[i].apps.sort().reverse();
         userController.persistUsers();
         break;
       }
@@ -39,20 +41,6 @@ function UserController() {
 
     if (isLastCallback) {
       // remove duplicate apps (shared between users)
-
-      // remove duplicate apps we already know
-      var knownApps = [];
-      for (i=0; i<userController.phonegappLogins.length; i++) {
-        for (var k=0; k<userController.phonegappLogins[i].apps.length; k++) {
-          var appid = userController.phonegappLogins[i].apps[k].id;
-          if (knownApps.indexOf(appid) == -1) {
-            knownApps.push(appid);
-          } else {
-            userController.phonegappLogins[i].apps.splice(k, 1);
-          }
-        }
-      }
-      userController.persistUsers();
 
       appsView.refreshView();
 

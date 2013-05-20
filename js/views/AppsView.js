@@ -27,37 +27,56 @@ function AppsView() { // which is the homepage
   this.loadApps = function() {
     var content = '';
     if (userController.phonegappLogins.length > 0) {
-      // TODO make a method in usercontroller which returns a list sorted by buildstate for the current platform (en ontdubbeld!)
-      for (var i=0; i<userController.phonegappLogins.length; i++) {
-        var phonegappLogin = userController.getPhonegappLogin(userController.phonegappLogins[i].user.id);
-        // TODO put the apps in an array and sort them based on state (pending, complete, error) before adding the content
-        for (var j=0; j<phonegappLogin.apps.length; j++) {
-          var app = phonegappLogin.apps[j];
-          var url = null;
-          if (phonegappLogin.isTokenLogin()) {
-            url = 'https://build.phonegap.com/api/v1/apps/'+app.id+'/icon?auth_token='+phonegappLogin.token;
-          } else {
-            url = 'https://'+encodeURIComponent(phonegappLogin.email)+':'+encodeURIComponent(phonegappLogin.password)+'@build.phonegap.com/api/v1/apps/'+app.id+'/icon';
+
+      // remove duplicate apps
+      var knownApps = [];
+      var theApps = [];
+      var theAppUsers = [];
+      for (i=0; i<userController.phonegappLogins.length; i++) {
+        for (var k=0; k<userController.phonegappLogins[i].apps.length; k++) {
+          var appid = userController.phonegappLogins[i].apps[k].id;
+          if (knownApps.indexOf(appid) == -1) {
+            knownApps.push(appid);
+            theApps.push(userController.phonegappLogins[i].apps[k]);
+            theAppUsers.push(userController.phonegappLogins[i]);
           }
-          content += '' +
-              '<tr>' +
-              '  <td class="iconcolumn"><img src="'+url+'" width="72px" height="72px"/></td>' +
-              '  <td>' +
-              '    <h4>' + app.title + ' <span class="appversion">' + app.version + '</span></h4>' +
-              '    <div class="buildcount">build ' + app.build_count + '</div>'; // TODO add ' - new' when applicable
-          if (app.private) {
-            content += '    <div class="buildfromrepobutton"><img src="img/private-app.png" width="17px" height="11px"/></div>';
-          } else {
-            content += '    <div class="buildfromrepobutton"><a data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" href="#" role="button" class="btn btn-mini btn-inverse">build from repo</a></div>';
-          }
-          content += '' +
-              '    <div class="actionbutton">' + getActionButton(app, phonegappLogin) + '</div>' +
-              '  </td>' +
-              '</tr>';
         }
+      }
+      // sort the apps (newest first)
+      theApps.sort();
+      for (var i=0; i<theApps.length; i++) {
+        var app = theApps[i];
+        var phonegappLogin = userController.getPhonegappLogin(theAppUsers[i].user.id);
+        var url = null;
+        if (phonegappLogin.isTokenLogin()) {
+          url = 'https://build.phonegap.com/api/v1/apps/'+app.id+'/icon?auth_token='+phonegappLogin.token;
+        } else {
+          url = 'https://'+encodeURIComponent(phonegappLogin.email)+':'+encodeURIComponent(phonegappLogin.password)+'@build.phonegap.com/api/v1/apps/'+app.id+'/icon';
+        }
+        content += '' +
+            '<tr>' +
+            '  <td class="iconcolumn"><img src="'+url+'" width="72px" height="72px"/></td>' +
+            '  <td>' +
+            '    <h4>' + app.title + ' <span class="appversion">' + app.version + '</span></h4>' +
+            '    <div class="buildcount">build ' + app.build_count + '</div>'; // TODO add ' - new' when applicable
+        if (app.private) {
+          content += '    <div class="buildfromrepobutton"><img src="img/private-app.png" width="17px" height="11px"/></div>';
+        } else {
+          content += '    <div class="buildfromrepobutton"><a data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" href="#" role="button" class="btn btn-mini btn-inverse">build from repo</a></div>';
+        }
+        content += '' +
+            '    <div class="actionbutton">' + getActionButton(app, phonegappLogin) + '</div>' +
+            '  </td>' +
+            '</tr>';
       }
     }
     $("#appTableBody").html(content);
+    $("#appTableBody").append('' +
+        '<br/>Android img tests:<br/>' +
+        '1<img src="https://eddyverbruggen@gmail.com:xs4all@build.phonegap.com/api/v1/apps/406105/icon"/><br/>' +
+        '2<img src="https://eddyverbruggen%40gmail.com:xs4all@build.phonegap.com/api/v1/apps/406105/icon"/><br/>' +
+        '');
+
     // TODO some indication that we're constantly polling (with an 'check now button?')
 //    $("#lastCheck").html("Next check in .. seconds. Check now (button)");
   };
@@ -74,7 +93,7 @@ function AppsView() { // which is the homepage
       } else {
         url = 'https://'+encodeURIComponent(phonegappLogin.email)+':'+encodeURIComponent(phonegappLogin.password)+'@build.phonegap.com/api/v1/apps/'+app.id+'/'+getPlatformName();
       }
-      return '<a href="'+url+'" role="button" class="btn btn-success">install</a>';
+      return '<a href="'+url+'" target="_system" role="button" class="btn btn-success">install</a>';
     } else {
       // TODO prepend spinner icon
       return '<a href="#" role="button" class="btn btn-info">pending</a>';
