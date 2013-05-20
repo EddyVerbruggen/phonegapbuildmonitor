@@ -43,7 +43,7 @@ function AppsView() { // which is the homepage
         }
       }
       // sort the apps (newest first)
-      theApps.sort();
+      theApps.sort(); // TODO anonymous sort function
       for (var i=0; i<theApps.length; i++) {
         var app = theApps[i];
         var phonegappLogin = userController.getPhonegappLogin(theAppUsers[i].user.id);
@@ -71,11 +71,6 @@ function AppsView() { // which is the homepage
       }
     }
     $("#appTableBody").html(content);
-    $("#appTableBody").append('' +
-        '<br/>Android img tests:<br/>' +
-        '1<img src="https://eddyverbruggen@gmail.com:xs4all@build.phonegap.com/api/v1/apps/406105/icon"/><br/>' +
-        '2<img src="https://eddyverbruggen%40gmail.com:xs4all@build.phonegap.com/api/v1/apps/406105/icon"/><br/>' +
-        '');
 
     // TODO some indication that we're constantly polling (with an 'check now button?')
 //    $("#lastCheck").html("Next check in .. seconds. Check now (button)");
