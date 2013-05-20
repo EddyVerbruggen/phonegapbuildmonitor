@@ -46,8 +46,9 @@
                 userController.delete($(this).attr('data-userid'));
                 // reload all data, because apps may be shared between accounts (duplicates), which not may not reappear because they were removed when the app was started
                 userController = new UserController();
-                alert("The user was deleted.. now close this modal..");
-                // TODO close modal
+                alert("user deleted");
+                // brute force close the modal and refresh
+                window.location = "index.html";
               }
             });
       })

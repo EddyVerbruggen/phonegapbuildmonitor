@@ -26,7 +26,7 @@ h4, h5 {
 }
 
 #appTable .iconcolumn {
-  width: 78px;
+  width: 80px;
 }
 
 #appTable .buildcount,
@@ -83,5 +83,11 @@ h4, h5 {
 @media (max-height: 500px) {
   #accountsModal .modal-body {
     max-height: 300px;
+  }
+}
+
+@media (min-width: 420px) {
+  #appTable .iconcolumn {
+    width: 100px;
   }
 }

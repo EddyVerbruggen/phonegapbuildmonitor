@@ -67,12 +67,19 @@ function UserController() {
       phonegappLogin.email = email;
       phonegappLogin.password = password;
       phonegappLogin.token = token;
-      PhonegapBuildApiProxy.doGET('me', phonegappLogin, this.onSignInSuccess);
+
+      // if username/password login was used, request a token first and then sign in
+      if (token == "") {
+        PhonegapBuildApiProxy.getToken(phonegappLogin, this.onTokenRequestSuccess);
+      } else {
+        PhonegapBuildApiProxy.doGET('me', phonegappLogin, this.onSignInSuccess);
+      }
     }
   };
 
-  this.storeToken = function(token) {
-    alert("TODO impl storeToken");
+  // sign in with the token
+  this.onTokenRequestSuccess = function(phonegappLogin, data) {
+    userController.signIn("", "", data.token);
   };
 
   this.delete = function(userid) {
@@ -85,7 +92,7 @@ function UserController() {
     }
   };
 
-  // NOTE: this method is called async, so has no context of 'this'
+  // NOTE: this method is called async, so there is no 'this'
   this.onSignInSuccess = function(phonegappLogin, user) {
     phonegappLogin.user = user;
     userController.save(phonegappLogin);

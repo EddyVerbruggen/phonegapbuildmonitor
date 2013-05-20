@@ -17,11 +17,7 @@ function PhonegappLogin() {
   };
 
   this.equals = function(phonegappLogin) {
-    if (this.email == null) {
-      return this.token == phonegappLogin.token;
-    } else {
-      return this.email == phonegappLogin.email;
-    }
+    return this.token == phonegappLogin.token;
   };
 
   this.isTokenLogin = function() {
