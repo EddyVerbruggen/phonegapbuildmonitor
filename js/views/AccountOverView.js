@@ -21,7 +21,7 @@
             content += '' +
                 '<tr>' +
                 '  <td>' +
-                '    <h5>'+phonegappLogin.email+'</h5>' +
+                '    <h5><i class="icon-user"></i> '+phonegappLogin.email+'</h5>' +
                 '    <div class="appcount">' +
                        nrOfApps + (nrOfApps == 1 ? ' app' : ' apps');
 
@@ -32,7 +32,7 @@
             content += '' +
                 '    </div>' +
                 '    <div class="deletebuttoncolumn">' +
-                '      <a class="btn btn-danger deletebutton" data-userid="' + phonegappLogin.user.id + '" href="#" role="button">del</a>' +
+                '      <a class="btn btn-danger deletebutton" data-userid="' + phonegappLogin.user.id + '" href="#" role="button"><i class="icon-trash"></i>&nbsp;&nbsp;del</a>' +
                 '    </div>' +
                 '  </td>' +
                 '</tr>';

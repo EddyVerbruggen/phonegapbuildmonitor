@@ -26,7 +26,7 @@ h4, h5 {
 }
 
 #appTable .iconcolumn {
-  width: 80px;
+  width: 76px;
 }
 
 #appTable .buildcount,
@@ -50,7 +50,12 @@ h4, h5 {
 }
 
 #appTable .actionbutton .btn {
-  min-width: 50px;
+  min-width: 54px;
+}
+
+#appTable .actionbutton .btn-spinner {
+  padding-left: 5px;
+  padding-right: 7px;
 }
 
 #appTable .actionbutton.textonly {
@@ -86,8 +91,57 @@ h4, h5 {
   }
 }
 
-@media (min-width: 420px) {
+@media (min-width: 400px) {
   #appTable .iconcolumn {
     width: 100px;
   }
 }
+
+/* start loading spinner classes */
+.bubblingG {
+  text-align: center;
+  width: 50%;
+  height: 150px;
+  margin-left: 25%;
+  margin-top: 25%;
+}
+
+.bubblingG span {
+  display: inline-block;
+  vertical-align: middle;
+  width: 25px;
+  height: 25px;
+  margin: 63px auto;
+  background: #2E2EE8;
+  -webkit-border-radius: 125px;
+  -webkit-animation: bubblingG 1.7s infinite alternate;
+}
+
+#bubblingG_1 {
+  -webkit-animation-delay: 0s;
+}
+
+#bubblingG_2 {
+  -webkit-animation-delay: 0.51s;
+}
+
+#bubblingG_3 {
+  -webkit-animation-delay: 1.02s;
+}
+
+@-webkit-keyframes bubblingG {
+  0% {
+    width: 25px;
+    height: 25px;
+    background-color: #2E2EE8;
+    -webkit-transform: translateY(0);
+  }
+
+  100% {
+    width: 60px;
+    height: 60px;
+    background-color: #FFFFFF;
+    -webkit-transform: translateY(-53px);
+  }
+}
+/* end loading spinner classes */

@@ -59,7 +59,7 @@ function AppsView() { // which is the homepage
         if (app.private) {
           content += '    <div class="buildfromrepobutton"><img src="img/private-app.png" width="17px" height="11px"/></div>';
         } else {
-          content += '    <div class="buildfromrepobutton"><a data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" href="#" role="button" class="btn btn-mini btn-inverse">build from repo</a></div>';
+          content += '    <div class="buildfromrepobutton"><a data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" href="#" role="button" class="btn btn-mini btn-inverse">fetch &amp; build</a></div>';
         }
         content += '' +
             '    <div class="actionbutton">' + getActionButton(app, phonegappLogin) + '</div>' +
@@ -78,14 +78,14 @@ function AppsView() { // which is the homepage
 //    PhonegapBuildApiProxy.doGET("apps/"+app.id+"/ios", phonegappLogin, function(phonegappLogin, data){alert(data)});
     var buildStatus = appController.getBuildStatus(app);
     if (buildStatus == "error") {
-      return '<a href="#" role="button" class="btn btn-danger" onclick="alert(\''+appController.getBuildError(app)+'\')">error</a><br/>';
+      return '<a href="#" role="button" class="btn btn-danger" onclick="alert(\''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
     } else if (buildStatus == "complete") {
 //      var url = 'https://build.phonegap.com/api/v1/apps/'+app.id+'/'+getPlatformName()+'?auth_token='+phonegappLogin.token;
       var url = 'https://'+encodeURIComponent(phonegappLogin.email)+':'+encodeURIComponent(phonegappLogin.password)+'@build.phonegap.com/api/v1/apps/'+app.id+'/'+getPlatformName(); //+'?auth_token='+phonegappLogin.token;
-      return '<a href="'+url+'" role="button" class="btn btn-success">install</a>';
+      return '<a href="'+url+'" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install</a>';
     } else {
       // TODO prepend spinner icon
-      return '<a href="#" role="button" class="btn btn-info">pending</a>';
+      return '<a href="#" role="button" class="btn btn-info btn-spinner"><i class="icon-spinner icon-spin"></i> pending</a>';
     }
   };
 }
