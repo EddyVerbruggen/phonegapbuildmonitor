@@ -26,11 +26,7 @@ h4, h5 {
 }
 
 #appTable .iconcolumn {
-  width: 74px;
-}
-
-#appTable .iconcolumn img {
-  border: 1px solid #eee;
+  width: 78px;
 }
 
 #appTable .buildcount,
