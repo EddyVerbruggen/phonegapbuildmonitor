@@ -17,3 +17,7 @@ function isMobile() {
 function getPlatformName() {
   return isAndroid() ? "android" : "ios";
 }
+
+function openWindow(pleaseTakeMeHere) {
+  window.open(pleaseTakeMeHere, '_system');
+}

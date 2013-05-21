@@ -102,12 +102,12 @@ function AppsView() { // which is the homepage
         }
         content += '' +
             '    <div class="builddots">' +
-            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'ios')+'"></i>' +
-            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'android')+'"></i><br/>' +
-            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'winphone')+'"></i>' +
-            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'blackberry')+'"></i><br/>' +
-            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'webos')+'"></i>' +
-            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'symbian')+'"></i>' +
+            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'ios')+'" title="ios"></i>' +
+            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'android')+'" title="android"></i><br/>' +
+            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'winphone')+'" title="winphone"></i>' +
+            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'blackberry')+'" title="blackberry"></i><br/>' +
+            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'webos')+'" title="webos"></i>' +
+            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'symbian')+'" title="symbian"></i>' +
             '    </div>' +
             '    <div class="actionbutton">' + getActionButton(app, phonegappLogin) + '</div>' +
             '  </td>' +
@@ -138,7 +138,7 @@ function AppsView() { // which is the homepage
       return '<a href="#" role="button" class="btn btn-danger" onclick="alert(\''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
     } else if (buildStatus == "complete") {
       var url = 'http://build.phonegap.com/apps/'+app.id+'/download/'+getPlatformName(); //+'?auth_token='+phonegappLogin.token;
-      return '<a href="'+url+'" target="_system" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install</a>';
+      return '<a href="#" onclick="openWindow(\''+url+'\'); return false" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install</a>';
     } else {
       return '<a href="#" onclick="return false" role="button" class="btn btn-info btn-spinner"><i class="icon-spinner icon-spin"></i> pending</a>';
     }
