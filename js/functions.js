@@ -19,12 +19,14 @@ function getPlatformName() {
 }
 
 function openWindow(pleaseTakeMeHere) {
-  window.open(pleaseTakeMeHere, '_system');
+  // TODO: _system works for Android, but want to test if its fine without for iOS
+//  window.open(pleaseTakeMeHere, '_system');
+  window.open(pleaseTakeMeHere);
 }
 
 function showAlert(txt) {
   if (isMobile()) {
-    navigator.notification.alert(txt, function(){}, "Melding");
+    navigator.notification.alert(txt, function(){}, "Error");
   } else {
     alert(txt);
   }
