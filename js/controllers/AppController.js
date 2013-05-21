@@ -7,6 +7,7 @@ function AppController() {
   };
 
   this.buildFromRepo = function(phonegappLogin, appid, callback) {
+    // TODO pull doesn't work..
     var data = {
       'pull': 'true'
     };

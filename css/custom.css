@@ -26,7 +26,7 @@ h4, h5 {
 }
 
 #appTable .iconcolumn {
-  width: 76px;
+  width: 72px;
 }
 
 #appTable .buildcount,
@@ -65,7 +65,7 @@ h4, h5 {
 #appTable .builddots {
   float: right;
   line-height: 9px;
-  margin-left: 8px;
+  margin-left: 6px;
   margin-top: 2px;
   font-size: 7px;
 }
@@ -91,6 +91,11 @@ h4, h5 {
   overflow-y: scroll;
 }
 
+span.phonegapps-icon-updated {
+  font-size: 1.3em;
+  color: #d14;
+}
+
 @media (max-height: 600px) {
   #accountsModal .modal-body {
     max-height: 400px;
@@ -107,9 +112,14 @@ h4, h5 {
   #appTable .iconcolumn {
     width: 100px;
   }
+  #appTable .builddots {
+    margin-left: 10px;
+  }
 }
 
-span.phonegapps-icon-updated {
-  font-size: 1.3em;
-  color: #d14;
+@media (max-width: 767px) {
+  body {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
 }
