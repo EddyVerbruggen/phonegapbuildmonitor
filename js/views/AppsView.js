@@ -3,7 +3,7 @@
 function AppsView() { // which is the homepage
 
   this.refreshView = function() {
-    this.loadApps();
+    this.displayApps();
     this.bindBuildFromRepoButton();
   };
 
@@ -63,7 +63,7 @@ function AppsView() { // which is the homepage
     });
   };
 
-  this.loadApps = function() {
+  this.displayApps = function() {
     var content = '';
     if (userController.phonegappLogins.length > 0) {
 
@@ -83,17 +83,18 @@ function AppsView() { // which is the homepage
       }
 
       // sort the apps (newest first)
-      theApps.sort(); // TODO anonymous sort function
+      theApps.reverse();
+      theAppUsers.reverse();
       for (var i=0; i<theApps.length; i++) {
         var app = theApps[i];
         var phonegappLogin = userController.getPhonegappLogin(theAppUsers[i].user.id);
         var imgUrl = app.icon.filename == null ? 'img/default-appicon.png' : 'https://build.phonegap.com/api/v1/apps/'+app.id+'/icon?auth_token='+phonegappLogin.token;
         content += '' +
             '<tr>' +
-            '  <td class="iconcolumn"><img class="replace-image" src="'+imgUrl+'" data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" width="72px" height="72px"/></td>' +
+            '  <td class="iconcolumn"><img src="'+imgUrl+'" data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" width="72px" height="72px"/></td>' +
             '  <td>' +
             '    <h4>' + app.title + ' <span class="appversion">' + app.version + '</span></h4>' +
-            '    <div class="buildcount">build ' + app.build_count + '</div>'; // TODO add ' - new' when applicable
+            '    <div class="buildcount">build ' + app.build_count + (app.buildCountDiff > 0 ? '&nbsp;&nbsp;<code><i class="icon-'+(app.buildCountDiff > 5 ? 'double-' : '')+'angle-up"></i> updated</code>' : '') + '</div>';
         if (app.private) {
           content += '    <div class="buildfromrepobutton"><img src="img/private-app.png" width="17px" height="11px"/></div>';
         } else {
@@ -118,7 +119,7 @@ function AppsView() { // which is the homepage
       return '<a href="#" role="button" class="btn btn-danger" onclick="alert(\''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
     } else if (buildStatus == "complete") {
       var url = 'http://build.phonegap.com/apps/'+app.id+'/download/'+getPlatformName(); //+'?auth_token='+phonegappLogin.token;
-      return '<a href="'+url+'" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install</a>';
+      return '<a href="'+url+'" target="_system" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install</a>';
     } else {
       return '<a href="#" onclick="return false" role="button" class="btn btn-info btn-spinner"><i class="icon-spinner icon-spin"></i> pending</a>';
     }

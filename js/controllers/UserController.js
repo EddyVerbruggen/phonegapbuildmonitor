@@ -28,9 +28,25 @@ function UserController() {
     // store the apps for the user
     for (var i=0; i<userController.phonegappLogins.length; i++) {
       if (phonegappLogin.user.id == userController.phonegappLogins[i].user.id) {
+
+        // add a property to each app, so we can show it has been changed to the user
+        if (userController.phonegappLogins[i].apps != null) {
+          for (var j=0; j<data.apps.length; j++) {
+            for (var k=0; k<userController.phonegappLogins[i].apps.length; k++) {
+              if (userController.phonegappLogins[i].apps[k].id == data.apps[j].id) {
+                var newBuildCountDiff = data.apps[j].build_count - userController.phonegappLogins[i].apps[k].build_count;
+                // TODO reset to 0 when the user updates/installs it
+                if (userController.phonegappLogins[i].apps[k].buildCountDiff == undefined) {
+                  data.apps[j].buildCountDiff = newBuildCountDiff;
+                } else {
+                  data.apps[j].buildCountDiff = userController.phonegappLogins[i].apps[k].buildCountDiff + newBuildCountDiff;
+                }
+                break;
+              }
+            }
+          }
+        }
         userController.phonegappLogins[i].apps = data.apps;
-        // putting the newest app on top, note: does not work with multiple users
-        userController.phonegappLogins[i].apps.sort().reverse();
         userController.persistUsers();
         break;
       }
