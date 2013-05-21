@@ -3,8 +3,8 @@
 function AppsView() { // which is the homepage
 
   this.refreshView = function() {
-    this.displayApps();
-    this.bindBuildFromRepoButton();
+    appsView.displayApps();
+    appsView.bindBuildFromRepoButton();
   };
 
   this.displayNoUsersContent = function() {
@@ -58,7 +58,7 @@ function AppsView() { // which is the homepage
       var userid = $(this).attr("data-userid");
       var appid = $(this).attr("data-appid");
       var phonegappLogin = userController.getPhonegappLogin(userid);
-      appController.buildFromRepo(phonegappLogin, appid);
+      appController.buildFromRepo(phonegappLogin, appid, userController.loadAppsForUsers);
       return false;
     });
   };
@@ -94,7 +94,7 @@ function AppsView() { // which is the homepage
             '  <td class="iconcolumn"><img src="'+imgUrl+'" data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" width="72px" height="72px"/></td>' +
             '  <td>' +
             '    <h4>' + app.title + ' <span class="appversion">' + app.version + '</span></h4>' +
-            '    <div class="buildcount">build ' + app.build_count + (app.buildCountDiff > 0 ? '&nbsp;&nbsp;<code><i class="icon-'+(app.buildCountDiff > 5 ? 'double-' : '')+'angle-up"></i> updated</code>' : '') + '</div>';
+            '    <div class="buildcount">build ' + app.build_count + (app.buildCountDiff > 0 ? '&nbsp;&nbsp;<code class="phonegapps-icon-updated"><i class="icon-'+(app.buildCountDiff > 5 ? 'double-' : '')+'angle-up"></i>' : '') + '</code></div>';
         if (app.private) {
           content += '    <div class="buildfromrepobutton"><img src="img/private-app.png" width="17px" height="11px"/></div>';
         } else {

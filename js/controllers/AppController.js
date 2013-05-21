@@ -6,19 +6,8 @@ function AppController() {
     PhonegapBuildApiProxy.doGET('apps', phonegappLogin, callback);
   };
 
-  this.buildFromRepo = function(phonegappLogin, appid) {
-    alert('Building app from repo');
-    PhonegapBuildApiProxy.doPUT('apps/'+appid, {pull:true}, phonegappLogin, this.onBuildSuccess);
-  };
-
-  this.installApp = function(phonegappLogin, appid) {
-    alert('Building app from repo');
-    PhonegapBuildApiProxy.doPUT('apps/'+appid, {pull:true}, phonegappLogin, this.onBuildSuccess);
-  };
-
-  // NOTE: this method is called async, so has no context of 'this'
-  this.onBuildSuccess = function(phonegappLogin, data) {
-//    alert("Build trigger success. details: " + JSON.stringify(data));
+  this.buildFromRepo = function(phonegappLogin, appid, callback) {
+    PhonegapBuildApiProxy.doPUT('apps/'+appid, {pull:true}, phonegappLogin, callback);
   };
 
   this.getBuildStatus = function(app) {
