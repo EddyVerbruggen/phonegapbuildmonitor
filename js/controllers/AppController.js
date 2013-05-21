@@ -10,8 +10,8 @@ function AppController() {
     PhonegapBuildApiProxy.doPUT('apps/'+appid, {pull:true}, phonegappLogin, callback);
   };
 
-  this.getBuildStatus = function(app) {
-    return eval('app.status.'+getPlatformName());
+  this.getBuildStatus = function(app, platform) {
+    return eval('app.status.'+platform);
   };
 
   this.getBuildError = function(app) {

@@ -62,6 +62,14 @@ h4, h5 {
   margin-top: 12px;
 }
 
+#appTable .builddots {
+  float: right;
+  line-height: 9px;
+  margin-left: 8px;
+  margin-top: 2px;
+  font-size: 7px;
+}
+
 #userTable.table {
   margin-bottom: 0;
 }

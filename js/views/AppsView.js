@@ -96,11 +96,19 @@ function AppsView() { // which is the homepage
             '    <h4>' + app.title + ' <span class="appversion">' + app.version + '</span></h4>' +
             '    <div class="buildcount">build ' + app.build_count + (app.buildCountDiff > 0 ? '&nbsp;&nbsp;<code class="phonegapps-icon-updated"><i class="icon-'+(app.buildCountDiff > 5 ? 'double-' : '')+'angle-up"></i>' : '') + '</code></div>';
         if (app.private) {
-          content += '    <div class="buildfromrepobutton"><img src="img/private-app.png" width="17px" height="11px"/></div>';
+          content += '    <div class="buildfromrepobutton"><i class="icon-eye-open icon-large"></i></div>';
         } else {
           content += '    <div class="buildfromrepobutton"><a data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" href="#" role="button" class="btn btn-mini btn-inverse"><i class="icon-github"></i>&nbsp;&nbsp;pull latest</a></div>';
         }
         content += '' +
+            '    <div class="builddots">' +
+            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'ios')+'"></i>' +
+            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'android')+'"></i><br/>' +
+            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'winphone')+'"></i>' +
+            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'blackberry')+'"></i><br/>' +
+            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'webos')+'"></i>' +
+            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'symbian')+'"></i>' +
+            '    </div>' +
             '    <div class="actionbutton">' + getActionButton(app, phonegappLogin) + '</div>' +
             '  </td>' +
             '</tr>';
@@ -108,13 +116,24 @@ function AppsView() { // which is the homepage
     }
     $("#appTableBody").html(content);
 
-    // TODO some indication that we're constantly polling (with an 'check now button?')
+    // TODO some indication that we're constantly polling (with a 'check now button?')
 //    $("#lastCheck").html("Next check in .. seconds. Check now (button)");
+  };
+
+  var getBuildStatusColour = function(app, platform) {
+    var status = appController.getBuildStatus(app, platform)
+    if (status == "complete") {
+      return "green";
+    } else if (status == "pending") {
+      return "#bbb";
+    } else {
+      return "red";
+    }
   };
 
   // TODO animate button/row when state changes
   var getActionButton = function(app, phonegappLogin) {
-    var buildStatus = appController.getBuildStatus(app);
+    var buildStatus = appController.getBuildStatus(app, getPlatformName());
     if (buildStatus == "error") {
       return '<a href="#" role="button" class="btn btn-danger" onclick="alert(\''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
     } else if (buildStatus == "complete") {
