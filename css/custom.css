@@ -109,7 +109,7 @@ h4, h5 {
   }
 }
 
-code.phonegapps-icon-updated {
-  padding-top: 0;
-  padding-bottom: 0;
+span.phonegapps-icon-updated {
+  font-size: 1.3em;
+  color: #d14;
 }
