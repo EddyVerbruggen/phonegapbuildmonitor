@@ -19,7 +19,7 @@ function getPlatformName() {
 }
 
 function openWindow(pleaseTakeMeHere) {
-  // TODO: _system works for Android, but want to test if its fine without for iOS
+  // TODO: _system works for Android, but want to test if its fine without for iOS (and for iOS we can also just link to the app as href)
 //  window.open(pleaseTakeMeHere, '_system');
   window.open(pleaseTakeMeHere);
 }

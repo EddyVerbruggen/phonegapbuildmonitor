@@ -7,7 +7,10 @@ function AppController() {
   };
 
   this.buildFromRepo = function(phonegappLogin, appid, callback) {
-    PhonegapBuildApiProxy.doPUT('apps/'+appid, {pull:true}, phonegappLogin, callback);
+    var data = {
+      'pull': 'true'
+    };
+    PhonegapBuildApiProxy.doPUT('apps/'+appid, data, phonegappLogin, callback);
   };
 
   this.getBuildStatus = function(app, platform) {

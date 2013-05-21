@@ -18,7 +18,8 @@ function UserController() {
     }
   };
 
-  this.loadAppsForUsers = function() {
+  // ignore the params, just added them for testing when this is called as a callback
+  this.loadAppsForUsers = function(phonegappLogin, data) {
     for (var i=0; i<userController.phonegappLogins.length; i++) {
       appController.loadApps(userController.getPhonegappLogin(userController.phonegappLogins[i].user.id), userController.onLoadAppsSuccess);
     }
