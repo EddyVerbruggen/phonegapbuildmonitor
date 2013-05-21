@@ -21,3 +21,11 @@ function getPlatformName() {
 function openWindow(pleaseTakeMeHere) {
   window.open(pleaseTakeMeHere, '_system');
 }
+
+function showAlert(txt) {
+  if (isMobile()) {
+    navigator.notification.alert(txt, function(){}, "Melding");
+  } else {
+    alert(txt);
+  }
+}

@@ -135,7 +135,7 @@ function AppsView() { // which is the homepage
   var getActionButton = function(app, phonegappLogin) {
     var buildStatus = appController.getBuildStatus(app, getPlatformName());
     if (buildStatus == "error") {
-      return '<a href="#" role="button" class="btn btn-danger" onclick="alert(\''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
+      return '<a href="#" role="button" class="btn btn-danger" onclick="showAlert(\''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
     } else if (buildStatus == "complete") {
       var url = 'http://build.phonegap.com/apps/'+app.id+'/download/'+getPlatformName(); //+'?auth_token='+phonegappLogin.token;
       return '<a href="#" onclick="openWindow(\''+url+'\'); return false" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install</a>';
