@@ -145,13 +145,14 @@ function AppsView() { // which is the homepage
       var url4 = 'https://build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+getPlatformName() +'?auth_token='+phonegappLogin.token;
       return '<a href="'+url+'" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 1</a>' +
           '<a href="'+url+'" target="_system" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 2a</a>' +
-          '<a href="'+url2+'" target="_system" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 2b</a>' +
-          '<a href="'+url3+'" target="_system" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 3</a>' +
+          '<a href="'+url2+'" target="_new" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 2b</a>' + // test
+          '<a href="'+url3+'" target="_blank" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 3</a>' + //test
           '<a href="'+url4+'" target="_system" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 4</a>' +
-          '<a href="#" onclick="openWindow(\''+url+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 5</a>' +
-          '<a href="#" onclick="openWindow(\''+url2+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 6a</a>' +
-          '<a href="#" onclick="openWindow(\''+url3+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 6b</a>' +
-          '<a href="#" onclick="openWindow(\''+url4+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 7</a>';
+          // op android werkt hierboven allemaal niet, maar hieronder allemaal wel
+          '<a href="#" onclick="openWindow(\''+url+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 5</a>' + // works
+          '<a href="#" onclick="openWindow(\''+url2+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 6a</a>' + //zelfde
+          '<a href="#" onclick="openWindow(\''+url3+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 6b</a>' + //idem
+          '<a href="#" onclick="openWindow(\''+url4+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 7</a>'; // idem
     } else {
       return '<a href="#" onclick="return false" role="button" class="btn btn-info btn-spinner"><i class="icon-spinner icon-spin"></i> pending</a>';
     }
