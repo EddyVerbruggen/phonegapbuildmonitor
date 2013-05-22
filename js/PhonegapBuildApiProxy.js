@@ -38,6 +38,7 @@ PhonegapBuildApiProxy._doApiCall = function (type, service, data, phonegappLogin
     url: this.getEndpoint() + service + (phonegappLogin.isTokenLogin() ? "?auth_token=" + phonegappLogin.token : ""),
     headers: headers,
 //    dataType: 'json',
+//    contentType: 'multipart/form-data',
     success: function (data) {
       if (onSuccessCallback != null) {
         onSuccessCallback(phonegappLogin, data);
