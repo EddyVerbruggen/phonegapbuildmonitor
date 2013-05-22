@@ -75,7 +75,7 @@ function UserController() {
 
   this.signIn = function(email, password, token /* for example: Rt9jJoTxCgDBQrYfuHLk */) {
     if ((email == "" || password == "") && token == "") {
-      showAlert("Please fill in one of the authentication options");
+      showAlert("Error", "Please fill in one of the authentication options");
     } else {
       var phonegappLogin = new PhonegappLogin();
       phonegappLogin.email = email;
@@ -131,7 +131,7 @@ function UserController() {
       this.phonegappLogins.push(phonegappLogin);
     }
     this.persistUsers();
-    showAlert("sign in succeeded");
+    showAlert("Success", "sign in succeeded");
   };
 
   this.persistUsers = function() {

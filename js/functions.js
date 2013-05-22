@@ -22,9 +22,9 @@ function openWindow(pleaseTakeMeHere) {
   window.open(pleaseTakeMeHere, '_system');
 }
 
-function showAlert(txt) {
+function showAlert(title, txt) {
   if (isMobile()) {
-    navigator.notification.alert(txt, function(){}, "Error");
+    navigator.notification.alert(txt, function(){}, title);
   } else {
     alert(txt);
   }

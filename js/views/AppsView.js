@@ -59,7 +59,7 @@ function AppsView() { // which is the homepage
       var appid = $(this).attr("data-appid");
       var phonegappLogin = userController.getPhonegappLogin(userid);
       appController.buildFromRepo(phonegappLogin, appid, userController.loadAppsForUsers);
-      showAlert("Fetching repo and starting a build..");
+      showAlert("Hang on", "Fetching repo and starting a build..");
       return false;
     });
   };
@@ -137,7 +137,7 @@ function AppsView() { // which is the homepage
   var getActionButton = function(app, phonegappLogin) {
     var buildStatus = appController.getBuildStatus(app, getPlatformName());
     if (buildStatus == "error") {
-      return '<a href="#" role="button" class="btn btn-danger" onclick="showAlert(\''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
+      return '<a href="#" role="button" class="btn btn-danger" onclick="showAlert(\'Error\', \''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
     } else if (buildStatus == "complete") {
       var url = 'https://build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+getPlatformName() +'?auth_token='+phonegappLogin.token;
       if (isIOS()) {
