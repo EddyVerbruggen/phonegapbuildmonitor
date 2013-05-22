@@ -23,7 +23,7 @@ function openWindow(pleaseTakeMeHere) {
 }
 
 function openChildBrowser(pleaseTakeMeHere) {
-  window.plugins.childBrowser.showWebPage(pleaseTakeMeHere, {showAddressBar: false, showLocationBar: false, showNavigationBar: false});
+  window.plugins.childBrowser.showWebPage(pleaseTakeMeHere, {showAddressBar: true, showLocationBar: true, showNavigationBar: true});
 }
 
 function showAlert(title, txt) {
