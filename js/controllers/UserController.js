@@ -4,6 +4,7 @@ function UserController() {
 
   var LSKEY_PHONEGAPPLOGINS = "UserController.phonegappLogins";
   var buildCheckIntervalMillis = isMobile() ? 10000 : 99990000; // relax on the desktop
+  var callbacksReceived;
 
   // an array of PhonegapLogin, stored in LS which also holds the API user and user.apps
   this.phonegappLogins = [];
@@ -20,12 +21,15 @@ function UserController() {
 
   // ignore the params, just added them for testing when this is called as a callback
   this.loadAppsForUsers = function(phonegappLogin, data) {
+    userController.callbacksReceived = 0;
     for (var i=0; i<userController.phonegappLogins.length; i++) {
       appController.loadApps(userController.getPhonegappLogin(userController.phonegappLogins[i].user.id), userController.onLoadAppsSuccess);
     }
   };
 
   this.onLoadAppsSuccess = function(phonegappLogin, data) {
+    var isLastCallback = (++userController.callbacksReceived == userController.phonegappLogins.length);
+
     // store the apps for the user
     for (var i=0; i<userController.phonegappLogins.length; i++) {
       if (phonegappLogin.user.id == userController.phonegappLogins[i].user.id) {
@@ -53,18 +57,11 @@ function UserController() {
       }
     }
 
-    // TODO determined by nroftimes callback was received, NOT the element itself because the last one may come first
-    var isLastCallback = phonegappLogin.user.id == userController.phonegappLogins[userController.phonegappLogins.length-1].user.id;
-
     if (isLastCallback) {
-      // remove duplicate apps (shared between users)
-
       appsView.refreshView();
-
       // load the list again after a timeout
       setTimeout(userController.loadAppsForUsers, buildCheckIntervalMillis);
     }
-
   };
 
   this.getPhonegappLogin = function(userid) {

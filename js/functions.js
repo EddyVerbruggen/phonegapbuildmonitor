@@ -19,11 +19,12 @@ function getPlatformName() {
 }
 
 function openWindow(pleaseTakeMeHere) {
-//  if (isAndroid()) {
-//    window.open(pleaseTakeMeHere, '_system');
-//  } else {
+  if (isAndroid()) {
+    // Android will not start a download inside the app, so start a native browser
+    window.open(pleaseTakeMeHere, '_system');
+  } else {
     window.open(pleaseTakeMeHere);
-//  }
+  }
 }
 
 function showAlert(txt) {

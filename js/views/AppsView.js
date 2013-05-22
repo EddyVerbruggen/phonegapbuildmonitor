@@ -24,21 +24,21 @@ function AppsView() { // which is the homepage
         '          <img src="img/tutorial/slide1.jpg"/>' +
         '          <div class="carousel-caption">' +
         '            <h4>TODO Tutorial images</h4>' +
-        '            <p>A nice quick and easy slideshow about the features of Phonegapps. Met optioneel deze caption.</p>' +
+        '            <p>A nice quick and easy slideshow.</p>' +
         '          </div>' +
         '        </div>' +
         '        <div class="item">' +
         '          <img src="img/tutorial/slide2.jpg"/>' +
         '          <div class="carousel-caption">' +
         '            <h4>TODO Nog meer tekst</h4>' +
-        '            <p>Of eigenlijk.. zo min mogelijk tekst!</p>' +
+        '            <p>Met zo min mogelijk tekst!</p>' +
         '          </div>' +
         '        </div>' +
         '        <div class="item">' +
         '          <img src="img/tutorial/slide3.jpg"/>' +
         '          <div class="carousel-caption">' +
-        '            <h4>TODO Wellicht nog een slide</h4>' +
-        '            <p>En weer een beetje bla bla.</p>' +
+        '            <h4>TODO Nog een slide?</h4>' +
+        '            <p>En nog wat bla bla?</p>' +
         '          </div>' +
         '        </div>' +
         '      </div>' +
@@ -59,6 +59,7 @@ function AppsView() { // which is the homepage
       var appid = $(this).attr("data-appid");
       var phonegappLogin = userController.getPhonegappLogin(userid);
       appController.buildFromRepo(phonegappLogin, appid, userController.loadAppsForUsers);
+      showAlert("Fetching repo and starting a build..");
       return false;
     });
   };
