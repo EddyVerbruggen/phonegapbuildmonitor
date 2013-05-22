@@ -8,6 +8,9 @@ function AppsView() { // which is the homepage
     if (window.plugins != undefined) {
       window.plugins.childBrowser.onLocationChange = function (url) {
         alert("childbrowser url changed to: " + url);
+        if (url.indexOf("build.phonegap.com") == -1) {
+          window.location = url;
+        }
       }
     }
   };
