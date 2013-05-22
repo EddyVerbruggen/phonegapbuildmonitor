@@ -46,7 +46,7 @@ PhonegapBuildApiProxy._doApiCall = function (type, service, data, phonegappLogin
       }
     },
     error: function (XMLHttpRequest, textStatus, errorThrown) {
-      alert("XMLHttpRequest:" + XMLHttpRequest + ", Status: " + textStatus + ", error: " + errorThrown);
+      alert("XMLHttpRequest:" + JSON.stringify(XMLHttpRequest) + ", Status: " + textStatus + ", errorThrown: " + errorThrown);
     }
   });
 };

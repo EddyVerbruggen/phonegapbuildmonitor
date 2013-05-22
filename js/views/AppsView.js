@@ -139,8 +139,19 @@ function AppsView() { // which is the homepage
     if (buildStatus == "error") {
       return '<a href="#" role="button" class="btn btn-danger" onclick="showAlert(\'Error\', \''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
     } else if (buildStatus == "complete") {
-      var url = 'https://build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+getPlatformName() +'?auth_token='+phonegappLogin.token;
-      return '<a href="#" onclick="openWindow(\''+url+'\'); return false" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install</a>';
+      var url = 'http://www.thumbrater.com:9100/'+app.id+'/'+getPlatformName() +'/'+phonegappLogin.token+'/app.apk';
+      var url2 = 'https://build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+getPlatformName() +'?auth_token='+phonegappLogin.token;
+      var url3 = 'https://'+encodeURIComponent(phonegappLogin.email)+':'+phonegappLogin.password+'@build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+getPlatformName();
+      var url4 = 'https://build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+getPlatformName() +'?auth_token='+phonegappLogin.token;
+      return '<a href="'+url+'" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 1</a>' +
+          '<a href="'+url+'" target="_system" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 2a</a>' +
+          '<a href="'+url2+'" target="_system" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 2b</a>' +
+          '<a href="'+url3+'" target="_system" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 3</a>' +
+          '<a href="'+url4+'" target="_system" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 4</a>' +
+          '<a href="#" onclick="openWindow(\''+url+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 5</a>' +
+          '<a href="#" onclick="openWindow(\''+url2+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 6a</a>' +
+          '<a href="#" onclick="openWindow(\''+url3+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 6b</a>' +
+          '<a href="#" onclick="openWindow(\''+url4+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 7</a>';
     } else {
       return '<a href="#" onclick="return false" role="button" class="btn btn-info btn-spinner"><i class="icon-spinner icon-spin"></i> pending</a>';
     }
