@@ -8,15 +8,19 @@ var appsView;
 (function System() {
 
   var onDeviceReady = function() {
+    appsView = new AppsView();
+    appController = new AppController();
+    userController = new UserController();
+    userController.loadUsers();
   };
 
   var init = function() {
     $(document).ready(function() {
-      document.addEventListener('deviceready', onDeviceReady, false);
-      appsView = new AppsView();
-      appController = new AppController();
-      userController = new UserController();
-      userController.loadUsers();
+      if (isMobile()) {
+        document.addEventListener('deviceready', onDeviceReady, false);
+      } else {
+        onDeviceReady();
+      }
     });
   };
 

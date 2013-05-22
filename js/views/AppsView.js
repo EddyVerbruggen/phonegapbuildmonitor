@@ -5,8 +5,10 @@ function AppsView() { // which is the homepage
   this.refreshView = function() {
     appsView.displayApps();
     appsView.bindBuildFromRepoButton();
-    window.plugins.childBrowser.onLocationChange = function (url) {
-      alert("change to: " + url);
+    if (window.plugins != undefined) {
+      window.plugins.childBrowser.onLocationChange = function (url) {
+        alert("childbrowser url changed to: " + url);
+      }
     }
   };
 
@@ -157,6 +159,7 @@ function AppsView() { // which is the homepage
           '<a href="#" onclick="openWindow(\''+url3+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 7</a>' +
 
           '<a href="#" onclick="openChildBrowser(\''+url+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 8</a>' + // TEST
+          // INTERESSANT: get the redirect url..
           '<a href="#" onclick="openChildBrowser(\''+url2+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 9</a>' + // TEST
           '<a href="#" onclick="openChildBrowser(\''+url3+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 10</a>' + // TEST
           '<a href="#" onclick="openChildBrowser(\''+url4+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 11</a>' + // TEST
