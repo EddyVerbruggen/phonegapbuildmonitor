@@ -2,6 +2,7 @@
 
 function AppsView() { // which is the homepage
 
+  var tried = false;
   this.refreshView = function() {
     appsView.displayApps();
     appsView.bindBuildFromRepoButton();
@@ -9,7 +10,13 @@ function AppsView() { // which is the homepage
       window.plugins.childBrowser.onLocationChange = function (url) {
         alert("childbrowser url changed to: " + url);
         if (url.indexOf("build.phonegap.com") == -1) {
-          window.location = url;
+          alert("lets download");
+          if (!tried) {
+            tried = true;
+            openWindow(url);
+          } else {
+            document.location = url;
+          }
         }
       }
     }
