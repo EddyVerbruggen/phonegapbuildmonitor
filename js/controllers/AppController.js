@@ -7,14 +7,8 @@ function AppController() {
   };
 
   this.buildFromRepo = function(phonegappLogin, appid, callback) {
-//    var form = document.getElementById("bla");
-//    var formData = new FormData(document.getElementById("bla"));
-//    formData.append('pull', 'true');
-    var data = {
-      'pull': 'true'
-    };
-    phonegappLogin.token = null;
-    PhonegapBuildApiProxy.doPUT('apps/'+appid, $('#bla').serialize(), phonegappLogin, callback);
+    var data = 'data=' + encodeURIComponent('{"pull":"true"}');
+    PhonegapBuildApiProxy.doPUT('apps/'+appid, data, phonegappLogin, callback);
   };
 
   this.getBuildStatus = function(app, platform) {
