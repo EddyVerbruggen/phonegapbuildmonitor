@@ -2,7 +2,6 @@
 
 function AppsView() { // which is the homepage
 
-  var tried = false;
   this.refreshView = function() {
     appsView.displayApps();
     appsView.bindBuildFromRepoButton();
@@ -10,13 +9,7 @@ function AppsView() { // which is the homepage
       window.plugins.childBrowser.onLocationChange = function (url) {
         alert("childbrowser url changed to: " + url);
         if (url.indexOf("build.phonegap.com") == -1) {
-          alert("lets download");
-          if (!tried) {
-            tried = true;
-            openWindow(url);
-          } else {
-            document.location = url;
-          }
+          openWindow(url);
         }
       }
     }
@@ -159,17 +152,19 @@ function AppsView() { // which is the homepage
       var url3 = 'https://'+phonegappLogin.email+':'+phonegappLogin.password+'@build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+getPlatformName();
       var url4 = 'https://eddyverbruggen%40gmail.com:xs4all@build.phonegap.com/api/v1/apps/406105/android';
       var url5 = 'https://'+encodeURIComponent(phonegappLogin.email)+':'+phonegappLogin.password+'@build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+getPlatformName();
-      return '<a href="'+url+'" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 1</a>' +
-          '<a href="'+url+'" target="_system" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 2</a>' +
-          '<a href="'+url2+'" target="_new" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 3</a>' +
-          '<a href="'+url3+'" target="_blank" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 4</a>' +
+      var url6 = 'https://build.phonegap.com/apps/'+app.id+'/install?auth_token='+phonegappLogin.token;
+      return '<a href="'+url+'" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 0</a>' +
+          '<a href="'+url6+'" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 1</a>' +
+          '<a href="'+url6+'" target="_system" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 2</a>' +
+          '<a href="'+url6+'" target="_new" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 3</a>' +
+          '<a href="'+url6+'" target="_blank" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 4</a>' +
           // op android werkt hierboven allemaal niet, maar hieronder allemaal wel (op ios nog niks getest)
-          '<a href="#" onclick="openWindow(\''+url+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 5</a>' +
+          '<a href="#" onclick="openWindow(\''+url6+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 5</a>' +
           '<a href="#" onclick="openWindow(\''+url2+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 6</a>' +
           '<a href="#" onclick="openWindow(\''+url3+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 7</a>' +
 
-          '<a href="#" onclick="openChildBrowser(\''+url+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 8</a>' + // TEST
-          // INTERESSANT: get the redirect url..
+          '<a href="#" onclick="openChildBrowser(\''+url6+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 8</a>' + // TEST
+          // INTERESSANT on android: get the redirect url..
           '<a href="#" onclick="openChildBrowser(\''+url2+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 9</a>' + // TEST
           '<a href="#" onclick="openChildBrowser(\''+url3+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 10</a>' + // TEST
           '<a href="#" onclick="openChildBrowser(\''+url4+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 11</a>' + // TEST
