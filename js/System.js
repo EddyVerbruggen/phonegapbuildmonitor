@@ -11,7 +11,7 @@ var appsView;
     appsView = new AppsView();
     appController = new AppController();
     userController = new UserController();
-    userController.loadUsers();
+    userController.init();
   };
 
   var init = function() {

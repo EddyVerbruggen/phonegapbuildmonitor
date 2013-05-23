@@ -9,12 +9,19 @@ function UserController() {
   // an array of PhonegapLogin, stored in LS which also holds the API user and user.apps
   this.phonegappLogins = [];
 
-  this.loadUsers = function() {
+  this.init = function() {
     var loadedUsers = JSON.parse(localStorage.getItem(LSKEY_PHONEGAPPLOGINS));
     if (loadedUsers == null || loadedUsers == "") {
       appsView.displayNoUsersContent();
     } else {
       this.phonegappLogins = loadedUsers;
+      // reset builddiff
+      for (var i=0; i<this.phonegappLogins.length; i++) {
+        for (var j=0; j<this.phonegappLogins[i].apps.length; j++) {
+          this.phonegappLogins[i].apps[j].buildCountDiff = undefined;
+        }
+      }
+      // load the apps from the server
       this.loadAppsForUsers();
     }
   };
