@@ -19,7 +19,7 @@ function AppController() {
     return eval('app.error.'+getPlatformName());
   };
 
-  this.getShareLink = function(app, phonegappLogin, platform) {
+  this.getDownloadLink = function(app, phonegappLogin, platform) {
     if (platform == 'ios') {
       return 'https://build.phonegap.com/apps/'+app.id+'/download/'+platform+'?auth_token='+phonegappLogin.token;
     } else if (platform == 'android') {
@@ -28,5 +28,9 @@ function AppController() {
       alert("Please notify the admin, as we've encountered an not supported platform.");
       return null;
     }
+  };
+
+  this.getShareLink = function(app, platform) {
+    return 'https://build.phonegap.com/apps/'+app.id+'/download/'+platform;
   };
 }

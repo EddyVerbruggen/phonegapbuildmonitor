@@ -94,9 +94,12 @@ function AppsView() { // which is the homepage
             '<tr>' +
             '  <td class="iconcolumn"><img src="'+imgUrl+'" data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" width="72px" height="72px"/></td>' +
             '  <td>' +
-            '    <h4>' + app.title + ' <span class="appversion">' + app.version + '</span></h4>' +
-            '    <div class="sharebutton"><a href="mailto:?subject='+app.title+' build '+app.build_count+'&body=Click one of these links on your mobile device:%0D%0A%0D%0A%0D%0AiOS: '+appController.getShareLink(app, phonegappLogin, 'ios')+'%0D%0A%0D%0AAndroid: '+appController.getShareLink(app, phonegappLogin, 'android')+'"><i class="icon-share"></i></a></div>' +
-            '    <div class="buildcount">build ' + app.build_count + (app.buildCountDiff > 0 ? '&nbsp;&nbsp;<span class="phonegapps-icon-updated"><i class="icon-'+(app.buildCountDiff > 5 ? 'double-' : '')+'angle-up"></i>' : '') + '</span></div>';
+            '    <h4>' + app.title + ' <span class="appversion">' + app.version + '</span></h4>';
+        // TODO [future version]: for non-private apps, we could use the downloadlink, but that one includes the auth_token, so warn the user before sending it to others (or use a proxy server)
+        if (!app.private) {
+          content += '    <div class="sharebutton"><a href="mailto:?subject='+app.title+' build '+app.build_count+'&body=Click one of these links on your mobile device:%0D%0A%0D%0A%0D%0AiOS: '+appController.getShareLink(app, 'ios')+'%0D%0A%0D%0AAndroid: '+appController.getShareLink(app, 'android')+'"><i class="icon-share"></i></a></div>';
+        }
+        content += '    <div class="buildcount">build ' + app.build_count + (app.buildCountDiff > 0 ? '&nbsp;&nbsp;<span class="phonegapps-icon-updated"><i class="icon-'+(app.buildCountDiff > 5 ? 'double-' : '')+'angle-up"></i>' : '') + '</span></div>';
         if (app.private) {
           content += '    <div class="buildfromrepobutton"><i class="icon-eye-open icon-large"></i></div>';
         } else {
@@ -139,7 +142,7 @@ function AppsView() { // which is the homepage
     if (buildStatus == "error") {
       return '<a href="#" role="button" class="btn btn-danger" onclick="showAlert(\'Error\', \''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
     } else if (buildStatus == "complete") {
-      var url = appController.getShareLink(app, phonegappLogin, getPlatformName());
+      var url = appController.getDownloadLink(app, phonegappLogin, getPlatformName());
       return '<a href="#" onclick="openWindow(\''+url+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install</a>';
     } else {
       return '<a href="#" onclick="return false" role="button" class="btn btn-info btn-spinner"><i class="icon-spinner icon-spin"></i> pending</a>';
