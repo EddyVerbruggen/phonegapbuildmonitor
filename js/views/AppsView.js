@@ -153,7 +153,6 @@ function AppsView() { // which is the homepage
       var url4 = 'https://eddyverbruggen%40gmail.com:xs4all@build.phonegap.com/api/v1/apps/406105/android';
       var url5 = 'https://'+encodeURIComponent(phonegappLogin.email)+':'+phonegappLogin.password+'@build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+getPlatformName();
       var url6 = 'https://build.phonegap.com/apps/'+app.id+'/download/'+getPlatformName()+'?auth_token='+phonegappLogin.token;
-      alert(url6);
       return '<a href="'+url+'" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 0</a>' +
           '<a href="'+url6+'" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 1</a>' +
           '<a href="'+url6+'" target="_system" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 2</a>' +
