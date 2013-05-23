@@ -8,6 +8,7 @@
   <link href="css/custom.css" rel="stylesheet">
   <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
   <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="js/lib/jquery.jqplot/jquery.jqplot.min.css" rel="stylesheet"/>
   <script src="cordova.js"></script>
 </head>
 <body>
@@ -34,6 +35,7 @@
 
 <div class="container">
   <div id="lastCheck"></div>
+  <div id="chartdiv" style="height:160px;width:100%"></div>
   <table class="table" id="appTable">
     <tbody id="appTableBody">
       <tr>
@@ -96,6 +98,7 @@
 
 <!-- Placed at the end of the document so the app loads faster -->
 <script src="js/lib/jquery-1.9.1.min.js"></script>
+<script src="js/lib/jquery.jqplot/jquery.jqplot.min.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
 <script src="js/functions.js"></script>
 <script src="js/PhonegapBuildApiProxy.js"></script>
@@ -106,5 +109,56 @@
 <script src="js/views/AccountOverView.js"></script>
 <script src="js/views/AddAccountView.js"></script>
 <script src="js/System.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    // Our ajax data renderer which here retrieves a text file.
+    // it could contact any source and pull data, however.
+    // The options argument isn't used in this renderer.
+    var ajaxDataRenderer = function(url, plot, options) {
+      var ret = null;
+      $.ajax({
+        // have to use synchronous here, else the function
+        // will return before the data is fetched
+        async: false, // must be async, so all data is received when rendering the chart
+        url: 'http://www.thumbrater.com:9100',
+        dataType:"json",
+        success: function(data) {
+          ret = data;
+        }
+      });
+      return ret;
+    };
+
+    // passing in the url string as the jqPlot data argument is a handy
+    // shortcut for our renderer.  You could also have used the
+    // "dataRendererOptions" option to pass in the url.
+    var plot2 = $.jqplot('chartdiv', [], {
+      title: "Phonegap Build server times",
+      animate: true,
+      // Will animate plot on calls to plot1.replot({resetAxes:true})
+      animateReplot: true,
+      axes: {
+        xaxis: {
+          drawMajorGridlines: true,
+          drawMajorTickMarks: true,
+          drawMinorGridlines: true,
+          rendererOptions: {
+            tickInset: 0.5
+          }
+        },
+        yaxis: {
+          drawMajorGridlines: true,
+          drawMajorTickMarks: true,
+          drawMinorGridlines: true,
+          rendererOptions: {
+            tickInset: 0.5,
+            minorTicks: 1
+          }
+        }
+      },
+      dataRenderer: ajaxDataRenderer
+    });
+  });
+</script>
 </body>
 </html>
