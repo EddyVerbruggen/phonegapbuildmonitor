@@ -22,10 +22,6 @@ function openWindow(pleaseTakeMeHere) {
   window.open(pleaseTakeMeHere, '_system');
 }
 
-function openChildBrowser(pleaseTakeMeHere) {
-  window.plugins.childBrowser.showWebPage(pleaseTakeMeHere, {showAddressBar: true, showLocationBar: true, showNavigationBar: true});
-}
-
 function showAlert(title, txt) {
   if (isMobile()) {
     navigator.notification.alert(txt, function(){}, title);

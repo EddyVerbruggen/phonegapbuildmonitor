@@ -5,14 +5,6 @@ function AppsView() { // which is the homepage
   this.refreshView = function() {
     appsView.displayApps();
     appsView.bindBuildFromRepoButton();
-    if (window.plugins != undefined) {
-      window.plugins.childBrowser.onLocationChange = function (url) {
-        alert("childbrowser url changed to: " + url);
-        if (url.indexOf("build.phonegap.com") == -1) {
-          openWindow(url);
-        }
-      }
-    }
   };
 
   this.displayNoUsersContent = function() {
@@ -147,27 +139,13 @@ function AppsView() { // which is the homepage
     if (buildStatus == "error") {
       return '<a href="#" role="button" class="btn btn-danger" onclick="showAlert(\'Error\', \''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
     } else if (buildStatus == "complete") {
-      var url = 'http://www.thumbrater.com:9100/'+app.id+'/'+getPlatformName() +'/'+phonegappLogin.token+'/app.apk';
-      var url2 = 'https://build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+getPlatformName() +'?auth_token='+phonegappLogin.token;
-//      var url3 = 'https://'+phonegappLogin.email+':'+phonegappLogin.password+'@build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+getPlatformName();
-      var url4 = 'https://eddyverbruggen%40gmail.com:xs4all@build.phonegap.com/api/v1/apps/406105/android';
-      var url5 = 'https://'+encodeURIComponent(phonegappLogin.email)+':'+phonegappLogin.password+'@build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+getPlatformName();
-      var url6 = 'https://build.phonegap.com/apps/'+app.id+'/download/'+getPlatformName()+'?auth_token='+phonegappLogin.token;
-      return '<a href="'+url+'" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 0</a>' +
-          '<a href="'+url6+'" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 1</a>' +
-          '<a href="'+url6+'" target="_system" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 2</a>' +
-          '<a href="'+url6+'" target="_new" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 3</a>' +
-          '<a href="'+url6+'" target="_blank" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 4</a>' +
-          // op android werkt hierboven allemaal niet, maar hieronder allemaal wel (op ios nog niks getest)
-          '<a href="#" onclick="openWindow(\''+url6+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> ios?</a>' +
-          '<a href="#" onclick="openWindow(\''+url2+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> android 1</a>' +
-//          '<a href="#" onclick="openWindow(\''+url3+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> android 2</a>' +
-
-          '<a href="#" onclick="openChildBrowser(\''+url6+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> ios? android</a>' + // TEST
-          // INTERESSANT on android: get the redirect url..
-          '<a href="#" onclick="openChildBrowser(\''+url2+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> android 3</a>' + // TEST
-          '<a href="#" onclick="openChildBrowser(\''+url5+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install 12</a>'; // TEST
-            // Capture loadstart event
+      var url;
+      if (isIOS()) {
+        url = 'https://build.phonegap.com/apps/'+app.id+'/download/'+getPlatformName()+'?auth_token='+phonegappLogin.token;
+      } else {
+        url = 'https://build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+getPlatformName() +'?auth_token='+phonegappLogin.token;
+      }
+      return '<a href="#" onclick="openWindow(\''+url+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install</a>';
     } else {
       return '<a href="#" onclick="return false" role="button" class="btn btn-info btn-spinner"><i class="icon-spinner icon-spin"></i> pending</a>';
     }
