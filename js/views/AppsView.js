@@ -99,7 +99,11 @@ function AppsView() { // which is the homepage
         if (!app.private) {
           content += '    <div class="sharebutton"><a href="mailto:?subject='+app.title+' build '+app.build_count+'&body=Click one of these links on your mobile device:%0D%0A%0D%0A%0D%0AiOS: '+appController.getShareLink(app, 'ios')+'%0D%0A%0D%0AAndroid: '+appController.getShareLink(app, 'android')+'"><i class="icon-share"></i></a></div>';
         }
-        content += '    <div class="buildcount">build ' + app.build_count + (app.buildCountDiff > 0 ? '&nbsp;&nbsp;<span class="phonegapps-icon-updated"><i class="icon-'+(app.buildCountDiff > 5 ? 'double-' : '')+'angle-up"></i>' : '') + '</span></div>';
+        if (app.build_count == null) {
+          content += '    <div class="buildcount">no builds yet</div>';
+        } else {
+          content += '    <div class="buildcount">build ' + app.build_count + (app.buildCountDiff > 0 ? '&nbsp;&nbsp;<span class="phonegapps-icon-updated"><i class="icon-'+(app.buildCountDiff > 5 ? 'double-' : '')+'angle-up"></i>' : '') + '</span></div>';
+        }
         if (app.private) {
           content += '    <div class="buildfromrepobutton"><i class="icon-eye-open icon-large"></i></div>';
         } else {
