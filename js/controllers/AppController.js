@@ -19,10 +19,14 @@ function AppController() {
     return eval('app.error.'+getPlatformName());
   };
 
-  this._init = function() {
-//    this._loadLocalApps();
+  this.getShareLink = function(app, phonegappLogin, platform) {
+    if (platform == 'ios') {
+      return 'https://build.phonegap.com/apps/'+app.id+'/download/'+platform+'?auth_token='+phonegappLogin.token;
+    } else if (platform == 'android') {
+      return 'https://build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+platform +'?auth_token='+phonegappLogin.token;
+    } else {
+      alert("Please notify the admin, as we've encountered an not supported platform.");
+      return null;
+    }
   };
-
-  // call this 'private' method upon class construction
-  this._init();
 }

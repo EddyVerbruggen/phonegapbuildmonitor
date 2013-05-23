@@ -47,7 +47,13 @@ h4, h5 {
 
 #appTable .sharebutton {
   float: right;
-  margin-top: -16px;
+  margin-top: -18px;
+}
+
+#appTable .sharebutton a,
+#appTable .sharebutton a:visited {
+  color:#000;
+  text-decoration: none;
 }
 
 #appTable .actionbutton {
