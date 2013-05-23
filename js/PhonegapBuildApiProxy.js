@@ -37,12 +37,7 @@ PhonegapBuildApiProxy._doApiCall = function (type, service, data, phonegappLogin
     data: data,
     url: this.getEndpoint() + service + (phonegappLogin.isTokenLogin() ? "?auth_token=" + phonegappLogin.token : ""),
     headers: headers,
-    timeout: 10000,
-    async: false,
-    statusCode: {
-      401: function() {alert("status 401")},
-      0: function() {alert("status 0")}
-    },
+    async: !phonegappLogin.isTokenLogin(), // basic auth errors cant be displayed in phonegap without this
     success: function (data) {
       if (onSuccessCallback != null) {
         onSuccessCallback(phonegappLogin, data);
@@ -51,7 +46,11 @@ PhonegapBuildApiProxy._doApiCall = function (type, service, data, phonegappLogin
       }
     },
     error: function (xhr) {
-      alert("Error :( \n\n" + JSON.stringify(xhr));
+      if (xhr.status = 401) {
+        showAlert("Authentication failed", "Please change your sign in credentials");
+      } else {
+        alert("Error :( \n\n" + JSON.stringify(xhr));
+      }
     }
   });
 };

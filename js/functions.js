@@ -26,6 +26,6 @@ function showAlert(title, txt) {
   if (isMobile()) {
     navigator.notification.alert(txt, function(){}, title);
   } else {
-    alert(txt);
+    alert(title + "\n\n" + txt);
   }
 }
