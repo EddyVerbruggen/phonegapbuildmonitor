@@ -148,8 +148,10 @@ function AppsView() { // which is the homepage
     } else if (buildStatus == "complete") {
       var url = appController.getDownloadLink(app, phonegappLogin, getPlatformName());
       return '<a href="#" onclick="openWindow(\''+url+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install</a>';
-    } else {
+    } else if (buildStatus == "pending") {
       return '<a href="#" onclick="return false" role="button" class="btn btn-info btn-spinner"><i class="icon-spinner icon-spin"></i> pending</a>';
+    } else {
+      return '';
     }
   };
 }
