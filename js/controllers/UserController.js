@@ -17,8 +17,10 @@ function UserController() {
       this.phonegappLogins = loadedUsers;
       // reset builddiff
       for (var i=0; i<this.phonegappLogins.length; i++) {
-        for (var j=0; j<this.phonegappLogins[i].apps.length; j++) {
-          this.phonegappLogins[i].apps[j].buildCountDiff = undefined;
+        if (this.phonegappLogins[i].apps != null) {
+          for (var j=0; j<this.phonegappLogins[i].apps.length; j++) {
+            this.phonegappLogins[i].apps[j].buildCountDiff = undefined;
+          }
         }
       }
       // load the apps from the server
@@ -102,8 +104,7 @@ function UserController() {
   this.onTokenRequestSuccess = function(phonegappLogin, data) {
     userController.signIn(
         phonegappLogin.email,
-        phonegappLogin.password,
-//        "", // TODO do not store passwords in the app (when no longer required for downloading the file
+        "", // do not store passwords in the app
         data.token);
   };
 
