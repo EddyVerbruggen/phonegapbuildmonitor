@@ -45,6 +45,11 @@ h4, h5 {
   margin-top: 7px;
 }
 
+#appTable .sharebutton {
+  float: right;
+  margin-top: -16px;
+}
+
 #appTable .actionbutton {
   float: right;
 }

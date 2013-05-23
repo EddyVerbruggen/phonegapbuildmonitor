@@ -95,7 +95,7 @@ function AppsView() { // which is the homepage
             '  <td class="iconcolumn"><img src="'+imgUrl+'" data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" width="72px" height="72px"/></td>' +
             '  <td>' +
             '    <h4>' + app.title + ' <span class="appversion">' + app.version + '</span></h4>' +
-//            '    <div class="buildcount">build ' + app.build_count + (app.buildCountDiff > 0 ? '&nbsp;&nbsp;<code class="phonegapps-icon-updated"><i class="icon-'+(app.buildCountDiff > 5 ? 'double-' : '')+'angle-up"></i>' : '') + '</code></div>';
+            '    <div class="sharebutton"><a href="mailto:?subject=New build of '+app.title+'&body=hier de links"><i style="color:#000" class="icon-share"></i></a></div>' +
             '    <div class="buildcount">build ' + app.build_count + (app.buildCountDiff > 0 ? '&nbsp;&nbsp;<span class="phonegapps-icon-updated"><i class="icon-'+(app.buildCountDiff > 5 ? 'double-' : '')+'angle-up"></i>' : '') + '</span></div>';
         if (app.private) {
           content += '    <div class="buildfromrepobutton"><i class="icon-eye-open icon-large"></i></div>';
