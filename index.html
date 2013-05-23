@@ -35,7 +35,7 @@
 
 <div class="container">
   <div id="lastCheck"></div>
-  <div id="chartdiv" style="height:160px;width:100%"></div>
+  <div id="chartdiv" style="height:130px;width:100%"></div>
   <table class="table" id="appTable">
     <tbody id="appTableBody">
       <tr>
@@ -99,6 +99,10 @@
 <!-- Placed at the end of the document so the app loads faster -->
 <script src="js/lib/jquery-1.9.1.min.js"></script>
 <script src="js/lib/jquery.jqplot/jquery.jqplot.min.js"></script>
+<script src="js/lib/jquery.jqplot/jqplot.canvasTextRenderer.min.js"></script>
+<script src="js/lib/jquery.jqplot/jqplot.canvasAxisLabelRenderer.min.js"></script>
+<script src="js/lib/jquery.jqplot/jqplot.dateAxisRenderer.min.js"></script>
+<script src="js/lib/jquery.jqplot/jqplot.enhancedLegendRenderer.min.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
 <script src="js/functions.js"></script>
 <script src="js/PhonegapBuildApiProxy.js"></script>
@@ -111,52 +115,64 @@
 <script src="js/System.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
-    // Our ajax data renderer which here retrieves a text file.
-    // it could contact any source and pull data, however.
-    // The options argument isn't used in this renderer.
-    var ajaxDataRenderer = function(url, plot, options) {
-      var ret = null;
-      $.ajax({
-        // have to use synchronous here, else the function
-        // will return before the data is fetched
-        async: false, // must be async, so all data is received when rendering the chart
+    // async opzet:
+    $.ajax({
+      async: true,
         url: 'http://www.thumbrater.com:9100',
-        dataType:"json",
-        success: function(data) {
-          ret = data;
-        }
-      });
-      return ret;
-    };
-
-    // passing in the url string as the jqPlot data argument is a handy
-    // shortcut for our renderer.  You could also have used the
-    // "dataRendererOptions" option to pass in the url.
-    var plot2 = $.jqplot('chartdiv', [], {
-      title: "Phonegap Build server times",
-      animate: true,
-      // Will animate plot on calls to plot1.replot({resetAxes:true})
-      animateReplot: true,
-      axes: {
-        xaxis: {
-          drawMajorGridlines: true,
-          drawMajorTickMarks: true,
-          drawMinorGridlines: true,
-          rendererOptions: {
-            tickInset: 0.5
-          }
-        },
-        yaxis: {
-          drawMajorGridlines: true,
-          drawMajorTickMarks: true,
-          drawMinorGridlines: true,
-          rendererOptions: {
-            tickInset: 0.5,
-            minorTicks: 1
-          }
-        }
-      },
-      dataRenderer: ajaxDataRenderer
+//      url: 'http://localhost:9100',
+      dataType:"json",
+      success: function(data) {
+          var plot2 = $.jqplot('chartdiv', [data.ios, data.android], {
+              title:'Recent Phonegap Build durations',
+              axes:{
+                xaxis:{
+                  renderer:$.jqplot.DateAxisRenderer,
+                  tickOptions: {
+//                    formatString:'%b %#d, %#I %p'
+//                    formatString:'%#I %p',
+                    formatter: function(format, value) { return "This is " + value; }
+                  },
+                  numberTicks: 4
+//                  tickInterval:'15 minutes'
+                }
+              },
+              series: [{
+                color: '#0088cc',
+                lineWidth:2,
+                markerOptions: {
+                 size: 7
+               },
+//                linePattern: 'dashed',
+                rendererOptions: {
+                  smooth: true
+                }
+              },
+              {
+                color: '#c67605',
+                lineWidth:2,
+                markerOptions: {
+                 size: 7
+               },
+                rendererOptions: {
+                  smooth: true
+                }
+              }],
+              legend: {
+                show: true,
+                renderer: $.jqplot.EnhancedLegendRenderer,
+                placement: "insideGrid",
+                labels: ["ios", "android"],
+                location: "nw",
+                rowSpacing: "10px",
+                rendererOptions: {
+                    // set to true to replot when toggling series on/off
+                    // set to an options object to pass in replot options.
+                    seriesToggle: 'normal',
+                    seriesToggleReplot: {resetAxes: true}
+                }
+              }
+          });
+      }
     });
   });
 </script>

@@ -12,6 +12,11 @@ h4, h5 {
   margin-right: 0 !important;
 }
 
+#chartdiv {
+  margin-top: 10px;
+  margin-bottom: 14px;
+}
+
 #appTable.table tr td {
   padding: 16px 6px;
 }
@@ -21,7 +26,7 @@ h4, h5 {
 }
 
 /* remove the top border from the first row */
-.table tr:nth-child(1) td {
+#userTable tr:nth-child(1) td {
   border-top: 0;
 }
 
