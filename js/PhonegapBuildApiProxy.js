@@ -12,22 +12,26 @@ PhonegapBuildApiProxy.getApiVersion = function () {
 };
 
 PhonegapBuildApiProxy.doGET = function (service, phonegappLogin, onSuccessCallback) {
-  return this._doApiCall('GET', this.getApiVersion() + service, null, phonegappLogin, onSuccessCallback);
+  return this._doApiCall('GET', this.getApiVersion() + service, null, phonegappLogin, onSuccessCallback, true);
 };
 
-PhonegapBuildApiProxy.doPOST = function (service, data, phonegappLogin, onSuccessCallback) {
-  return this._doApiCall('POST', this.getApiVersion() + service, data, phonegappLogin, onSuccessCallback);
-};
-
-PhonegapBuildApiProxy.doPUT = function (service, data, phonegappLogin, onSuccessCallback) {
-  return this._doApiCall('PUT', this.getApiVersion() + service, data, phonegappLogin, onSuccessCallback);
+PhonegapBuildApiProxy.loginUsernamePassword = function (phonegappLogin, onSuccessCallback) {
+  return this._doApiCall('GET', this.getApiVersion() + 'me', null, phonegappLogin, onSuccessCallback, false);
 };
 
 PhonegapBuildApiProxy.getToken = function (phonegappLogin, onSuccessCallback) {
-  return this._doApiCall('POST', "token", null, phonegappLogin, onSuccessCallback);
+  return this._doApiCall('POST', "token", null, phonegappLogin, onSuccessCallback, false);
 };
 
-PhonegapBuildApiProxy._doApiCall = function (type, service, data, phonegappLogin, onSuccessCallback) {
+PhonegapBuildApiProxy.doPOST = function (service, data, phonegappLogin, onSuccessCallback) {
+  return this._doApiCall('POST', this.getApiVersion() + service, data, phonegappLogin, onSuccessCallback, true);
+};
+
+PhonegapBuildApiProxy.doPUT = function (service, data, phonegappLogin, onSuccessCallback) {
+  return this._doApiCall('PUT', this.getApiVersion() + service, data, phonegappLogin, onSuccessCallback, true);
+};
+
+PhonegapBuildApiProxy._doApiCall = function (type, service, data, phonegappLogin, onSuccessCallback, async) {
   var headers = {};
   if (!phonegappLogin.isTokenLogin()) {
     headers = {"Authorization": "Basic " + btoa(phonegappLogin.email + ":" + phonegappLogin.password) };
@@ -37,7 +41,7 @@ PhonegapBuildApiProxy._doApiCall = function (type, service, data, phonegappLogin
     data: data,
     url: this.getEndpoint() + service + (phonegappLogin.isTokenLogin() ? "?auth_token=" + phonegappLogin.token : ""),
     headers: headers,
-    async: phonegappLogin.isTokenLogin(), // basic auth errors cant be displayed in phonegap without this
+    async: async, // basic auth errors can't be displayed in phonegap without this, so only use async for sign in usecases
     success: function (data) {
       if (onSuccessCallback != null) {
         onSuccessCallback(phonegappLogin, data);
