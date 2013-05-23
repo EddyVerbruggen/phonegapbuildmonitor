@@ -3,11 +3,25 @@
 function UserController() {
 
   var LSKEY_PHONEGAPPLOGINS = "UserController.phonegappLogins";
-  var buildCheckIntervalMillis = isMobile() ? 10000 : 99990000; // relax on the desktop
+  var buildCheckIntervalMillis = isMobile() ? 10000 : 999999; // relax on the desktop
+  //noinspection JSUnusedLocalSymbols
   var callbacksReceived;
 
   // an array of PhonegapLogin, stored in LS which also holds the API user and user.apps
   this.phonegappLogins = [];
+
+  this.resetBuildCountDiff = function(appid) {
+    for (var i=0; i<this.phonegappLogins.length; i++) {
+      if (this.phonegappLogins[i].apps != null) {
+        for (var j=0; j<this.phonegappLogins[i].apps.length; j++) {
+          if (this.phonegappLogins[i].apps[j].id == appid) {
+            this.phonegappLogins[i].apps[j].buildCountDiff = undefined;
+            return;
+          }
+        }
+      }
+    }
+  };
 
   this.init = function() {
     var loadedUsers = JSON.parse(localStorage.getItem(LSKEY_PHONEGAPPLOGINS));
@@ -23,8 +37,10 @@ function UserController() {
           }
         }
       }
-      // load the apps from the server
+      // load the apps from the Phonegap build server
       this.loadAppsForUsers();
+      // load the build durations from the X-services server
+      appsView.loadBuildDurationsAndCreateChart();
     }
   };
 

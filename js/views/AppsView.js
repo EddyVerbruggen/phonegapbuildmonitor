@@ -7,6 +7,91 @@ function AppsView() { // which is the homepage
     appsView.bindBuildFromRepoButton();
   };
 
+  this.loadBuildDurationsAndCreateChart = function() {
+    $("#homeContainer").prepend('' +
+        '<div id="lastCheck">Recent global build durations (minutes)</div>' +
+        '<div id="chartdiv" style="height:130px;width:100%"></div>');
+
+    $.ajax({
+      async: true,
+        url: 'http://www.thumbrater.com:9100',
+//      url: 'http://localhost:9100',
+      dataType:"json",
+      success: function(data) {
+          var plot2 = $.jqplot('chartdiv', [data.android, data.ios], {
+              title: {
+//                text: 'Recent Build durations (minutes)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
+                show: false
+              },
+              axes:{
+                xaxis:{
+                  renderer:$.jqplot.DateAxisRenderer,
+                  tickOptions: {
+//                    formatString:'%b %#d, %#I %p'
+//                    formatString:'%#I %p',
+//                    formatter: function(format, value) { return "This is " + value; }
+                  },
+                  numberTicks: 4,
+                  rendererOptions: {
+                    tickInset: 0
+                  }
+                },
+                yaxis: {
+                  min: 0
+                }
+              },
+              grid: {
+                backgroundColor: '#FFF',
+                borderWidth: 0,
+                gridLineWidth: 1,
+                gridLineColor: '#ddd',
+                drawGridlines: true,
+                shadow: false
+              },
+              series: [{
+                color: '#0088cc',
+                lineWidth:2,
+                markerOptions: {
+                 size: 7
+                },
+//                linePattern: 'dashed',
+                rendererOptions: {
+                  smooth: true
+                }
+              },
+              {
+                color: '#c67605',
+                lineWidth:2,
+                markerOptions: {
+                 size: 7
+               },
+                rendererOptions: {
+                  smooth: true
+                }
+              }],
+              legend: {
+                show: true,
+                border: '0',
+//                background: '#eee',
+                renderer: $.jqplot.EnhancedLegendRenderer,
+                placement: "insideGrid",
+                labels: ["android", "ios"],
+                location: "nw",
+                rowSpacing: "0px",
+                xoffset: 2,
+                yoffset: 1,
+                rendererOptions: {
+                    // set to true to replot when toggling series on/off
+                    // set to an options object to pass in replot options.
+                    seriesToggle: 'normal',
+                    seriesToggleReplot: {resetAxes: true}
+                }
+              }
+          });
+      }
+    });
+  };
+
   this.displayNoUsersContent = function() {
     // TODO see http://twitter.github.io/bootstrap/javascript.html#carousel
     $("#appTableBody").html('' +
@@ -142,13 +227,13 @@ function AppsView() { // which is the homepage
 
   // TODO animate button/row when state changes
   var getActionButton = function(app, phonegappLogin) {
+    var appid = app.id;
     var buildStatus = appController.getBuildStatus(app, getPlatformName());
     if (buildStatus == "error") {
       return '<a href="#" role="button" class="btn btn-danger" onclick="showAlert(\'Error\', \''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
     } else if (buildStatus == "complete") {
       var url = appController.getDownloadLink(app, phonegappLogin, getPlatformName());
-      // TODO! reset buildCOuntDiff to undefined when a build is triggered
-      return '<a href="#" onclick="openWindow(\''+url+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install</a>';
+      return '<a href="#" onclick="userController.resetBuildCountDiff(\''+appid+'\'); openWindow(\''+url+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install</a>';
     } else if (buildStatus == "pending") {
       return '<a href="#" onclick="return false" role="button" class="btn btn-info btn-spinner"><i class="icon-spinner icon-spin"></i> pending</a>';
     } else {

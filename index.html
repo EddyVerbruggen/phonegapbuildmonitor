@@ -33,9 +33,7 @@
   </div>
 </div>
 
-<div class="container">
-  <div id="lastCheck"></div>
-  <div id="chartdiv" style="height:130px;width:100%"></div>
+<div class="container" id="homeContainer">
   <table class="table" id="appTable">
     <tbody id="appTableBody">
       <tr>
@@ -113,84 +111,5 @@
 <script src="js/views/AccountOverView.js"></script>
 <script src="js/views/AddAccountView.js"></script>
 <script src="js/System.js"></script>
-<script type="text/javascript">
-  $(document).ready(function(){
-    // async opzet:
-    $.ajax({
-      async: true,
-        url: 'http://www.thumbrater.com:9100',
-//      url: 'http://localhost:9100',
-      dataType:"json",
-      success: function(data) {
-          var plot2 = $.jqplot('chartdiv', [data.ios, data.android], {
-              title: {
-                text: 'Recent Build durations (minutes)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-              },
-              axes:{
-                xaxis:{
-                  renderer:$.jqplot.DateAxisRenderer,
-                  tickOptions: {
-//                    formatString:'%b %#d, %#I %p'
-//                    formatString:'%#I %p',
-//                    formatter: function(format, value) { return "This is " + value; }
-                  },
-                  numberTicks: 4,
-                  rendererOptions: {
-                    tickInset: 0
-                  }
-                },
-                yaxis: {
-                  min: 0
-                }
-              },
-              grid: {
-                backgroundColor: '#FFF',
-                borderWidth: 0,
-                gridLineWidth: 1,
-                gridLineColor: '#ddd',
-                drawGridlines: true,
-                shadow: false
-              },
-              series: [{
-                color: '#0088cc',
-                lineWidth:2,
-                markerOptions: {
-                 size: 7
-                },
-//                linePattern: 'dashed',
-                rendererOptions: {
-                  smooth: true
-                }
-              },
-              {
-                color: '#c67605',
-                lineWidth:2,
-                markerOptions: {
-                 size: 7
-               },
-                rendererOptions: {
-                  smooth: true
-                }
-              }],
-              legend: {
-                show: true,
-                border: '0',
-                renderer: $.jqplot.EnhancedLegendRenderer,
-                placement: "outsideGrid",
-                labels: ["ios", "droid"],
-                location: "ne",
-                rowSpacing: "4px",
-                rendererOptions: {
-                    // set to true to replot when toggling series on/off
-                    // set to an options object to pass in replot options.
-                    seriesToggle: 'normal',
-                    seriesToggleReplot: {resetAxes: true}
-                }
-              }
-          });
-      }
-    });
-  });
-</script>
 </body>
 </html>
