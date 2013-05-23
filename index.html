@@ -123,25 +123,40 @@
       dataType:"json",
       success: function(data) {
           var plot2 = $.jqplot('chartdiv', [data.ios, data.android], {
-              title:'Recent Phonegap Build durations',
+              title: {
+                text: 'Recent Build durations (minutes)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+              },
               axes:{
                 xaxis:{
                   renderer:$.jqplot.DateAxisRenderer,
                   tickOptions: {
 //                    formatString:'%b %#d, %#I %p'
 //                    formatString:'%#I %p',
-                    formatter: function(format, value) { return "This is " + value; }
+//                    formatter: function(format, value) { return "This is " + value; }
                   },
-                  numberTicks: 4
-//                  tickInterval:'15 minutes'
+                  numberTicks: 4,
+                  rendererOptions: {
+                    tickInset: 0
+                  }
+                },
+                yaxis: {
+                  min: 0
                 }
+              },
+              grid: {
+                backgroundColor: '#FFF',
+                borderWidth: 0,
+                gridLineWidth: 1,
+                gridLineColor: '#ddd',
+                drawGridlines: true,
+                shadow: false
               },
               series: [{
                 color: '#0088cc',
                 lineWidth:2,
                 markerOptions: {
                  size: 7
-               },
+                },
 //                linePattern: 'dashed',
                 rendererOptions: {
                   smooth: true
@@ -159,11 +174,12 @@
               }],
               legend: {
                 show: true,
+                border: '0',
                 renderer: $.jqplot.EnhancedLegendRenderer,
-                placement: "insideGrid",
-                labels: ["ios", "android"],
-                location: "nw",
-                rowSpacing: "10px",
+                placement: "outsideGrid",
+                labels: ["ios", "droid"],
+                location: "ne",
+                rowSpacing: "4px",
                 rendererOptions: {
                     // set to true to replot when toggling series on/off
                     // set to an options object to pass in replot options.

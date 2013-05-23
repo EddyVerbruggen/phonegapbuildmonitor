@@ -147,6 +147,7 @@ function AppsView() { // which is the homepage
       return '<a href="#" role="button" class="btn btn-danger" onclick="showAlert(\'Error\', \''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
     } else if (buildStatus == "complete") {
       var url = appController.getDownloadLink(app, phonegappLogin, getPlatformName());
+      // TODO! reset buildCOuntDiff to undefined when a build is triggered
       return '<a href="#" onclick="openWindow(\''+url+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install</a>';
     } else if (buildStatus == "pending") {
       return '<a href="#" onclick="return false" role="button" class="btn btn-info btn-spinner"><i class="icon-spinner icon-spin"></i> pending</a>';
