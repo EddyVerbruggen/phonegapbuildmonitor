@@ -42,7 +42,7 @@
             .html(content)
             .find(".deletebutton")
             .on('click', function() {
-              if (confirm("Are you sure?")) {
+              if (confirm("Are you sure?")) { // TODO native dialog
                 userController.delete($(this).attr('data-userid'));
                 // reload all data, because apps may be shared between accounts (duplicates), which not may not reappear because they were removed when the app was started
                 userController = new UserController();
