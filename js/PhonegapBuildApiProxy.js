@@ -37,7 +37,12 @@ PhonegapBuildApiProxy._doApiCall = function (type, service, data, phonegappLogin
     data: data,
     url: this.getEndpoint() + service + (phonegappLogin.isTokenLogin() ? "?auth_token=" + phonegappLogin.token : ""),
     headers: headers,
-//    dataType: 'json',
+    timeout: 10000,
+    async: false,
+    statusCode: {
+      401: function() {alert("status 401")},
+      0: function() {alert("status 0")}
+    },
     success: function (data) {
       if (onSuccessCallback != null) {
         onSuccessCallback(phonegappLogin, data);
@@ -45,8 +50,8 @@ PhonegapBuildApiProxy._doApiCall = function (type, service, data, phonegappLogin
         alert("TODO implement callback for this data: " + JSON.stringify(data));
       }
     },
-    error: function (XMLHttpRequest, textStatus, errorThrown) {
-      alert("XMLHttpRequest:" + JSON.stringify(XMLHttpRequest) + ", Status: " + textStatus + ", errorThrown: " + errorThrown);
+    error: function (xhr) {
+      alert("Error :( \n\n" + JSON.stringify(xhr));
     }
   });
 };
