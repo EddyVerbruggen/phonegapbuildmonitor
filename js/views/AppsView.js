@@ -24,8 +24,8 @@ function AppsView() { // which is the homepage
       dataType:"json",
       error: appsView.showGraphDownMessage,
       success: function(data) {
-        // if none of the platforms has data, don't show the graph
-        if (data.android.length == 0 && data.ios.length == 0) {
+        // if not all of the platforms have data, don't show the graph
+        if (data.android.length == 0 || data.ios.length == 0) {
           appsView.showGraphDownMessage();
         } else {
           var plot2 = $.jqplot('chartdiv', [data.ios, data.android], {
