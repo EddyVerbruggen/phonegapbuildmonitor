@@ -50,7 +50,7 @@ PhonegapBuildApiProxy._doApiCall = function (type, service, data, phonegappLogin
       }
     },
     error: function (xhr) {
-      if (xhr.status = 401) {
+      if (xhr.status = 401 && !async) {
         showAlert("Authentication failed", "Please change your sign in credentials");
       } else {
         alert("Error :( \n\n" + JSON.stringify(xhr));

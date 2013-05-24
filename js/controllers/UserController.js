@@ -40,7 +40,9 @@ function UserController() {
       // load the apps from the Phonegap build server
       this.loadAppsForUsers();
       // load the build durations from the X-services server
-      appsView.loadBuildDurationsAndCreateChart();
+      if (settingsController.settings.showGraph) {
+        appsView.loadBuildDurationsAndCreateChart();
+      }
     }
   };
 
@@ -139,7 +141,7 @@ function UserController() {
     phonegappLogin.user = user;
     userController.save(phonegappLogin);
     // hide the modal and load the apps.. so why not just load the index ;)
-    window.location = "index.html";
+    refresh();
   };
 
   this.save = function(phonegappLogin) {

@@ -1,5 +1,6 @@
 "use strict";
 
+var settingsController;
 var userController;
 var appController;
 var appsView;
@@ -8,6 +9,7 @@ var appsView;
 (function System() {
 
   var onDeviceReady = function() {
+    settingsController = new SettingsController();
     appsView = new AppsView();
     appController = new AppController();
     userController = new UserController();

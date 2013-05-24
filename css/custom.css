@@ -24,8 +24,13 @@ h4, h5 {
   margin-bottom: 0;
 }
 
+#graphContainer {
+  border-bottom: 1px solid #ddd;
+  display: none;
+}
+
 /* remove the top border from the first row */
-#userTable tr:nth-child(1) td {
+.table tr:nth-child(1) td {
   border-top: 0;
 }
 

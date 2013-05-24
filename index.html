@@ -24,9 +24,10 @@
       <a href="#accountsModal" role="button" class="btn btn-primary" data-toggle="modal">Accounts</a>
       <div class="nav-collapse collapse">
         <ul class="nav">
-          <li class="active"><a href="#about"><i class="icon-info-sign"></i>&nbsp;&nbsp;About</a></li>
-          <li class="active"><a href="mailto:info@x-services.nl?subject=Phonegapps"><i class="icon-envelope"></i>&nbsp;&nbsp;Contact us</a></li>
-          <li class="active"><a href="#settings"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-half-full"></i>&nbsp;&nbsp;Rate us</a></li>
+          <li class="active"><a href="#"><i class="icon-info-sign"></i>&nbsp;&nbsp;About</a></li>
+          <li class="active"><a href="mailto:info@x-services.nl?subject=Phonegapps"><i class="icon-envelope"></i>&nbsp;&nbsp;Contact</a></li>
+          <li class="active"><a href="#" onclick="settingsController.toggleGraph(); refresh()"><i class="icon-bar-chart"></i>&nbsp;&nbsp;Toggle graph</a></li>
+          <li class="active"><a href="#"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-half-full"></i>&nbsp;&nbsp;Rate us</a></li>
         </ul>
       </div>
     </div>
@@ -34,6 +35,7 @@
 </div>
 
 <div class="container" id="homeContainer">
+  <div id="graphContainer"></div>
   <table class="table" id="appTable">
     <tbody id="appTableBody">
       <tr>
@@ -105,6 +107,7 @@
 <script src="js/functions.js"></script>
 <script src="js/PhonegapBuildApiProxy.js"></script>
 <script src="js/models/PhonegappLogin.js"></script>
+<script src="js/controllers/SettingsController.js"></script>
 <script src="js/controllers/UserController.js"></script>
 <script src="js/controllers/AppController.js"></script>
 <script src="js/views/AppsView.js"></script>

@@ -8,9 +8,10 @@ function AppsView() { // which is the homepage
   };
 
   this.loadBuildDurationsAndCreateChart = function() {
-    $("#homeContainer").prepend('' +
-        '<div id="lastCheck">Recent global build durations (minutes)</div>' +
-        '<div id="chartdiv" style="height:130px;width:100%"></div>');
+    $("#graphContainer")
+        .html('<div id="lastCheck">Recent global build durations (minutes)</div>' +
+            '<div id="chartdiv" style="height:130px;width:100%"></div>')
+        .show();
 
     $.ajax({
       async: true,

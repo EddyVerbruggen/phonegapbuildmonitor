@@ -18,6 +18,10 @@ function getPlatformName() {
   return isAndroid() ? "android" : "ios";
 }
 
+function refresh() {
+  window.location='index.html';
+}
+
 function openWindow(pleaseTakeMeHere) {
   window.open(pleaseTakeMeHere, '_system');
 }

@@ -48,7 +48,7 @@
                 userController = new UserController();
                 showAlert("Success", "user deleted");
                 // brute force close the modal and refresh
-                window.location = "index.html";
+                refresh();
               }
             });
       })
