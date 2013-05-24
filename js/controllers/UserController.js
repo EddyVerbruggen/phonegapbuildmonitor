@@ -39,7 +39,7 @@ function UserController() {
       }
       // load the apps from the Phonegap build server
       this.loadAppsForUsers();
-      // load the build durations from the X-services server
+      // load the build durations from the X-Services server
       if (settingsController.settings.showGraph) {
         appsView.loadBuildDurationsAndCreateChart();
       }

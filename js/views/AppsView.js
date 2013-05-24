@@ -7,31 +7,34 @@ function AppsView() { // which is the homepage
     appsView.bindBuildFromRepoButton();
   };
 
+  this.showGraphDownMessage = function() {
+    $("#chartdiv").html("<br/><em>Sorry, the chartserver was switched off :(<br/>We're firing the one responsible!</em>");
+  };
+
   this.loadBuildDurationsAndCreateChart = function() {
     $("#graphContainer")
-        .html('<div id="lastCheck">Recent global build durations (minutes)</div>' +
+        .html('<div id="charttitle">Recent global build durations (minutes)</div>' +
             '<div id="chartdiv" style="height:130px;width:100%"></div>')
         .show();
 
     $.ajax({
       async: true,
-        url: 'http://www.thumbrater.com:9100',
+      url: 'http://www.thumbrater.com:9100',
 //      url: 'http://localhost:9100',
       dataType:"json",
+      error: appsView.showGraphDownMessage,
       success: function(data) {
-          var plot2 = $.jqplot('chartdiv', [data.android, data.ios], {
+        // if none of the platforms has data, don't show the graph
+        if (data.android.length == 0 && data.ios.length == 0) {
+          appsView.showGraphDownMessage();
+        } else {
+          var plot2 = $.jqplot('chartdiv', [data.ios, data.android], {
               title: {
-//                text: 'Recent Build durations (minutes)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
                 show: false
               },
               axes:{
                 xaxis:{
                   renderer:$.jqplot.DateAxisRenderer,
-                  tickOptions: {
-//                    formatString:'%b %#d, %#I %p'
-//                    formatString:'%#I %p',
-//                    formatter: function(format, value) { return "This is " + value; }
-                  },
                   numberTicks: 4,
                   rendererOptions: {
                     tickInset: 0
@@ -55,7 +58,6 @@ function AppsView() { // which is the homepage
                 markerOptions: {
                  size: 7
                 },
-//                linePattern: 'dashed',
                 rendererOptions: {
                   smooth: true
                 }
@@ -73,24 +75,29 @@ function AppsView() { // which is the homepage
               legend: {
                 show: true,
                 border: '0',
-//                background: '#eee',
                 renderer: $.jqplot.EnhancedLegendRenderer,
                 placement: "insideGrid",
-                labels: ["android", "ios"],
+                labels: ["ios", "android"],
                 location: "nw",
                 rowSpacing: "0px",
                 xoffset: 2,
                 yoffset: 1,
                 rendererOptions: {
-                    // set to true to replot when toggling series on/off
-                    // set to an options object to pass in replot options.
-                    seriesToggle: 'normal',
-                    seriesToggleReplot: {resetAxes: true}
+                  // set to true to replot when toggling series on/off
+                  // set to an options object to pass in replot options.
+                  seriesToggle: 'normal',
+                  seriesToggleReplot: {resetAxes: true}
                 }
               }
           });
+        }
       }
     });
+
+    // auto-refresh the chart every minute
+    setTimeout(function() {
+      appsView.loadBuildDurationsAndCreateChart();
+    }, 60000)
   };
 
   this.displayNoUsersContent = function() {
