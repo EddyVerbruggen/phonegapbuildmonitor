@@ -24,10 +24,11 @@
       <a href="#accountsModal" role="button" class="btn btn-primary" data-toggle="modal">Accounts</a>
       <div class="nav-collapse collapse">
         <ul class="nav">
-          <li class="active"><a href="#"><i class="icon-info-sign"></i>&nbsp;&nbsp;About</a></li>
+          <li>&nbsp;</li><!-- extra space -->
+          <li class="active"><a href="#aboutModal" data-toggle="modal"><i class="icon-info-sign"></i>&nbsp;&nbsp;About</a></li>
           <li class="active"><a href="mailto:info@x-services.nl?subject=Phonegapps"><i class="icon-envelope"></i>&nbsp;&nbsp;Contact</a></li>
           <li class="active"><a href="#" onclick="settingsController.toggleGraph(); refresh()"><i class="icon-bar-chart"></i>&nbsp;&nbsp;Toggle graph</a></li>
-          <li class="active"><a href="#"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-half-full"></i>&nbsp;&nbsp;Rate us</a></li>
+          <!--<li class="active"><a href="#"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-half-full"></i>&nbsp;&nbsp;Rate us</a></li>-->
         </ul>
       </div>
     </div>
@@ -45,6 +46,19 @@
       </tr>
     </tbody>
   </table>
+</div>
+
+<div id="aboutModal" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="aboutModalLabel"><i class="icon-info-sign"></i> About</h3>
+  </div>
+  <div class="modal-body">
+    bla bla, iets voor de Marketingafdeling van X-Services :)
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
 </div>
 
 <div id="accountsModal" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="accountsModalLabel" aria-hidden="true">
