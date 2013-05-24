@@ -3,10 +3,9 @@
 function UserController() {
 
   var LSKEY_PHONEGAPPLOGINS = "UserController.phonegappLogins";
-  var buildCheckIntervalMillis = isMobile() ? 10000 : 30000; // relax on the desktop
+  var buildCheckIntervalMillis = isMobile() ? 10000 : 60000; // relax on the desktop
   var buildCheckIntervalMillisInCaseOfErrors = isMobile() ? 60000 : 999999; // relax on the desktop
-  //noinspection JSUnusedLocalSymbols
-  var callbacksReceived;
+  var callbackQueue = [];
 
   // an array of PhonegapLogin, stored in LS which also holds the API user and user.apps
   this.phonegappLogins = [];
@@ -49,20 +48,27 @@ function UserController() {
 
   // ignore the params, just added them for testing when this is called as a callback
   this.loadAppsForUsers = function(phonegappLogin, data) {
-    userController.callbacksReceived = 0;
-    for (var i=0; i<userController.phonegappLogins.length; i++) {
-      appController.loadApps(userController.getPhonegappLogin(userController.phonegappLogins[i].user.id), userController.onLoadAppsSuccess,
-          function() {
-            appsView.refreshView();
-            // load the list again after a timeout
-            setTimeout(userController.loadAppsForUsers, buildCheckIntervalMillisInCaseOfErrors);
-          }
-      );
+    if (callbackQueue.length == 0) {
+      for (var i=0; i<userController.phonegappLogins.length; i++) {
+        callbackQueue.push(userController.phonegappLogins[i].user.id);
+        appController.loadApps(userController.getPhonegappLogin(userController.phonegappLogins[i].user.id), userController.onLoadAppsSuccess,
+            function(phonegappLogin) {
+              callbackQueue.splice(callbackQueue.indexOf(phonegappLogin.user.id),1);
+              appsView.refreshView();
+              // load the list again after a (longer than normal) timeout
+              setTimeout(userController.loadAppsForUsers, buildCheckIntervalMillisInCaseOfErrors);
+            }
+        );
+      }
+    } else {
+      // TODO remove, it does no harm, but we want to know if this happens (and how)
+      showAlert("Too many callbacks, please notify the creators of the app");
     }
   };
 
   this.onLoadAppsSuccess = function(phonegappLogin, data) {
-    var isLastCallback = (++userController.callbacksReceived == userController.phonegappLogins.length);
+    callbackQueue.splice(callbackQueue.indexOf(phonegappLogin.user.id),1);
+    var isLastCallback = callbackQueue.length == 0;
 
     // store the apps for the user
     for (var i=0; i<userController.phonegappLogins.length; i++) {
@@ -74,7 +80,6 @@ function UserController() {
             for (var k=0; k<userController.phonegappLogins[i].apps.length; k++) {
               if (userController.phonegappLogins[i].apps[k].id == data.apps[j].id) {
                 var newBuildCountDiff = data.apps[j].build_count - userController.phonegappLogins[i].apps[k].build_count;
-                // TODO reset to 0 when the user updates/installs it
                 if (userController.phonegappLogins[i].apps[k].buildCountDiff == undefined) {
                   data.apps[j].buildCountDiff = newBuildCountDiff;
                 } else {
