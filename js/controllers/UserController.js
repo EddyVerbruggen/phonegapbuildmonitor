@@ -3,7 +3,8 @@
 function UserController() {
 
   var LSKEY_PHONEGAPPLOGINS = "UserController.phonegappLogins";
-  var buildCheckIntervalMillis = isMobile() ? 10000 : 999999; // relax on the desktop
+  var buildCheckIntervalMillis = isMobile() ? 10000 : 30000; // relax on the desktop
+  var buildCheckIntervalMillisInCaseOfErrors = isMobile() ? 60000 : 999999; // relax on the desktop
   //noinspection JSUnusedLocalSymbols
   var callbacksReceived;
 
@@ -50,7 +51,13 @@ function UserController() {
   this.loadAppsForUsers = function(phonegappLogin, data) {
     userController.callbacksReceived = 0;
     for (var i=0; i<userController.phonegappLogins.length; i++) {
-      appController.loadApps(userController.getPhonegappLogin(userController.phonegappLogins[i].user.id), userController.onLoadAppsSuccess);
+      appController.loadApps(userController.getPhonegappLogin(userController.phonegappLogins[i].user.id), userController.onLoadAppsSuccess,
+          function() {
+            appsView.refreshView();
+            // load the list again after a timeout
+            setTimeout(userController.loadAppsForUsers, buildCheckIntervalMillisInCaseOfErrors);
+          }
+      );
     }
   };
 

@@ -11,6 +11,7 @@ function AppsView() { // which is the homepage
     $("#chartdiv").html("<br/><em>Sorry, the chartserver was switched off :(<br/>We're firing the one responsible!</em>");
   };
 
+  // TODO extract to chartView object to a new controller
   this.loadBuildDurationsAndCreateChart = function() {
     $("#graphContainer")
         .html('<div id="charttitle">Recent global build durations (minutes)</div>' +
@@ -52,26 +53,23 @@ function AppsView() { // which is the homepage
                 drawGridlines: true,
                 shadow: false
               },
-              series: [{
-                color: '#0088cc',
-                lineWidth:2,
+              seriesDefaults: {
+                lineWidth: 2,
                 markerOptions: {
-                 size: 7
+                  size: 7
                 },
                 rendererOptions: {
                   smooth: true
                 }
               },
-              {
-                color: '#c67605',
-                lineWidth:2,
-                markerOptions: {
-                 size: 7
-               },
-                rendererOptions: {
-                  smooth: true
+              series: [
+                {
+                  color: '#0088cc'
+                },
+                {
+                  color: '#c67605'
                 }
-              }],
+              ],
               legend: {
                 show: true,
                 border: '0',

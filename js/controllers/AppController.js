@@ -2,8 +2,8 @@
 
 function AppController() {
 
-  this.loadApps = function(phonegappLogin, callback) {
-    PhonegapBuildApiProxy.doGET('apps', phonegappLogin, callback);
+  this.loadApps = function(phonegappLogin, callback, errorCallback) {
+    PhonegapBuildApiProxy.doGET('apps', phonegappLogin, callback, errorCallback);
   };
 
   this.buildFromRepo = function(phonegappLogin, appid, callback) {
