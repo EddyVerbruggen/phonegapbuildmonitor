@@ -106,6 +106,10 @@ h4, h5 {
   margin-top: 10px;
 }
 
+#aboutModal .modal-body {
+  padding-bottom: 0;
+}
+
 #accountsModal .modal-body {
   max-height: 500px;
   overflow-y: scroll;
