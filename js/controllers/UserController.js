@@ -41,7 +41,7 @@ function UserController() {
       this.loadAppsForUsers();
       // load the build durations from the X-Services server
       if (settingsController.settings.showGraph) {
-        appsView.loadBuildDurationsAndCreateChart();
+        chartView.initChart();
       }
     }
   };
