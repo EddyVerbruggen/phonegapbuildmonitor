@@ -22,11 +22,11 @@
         <span class="icon-bar"></span>
       </button>
       <a href="#accountsModal" role="button" class="btn btn-primary" data-toggle="modal">Accounts</a>
-      <div class="nav-collapse collapse">
+      <div id="menu" class="nav-collapse collapse">
         <ul class="nav">
           <li>&nbsp;</li><!-- extra space -->
-          <li class="active"><a href="#aboutModal" data-toggle="modal"><i class="icon-info-sign"></i>&nbsp;&nbsp;About</a></li>
-          <li class="active"><a href="mailto:info@x-services.nl?subject=Phonegapps"><i class="icon-envelope"></i>&nbsp;&nbsp;Contact</a></li>
+          <li class="active"><a href="#aboutModal" onclick="$('#menu').collapse('toggle')" data-toggle="modal"><i class="icon-info-sign"></i>&nbsp;&nbsp;About</a></li>
+          <li class="active"><a href="mailto:info@x-services.nl?subject=Phonegapps" onclick="$('#menu').collapse('toggle')"><i class="icon-envelope"></i>&nbsp;&nbsp;Contact</a></li>
           <li class="active"><a href="#" onclick="settingsController.toggleGraph(); refresh()"><i class="icon-bar-chart"></i>&nbsp;&nbsp;Toggle graph</a></li>
           <!--<li class="active"><a href="#"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-half-full"></i>&nbsp;&nbsp;Rate us</a></li>-->
         </ul>
@@ -55,18 +55,16 @@
   </div>
   <div class="modal-body">
     <p>
-      <em>Phonegapps</em> has been developed by X-Services. We are a Dutch company specialized in the implementation of multi-platform mobile apps using PhoneGap<sup>TM</sup> and PhoneGap Build<sup>TM</sup>.
+      <em>Phonegapps</em> has been developed by X-Services, a Dutch company specialized in the implementation of multi-platform mobile apps using PhoneGap<sup>TM</sup>.
     </p>
     <p>
-      During  development of these apps we ran into the limited mobile support of PhoneGap Build<sup>TM</sup>. That's why we built <em>Phonegapps</em>.
+      During development of these apps we ran into the limited mobile support of PhoneGap Build<sup>TM</sup>. That's why we built <em>Phonegapps</em>.
       Using <em>Phonegapps</em> you can easily trigger a new build of your app and install it on your device. The app also remembers multiple logins!
       <em>Phonegapps</em> uses the PhoneGap Build<sup>TM</sup> API.
     </p>
     <p>
-      Like <em>Phonegapps</em>? Please rate us in the store.
-    </p>
-    <p>
-      Like <em>Phonegapps</em> a lot and need help with your PhoneGap<sup>TM</sup> app? Please contact us.
+      Like <em>Phonegapps</em>? Rate us in the store!<br/>
+      Like <em>Phonegapps</em> a lot and need help with your app? Please contact us.
     </p>
   </div>
   <div class="modal-footer">
