@@ -164,4 +164,11 @@ span.phonegapps-icon-updated {
 .carousel-control.right {
   right: 10px;
 }
+.carousel-caption {
+  position: static;
+}
+
+.carousel img {
+  width: 100%;
+}
 /** END overridden bootstrap caroussel styles **/
