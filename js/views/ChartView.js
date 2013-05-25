@@ -68,7 +68,7 @@ function ChartView() { // which is the homepage
                 seriesDefaults: {
                   lineWidth: 2,
                   markerOptions: {
-                    size: 0
+                    size: (data.ios.length == 1 ? 10 : 0) // if there's only one datapoint, you have an empty chart with size 0 ;)
                   },
                   rendererOptions: {
                     smooth: true
