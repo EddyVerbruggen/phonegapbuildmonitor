@@ -24,8 +24,8 @@ function ChartView() { // which is the homepage
   this.refreshChartData = function() {
     $.ajax({
       async: true,
-//      url: 'http://www.thumbrater.com:9100',
-      url: 'http://localhost:9100',
+      url: 'http://www.thumbrater.com:9100',
+//      url: 'http://localhost:9100',
       dataType:"json",
       error: chartView.showGraphDownMessage,
       success: function(data) {
