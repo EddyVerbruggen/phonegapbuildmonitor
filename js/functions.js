@@ -32,16 +32,11 @@ function vibrate() {
 }
 
 function emptyCallback() {
-  alert("[debug] callback success");
-}
-
-function emptyCallbackFail() {
-  alert("[debug] callback fail");
 }
 
 function googleAnalytics(page) {
   if (gaPlugin !== undefined) {
-    gaPlugin.trackPage(emptyCallback, emptyCallbackFail, page);
+    gaPlugin.trackPage(emptyCallback, emptyCallback, page);
   }
 }
 

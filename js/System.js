@@ -9,14 +9,9 @@ var chartView;
 var gaPlugin;
 
 function GAStartupSuccess() {
-  alert("GA init success");
   googleAnalytics("startup");
 }
 
-function GAStartupFail() {
-  alert("GA init success");
-  googleAnalytics("startup");
-}
 // construct and execute a System setup class
 (function System() {
 
@@ -29,7 +24,7 @@ function GAStartupFail() {
     userController.init();
     if (window.plugins != undefined) {
       gaPlugin = window.plugins.gaPlugin;
-      gaPlugin.init(GAStartupSuccess, GAStartupFail, "UA-28850866-6", 5);
+      gaPlugin.init(GAStartupSuccess, emptyCallback, "UA-28850866-6", 5);
     }
   };
 
