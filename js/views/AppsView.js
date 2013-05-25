@@ -21,24 +21,24 @@ function AppsView() { // which is the homepage
         // items
         '      <div class="carousel-inner">' +
         '        <div class="active item">' +
-        '          <img src="img/tutorial/slide1.jpg"/>' +
+        '          <img src="img/tutorial/slide1.png"/>' +
         '          <div class="carousel-caption">' +
-        '            <h4>TODO Tutorial images</h4>' +
-        '            <p>A nice quick and easy slideshow.</p>' +
+        '            <h4>Add an account</h4>' +
+        '            <p>Use your current PhoneGap Build login.<br/>Username/AdobeId or Github.</p>' +
         '          </div>' +
         '        </div>' +
         '        <div class="item">' +
-        '          <img src="img/tutorial/slide2.jpg"/>' +
+        '          <img src="img/tutorial/slide2.png"/>' +
         '          <div class="carousel-caption">' +
-        '            <h4>TODO Nog meer tekst</h4>' +
-        '            <p>Met zo min mogelijk tekst!</p>' +
+        '            <h4>TODO Nog een slide</h4>' +
+        '            <p>Met zo min mogelijk tekst!<br/>Enzo...</p>' +
         '          </div>' +
         '        </div>' +
         '        <div class="item">' +
-        '          <img src="img/tutorial/slide3.jpg"/>' +
+        '          <img src="img/tutorial/slide3.png"/>' +
         '          <div class="carousel-caption">' +
-        '            <h4>TODO Nog een slide?</h4>' +
-        '            <p>En nog wat bla bla?</p>' +
+        '            <h4>TODO En nog een slide!</h4>' +
+        '            <p>En nog wat bla bla?<br/>Jazeker!</p>' +
         '          </div>' +
         '        </div>' +
         '      </div>' +
