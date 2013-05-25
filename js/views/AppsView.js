@@ -23,22 +23,22 @@ function AppsView() { // which is the homepage
         '        <div class="active item">' +
         '          <img src="img/tutorial/slide1.png"/>' +
         '          <div class="carousel-caption">' +
-        '            <h4>Add an account</h4>' +
-        '            <p>Use your PhoneGap Build login.<br/>Username/AdobeId or Github.</p>' +
-        '          </div>' +
-        '        </div>' +
-        '        <div class="item">' +
-        '          <img src="img/tutorial/slide2.png"/>' +
-        '          <div class="carousel-caption">' +
         '            <h4>One screen, all your apps!</h4>' +
         '            <p>Add multiple accounts.<br/>And manage all apps on one page.</p>' +
         '          </div>' +
         '        </div>' +
         '        <div class="item">' +
-        '          <img src="img/tutorial/slide3.png"/>' +
+        '          <img src="img/tutorial/slide2.png"/>' +
         '          <div class="carousel-caption">' +
         '            <h4>PhoneGap Build health</h4>' +
         '            <p>Build server slow?<br/>Now you know before you build.</p>' +
+        '          </div>' +
+        '        </div>' +
+        '        <div class="item">' +
+        '          <img src="img/tutorial/slide3.png"/>' +
+        '          <div class="carousel-caption">' +
+        '            <h4>Go ahead, add an account</h4>' +
+        '            <p>Use your PhoneGap Build login.<br/>Username/AdobeId or Github.</p>' +
         '          </div>' +
         '        </div>' +
         '      </div>' +
