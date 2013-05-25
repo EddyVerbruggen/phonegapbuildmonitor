@@ -147,3 +147,21 @@ span.phonegapps-icon-updated {
     padding-left: 16px;
   }
 }
+
+/** START overridden bootstrap caroussel styles **/
+.carousel-control {
+  top: 40%;
+  width: 30px;
+  height: 30px;
+  margin-top: -15px;
+  font-size: 40px;
+  line-height: 24px;
+
+}
+.carousel-control.left {
+  left: 10px;
+}
+.carousel-control.right {
+  right: 10px;
+}
+/** END overridden bootstrap caroussel styles **/
