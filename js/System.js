@@ -8,6 +8,15 @@ var chartView;
 // Google Analytics
 var gaPlugin;
 
+function GAStartupSuccess() {
+  alert("GA init success");
+  googleAnalytics("startup");
+}
+
+function GAStartupFail() {
+  alert("GA init success");
+  googleAnalytics("startup");
+}
 // construct and execute a System setup class
 (function System() {
 
@@ -20,8 +29,7 @@ var gaPlugin;
     userController.init();
     if (window.plugins != undefined) {
       gaPlugin = window.plugins.gaPlugin;
-      gaPlugin.init(emptyCallback, emptyCallback, "UA-28850866-6", 3);
-      googleAnalytics("startup");
+      gaPlugin.init(GAStartupSuccess, GAStartupFail, "UA-28850866-6", 5);
     }
   };
 
