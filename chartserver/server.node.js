@@ -5,15 +5,12 @@ var maxSamplesForClient = 20;
 var buildIntervalMillis = 60000 * 15; // build an app every x minutes (after the build has finished)
 var buildCheckIntervalMillis = 60000; // check the status every minute
 
-var http = require('http');
-var client = require('phonegap-build-api');
-
-// an array per platform containing arrays of [starttime, buildtime]
-var androidBuilds = [];
-var iosBuilds = [];
+// an array per platform containing arrays of [starttimestamp, buildtimeseconds]
+var androidBuilds, iosBuilds = [];
 
 
 // ***** webserver *****
+var http = require('http');
 http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'application/json'});
   res.end(JSON.stringify({
@@ -24,11 +21,10 @@ http.createServer(function (req, res) {
 
 
 // ***** internal pgbuild checker *****
-var lastStartTimeIOS;
-var lastStartTimeAndroid;
-var lastIOSBuildComplete;
-var lastAndroidBuildComplete;
+var lastStartTimeIOS, lastStartTimeAndroid;
+var lastIOSBuildComplete, lastAndroidBuildComplete;
 
+var client = require('phonegap-build-api');
 function startPolling() {
   console.log('authenticating');
   client.auth({token: token}, function (e, api) {
@@ -39,10 +35,8 @@ function startPolling() {
 function buildAndCheckStatus(api) {
   console.log('building');
   var now = new Date().getTime();
-  lastStartTimeIOS = now;
-  lastStartTimeAndroid = now;
-  lastIOSBuildComplete = false;
-  lastAndroidBuildComplete = false;
+  lastStartTimeIOS = lastStartTimeAndroid = now;
+  lastIOSBuildComplete = lastAndroidBuildComplete = false;
   api.put('/apps/' + appid, {}, function (e, data) {
     console.log('built');
     setTimeout(function() {
