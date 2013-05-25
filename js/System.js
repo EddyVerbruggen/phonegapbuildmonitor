@@ -5,6 +5,8 @@ var userController;
 var appController;
 var appsView;
 var chartView;
+// Google Analytics
+var gaPlugin;
 
 // construct and execute a System setup class
 (function System() {
@@ -16,6 +18,11 @@ var chartView;
     appController = new AppController();
     userController = new UserController();
     userController.init();
+    if (window.plugins != undefined) {
+      gaPlugin = window.plugins.gaPlugin;
+      gaPlugin.init(null, null, "UA-28850866-6", 3);
+      googleAnalytics("startup");
+    }
   };
 
   var init = function() {

@@ -39,6 +39,8 @@
   <feature name="http://api.phonegap.com/1.0/network"/>
   <feature name="http://api.phonegap.com/1.0/file"/>
 
+  <gap:plugin name="Analytics" />
+
   <preference name="phonegap-version" value="2.7.0"/><!-- 2.5.0 has splash screen shifting, which is fixed in 2.6.0 (so lets use it asap) -->
   <preference name="target-device" value="handset"/><!-- 2.5.0 is not hiding the splashscreen on ipad AND 2.3.0 is not supporting ipad retina images, which Apple requires -->
   <preference name="orientation" value="portrait"/>

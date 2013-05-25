@@ -6,6 +6,7 @@
   var init = function() {
     $(document).ready(function() {
       $('#accountsModal').on('show', function () {
+        googleAnalytics("accountoverview-show");
         var content = '';
         if (userController.phonegappLogins.length == 0) {
           content += '' +
@@ -46,7 +47,8 @@
                 userController.delete($(this).attr('data-userid'));
                 // reload all data, because apps may be shared between accounts (duplicates), which not may not reappear because they were removed when the app was started
                 userController = new UserController();
-                showAlert("Success", "user deleted");
+                googleAnalytics("accountoverview-delete");
+                showAlert("Success", "Account deleted");
                 // brute force close the modal and refresh
                 refresh();
               }

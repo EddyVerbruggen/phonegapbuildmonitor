@@ -10,6 +10,7 @@
   <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="js/lib/jquery.jqplot/jquery.jqplot.min.css" rel="stylesheet"/>
   <script src="cordova.js"></script>
+  <script src="GAPlugin.js"></script>
 </head>
 <body>
 
@@ -25,9 +26,9 @@
       <div id="menu" class="nav-collapse collapse">
         <ul class="nav">
           <li>&nbsp;</li><!-- extra space -->
-          <li class="active"><a href="#aboutModal" onclick="$('#menu').collapse('toggle')" data-toggle="modal"><i class="icon-info-sign"></i>&nbsp;&nbsp;About</a></li>
-          <li class="active"><a href="mailto:info@x-services.nl?subject=Phonegapps" onclick="$('#menu').collapse('toggle')"><i class="icon-envelope"></i>&nbsp;&nbsp;Contact</a></li>
-          <li class="active"><a href="#" onclick="settingsController.toggleGraph(); refresh()"><i class="icon-bar-chart"></i>&nbsp;&nbsp;Toggle graph</a></li>
+          <li class="active"><a href="#aboutModal" onclick="$('#menu').collapse('toggle'); googleAnalytics('menu-about')" data-toggle="modal"><i class="icon-info-sign"></i>&nbsp;&nbsp;About</a></li>
+          <li class="active"><a href="mailto:info@x-services.nl?subject=Phonegapps" onclick="$('#menu').collapse('toggle'); googleAnalytics('menu-contact')"><i class="icon-envelope"></i>&nbsp;&nbsp;Contact</a></li>
+          <li class="active"><a href="#" onclick="settingsController.toggleGraph(); googleAnalytics('menu-graphtoggle'); refresh()"><i class="icon-bar-chart"></i>&nbsp;&nbsp;Toggle graph</a></li>
           <!--<li class="active"><a href="#"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-half-full"></i>&nbsp;&nbsp;Rate us</a></li>-->
         </ul>
       </div>

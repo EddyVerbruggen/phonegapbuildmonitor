@@ -24,7 +24,7 @@ function AppsView() { // which is the homepage
         '          <img src="img/tutorial/slide1.png"/>' +
         '          <div class="carousel-caption">' +
         '            <h4>One screen, all your apps!</h4>' +
-        '            <p>Add multiple accounts.<br/>And manage all apps on one page.</p>' +
+        '            <p>Add multiple accounts...<br/>and manage all apps on one page.</p>' +
         '          </div>' +
         '        </div>' +
         '        <div class="item">' +
@@ -38,7 +38,7 @@ function AppsView() { // which is the homepage
         '          <img src="img/tutorial/slide3.png"/>' +
         '          <div class="carousel-caption">' +
         '            <h4>Go ahead, add an account</h4>' +
-        '            <p>Use your PhoneGap Build login.<br/>Username/AdobeId or Github.</p>' +
+        '            <p>Use your PhoneGap Build login:<br/>Username/AdobeId or Github.</p>' +
         '          </div>' +
         '        </div>' +
         '      </div>' +
@@ -48,9 +48,6 @@ function AppsView() { // which is the homepage
         '    </div>' +
         '  </td>' +
         '</tr>');
-//    $('#myCarousel').carousel({
-//      interval: 2000
-//    })
   };
 
   this.bindBuildFromRepoButton = function() {
@@ -59,6 +56,7 @@ function AppsView() { // which is the homepage
       var appid = $(this).attr("data-appid");
       var phonegappLogin = userController.getPhonegappLogin(userid);
       appController.buildFromRepo(phonegappLogin, appid, userController.loadAppsForUsers);
+      googleAnalytics("appsview-pullcode");
       showAlert("Hang on", "Fetching repo and starting a build..");
       return false;
     });
@@ -97,7 +95,7 @@ function AppsView() { // which is the homepage
             '    <h4>' + app.title + ' <span class="appversion">' + app.version + '</span></h4>';
         // TODO [future version]: for non-private apps, we could use the downloadlink, but that one includes the auth_token, so warn the user before sending it to others (or use a proxy server)
         if (!app.private) {
-          content += '    <div class="sharebutton"><a href="mailto:?subject='+app.title+' build '+app.build_count+'&body=Click one of these links on your mobile device:%0D%0A%0D%0A%0D%0AiOS: '+appController.getShareLink(app, 'ios')+'%0D%0A%0D%0AAndroid: '+appController.getShareLink(app, 'android')+'"><i class="icon-share"></i></a></div>';
+          content += '    <div class="sharebutton"><a href="mailto:?subject='+app.title+' build '+app.build_count+'&body=Click one of these links on your mobile device:%0D%0A%0D%0A%0D%0AiOS: '+appController.getShareLink(app, 'ios')+'%0D%0A%0D%0AAndroid: '+appController.getShareLink(app, 'android')+'" onclick="googleAnalytics(\'appsview-share\')"><i class="icon-share"></i></a></div>';
         }
         if (app.build_count == null) {
           content += '    <div class="buildcount">no builds yet</div>';
@@ -148,7 +146,7 @@ function AppsView() { // which is the homepage
       return '<a href="#" role="button" class="btn btn-danger" onclick="showAlert(\'Error\', \''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
     } else if (buildStatus == "complete") {
       var url = appController.getDownloadLink(app, phonegappLogin, getPlatformName());
-      return '<a href="#" onclick="userController.resetBuildCountDiff(\''+appid+'\'); openWindow(\''+url+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install</a>';
+      return '<a href="#" onclick="googleAnalytics(\'appsview-install\'); userController.resetBuildCountDiff(\''+appid+'\'); openWindow(\''+url+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install</a>';
     } else if (buildStatus == "pending") {
       return '<a href="#" onclick="return false" role="button" class="btn btn-info btn-spinner"><i class="icon-spinner icon-spin"></i> pending</a>';
     } else {

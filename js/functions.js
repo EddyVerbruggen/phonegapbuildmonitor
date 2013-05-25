@@ -26,6 +26,17 @@ function openWindow(pleaseTakeMeHere) {
   window.open(pleaseTakeMeHere, '_system');
 }
 
+// TODO call when state changes from pending to install
+function vibrate() {
+  navigator.notification.vibrate(200);
+}
+
+function googleAnalytics(page) {
+  if (gaPlugin !== undefined) {
+    gaPlugin.trackPage(null, null, page);
+  }
+}
+
 function showAlert(title, txt) {
   if (isMobile()) {
     navigator.notification.alert(txt, function(){}, title);
