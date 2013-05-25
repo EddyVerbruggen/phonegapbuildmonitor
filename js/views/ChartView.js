@@ -38,6 +38,9 @@ function ChartView() { // which is the homepage
               JSON.stringify(data.android) != JSON.stringify(chartView.previousAndroidData)) {
             chartView.previousIOSData = data.ios;
             chartView.previousAndroidData = data.android;
+            // clear the area (prevents ghosting)
+            $("#chartdiv").html();
+            // plot the new data
             var plot2 = $.jqplot('chartdiv', [data.ios, data.android], {
                 title: {
                   show: false
