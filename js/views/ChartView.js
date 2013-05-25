@@ -48,6 +48,10 @@ function ChartView() { // which is the homepage
                 axes:{
                   xaxis:{
                     renderer:$.jqplot.DateAxisRenderer,
+                    showGridline: false,
+                    tickOptions: {
+                      formatString:'%H:%M' // see http://www.jqplot.com/docs/files/plugins/jqplot-dateAxisRenderer-js.html
+                    },
                     numberTicks: 4,
                     rendererOptions: {
                       tickInset: 0
