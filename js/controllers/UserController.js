@@ -62,7 +62,7 @@ function UserController() {
       }
     } else {
       // TODO remove, it does no harm, but we want to know if this happens (and how)
-      showAlert("Too many callbacks, please notify the creators of the app");
+      showAlert("[Sorry, debugging] Too many callbacks. Details: " + callbackQueue);
     }
   };
 
