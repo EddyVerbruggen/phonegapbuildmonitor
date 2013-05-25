@@ -68,7 +68,7 @@ function ChartView() { // which is the homepage
                 seriesDefaults: {
                   lineWidth: 2,
                   markerOptions: {
-                    size: 7
+                    size: 0
                   },
                   rendererOptions: {
                     smooth: true
