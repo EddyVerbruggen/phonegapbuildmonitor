@@ -24,8 +24,8 @@ function ChartView() { // which is the homepage
   this.refreshChartData = function() {
     $.ajax({
       async: true,
-      url: 'http://www.thumbrater.com:9100',
-//      url: 'http://localhost:9100',
+//      url: 'http://www.thumbrater.com:9100',
+      url: 'http://localhost:9100',
       dataType:"json",
       error: chartView.showGraphDownMessage,
       success: function(data) {
@@ -39,7 +39,7 @@ function ChartView() { // which is the homepage
             chartView.previousIOSData = data.ios;
             chartView.previousAndroidData = data.android;
             // clear the area (prevents ghosting)
-            $("#chartdiv").html();
+            $("#chartdiv").html("");
             // plot the new data
             var plot2 = $.jqplot('chartdiv', [data.ios, data.android], {
                 title: {
