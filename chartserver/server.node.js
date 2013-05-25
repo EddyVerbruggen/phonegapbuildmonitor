@@ -1,8 +1,7 @@
 // TODO consider using 2 apps, so Android checks are not slowed down by iOS checks (and vice versa)
-var everbruggenToken = "Rt9jJoTxCgDBQrYfuHLk";
+var token = "Rt9jJoTxCgDBQrYfuHLk";
 var appid = 412598; // 'Hello World' app
 var maxSamplesForClient = 20;
-//var maxAgeOfSamplesInHours = 24; // TODO use this to limit the age of the data?
 var buildIntervalMillis = 60000 * 15; // build an app every x minutes (after the build has finished)
 var buildCheckIntervalMillis = 60000; // check the status every minute
 
@@ -32,7 +31,7 @@ var lastAndroidBuildComplete;
 
 function startPolling() {
   console.log('authenticating');
-  client.auth({token: everbruggenToken}, function (e, api) {
+  client.auth({token: token}, function (e, api) {
     buildAndCheckStatus(api);
   });
 }
@@ -81,6 +80,7 @@ function checkStatus(api) {
       var buildComplete = data.status.ios == 'complete' && data.status.android == 'complete';
       var buildError = data.status.ios == 'error' || data.status.android == 'error';
       if (buildError) {
+        // TODO in case (for example) the iOS key is locked, the chart will no longer get new data! so unlock here :)
         console.log('build error');
         setTimeout(function() {
           buildAndCheckStatus(api);
