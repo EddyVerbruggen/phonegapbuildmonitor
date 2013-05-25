@@ -30,15 +30,15 @@ function AppsView() { // which is the homepage
         '        <div class="item">' +
         '          <img src="img/tutorial/slide2.png"/>' +
         '          <div class="carousel-caption">' +
-        '            <h4>TODO Nog een slide</h4>' +
-        '            <p>Met zo min mogelijk tekst!<br/>Enzo...</p>' +
+        '            <h4>One screen, all your apps!</h4>' +
+        '            <p>Add multiple accounts.<br/>And manage all apps on one page.</p>' +
         '          </div>' +
         '        </div>' +
         '        <div class="item">' +
         '          <img src="img/tutorial/slide3.png"/>' +
         '          <div class="carousel-caption">' +
-        '            <h4>TODO En nog een slide!</h4>' +
-        '            <p>En nog wat bla bla?<br/>Jazeker!</p>' +
+        '            <h4>PhoneGap Build health</h4>' +
+        '            <p>Build server slow?<br/>Now you know before you build.</p>' +
         '          </div>' +
         '        </div>' +
         '      </div>' +
