@@ -24,7 +24,7 @@ function AppsView() { // which is the homepage
         '          <img src="img/tutorial/slide1.png"/>' +
         '          <div class="carousel-caption">' +
         '            <h4>Add an account</h4>' +
-        '            <p>Use your current PhoneGap Build login.<br/>Username/AdobeId or Github.</p>' +
+        '            <p>Use your PhoneGap Build login.<br/>Username/AdobeId or Github.</p>' +
         '          </div>' +
         '        </div>' +
         '        <div class="item">' +
