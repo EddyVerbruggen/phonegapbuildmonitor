@@ -31,9 +31,13 @@ function vibrate() {
   navigator.notification.vibrate(200);
 }
 
+function emptyCallback() {
+  alert("[debug] callback");
+}
+
 function googleAnalytics(page) {
   if (gaPlugin !== undefined) {
-    gaPlugin.trackPage(null, null, page);
+    gaPlugin.trackPage(emptyCallback, emptyCallback, page);
   }
 }
 

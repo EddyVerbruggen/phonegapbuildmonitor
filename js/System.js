@@ -20,7 +20,7 @@ var gaPlugin;
     userController.init();
     if (window.plugins != undefined) {
       gaPlugin = window.plugins.gaPlugin;
-      gaPlugin.init(null, null, "UA-28850866-6", 3);
+      gaPlugin.init(emptyCallback, emptyCallback, "UA-28850866-6", 3);
       googleAnalytics("startup");
     }
   };
