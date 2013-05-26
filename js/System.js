@@ -9,6 +9,7 @@ var chartView;
 var gaPlugin;
 
 function GAStartupSuccess() {
+  alert("GA startup!");
   googleAnalytics("startup");
 }
 
@@ -22,7 +23,7 @@ function GAStartupSuccess() {
     appController = new AppController();
     userController = new UserController();
     userController.init();
-    document.addEventListener("menubutton", function(){alert("testing menu button ;)")}, false);
+    document.addEventListener("menubutton", function(){$('#menu').collapse('toggle')}, false);
     if (window.plugins != undefined) {
       gaPlugin = window.plugins.gaPlugin;
       gaPlugin.init(GAStartupSuccess, emptyCallback, "UA-28850866-8", 5);

@@ -31,7 +31,9 @@ function vibrate() {
   navigator.notification.vibrate(200);
 }
 
-function emptyCallback() {
+function emptyCallback(e) {
+  alert("empty callback");
+  alert(e);
 }
 
 function googleAnalytics(page) {
