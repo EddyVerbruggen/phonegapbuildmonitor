@@ -24,7 +24,7 @@ function GAStartupSuccess() {
     userController.init();
     if (window.plugins != undefined) {
       gaPlugin = window.plugins.gaPlugin;
-      gaPlugin.init(GAStartupSuccess, emptyCallback, "UA-28850866-6", 5);
+      gaPlugin.init(GAStartupSuccess, emptyCallback, "UA-28850866-7", 5);
     }
   };
 
