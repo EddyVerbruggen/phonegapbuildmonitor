@@ -64,6 +64,7 @@ function UserController() {
       // TODO remove, it does no harm, but we want to know if this happens (and how)
       showAlert("[Sorry, debugging] Too many callbacks. Details: " + callbackQueue);
     }
+    googleAnalytics("appsview-loadapps");
   };
 
   this.onLoadAppsSuccess = function(phonegappLogin, data) {

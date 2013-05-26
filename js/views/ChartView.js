@@ -112,5 +112,6 @@ function ChartView() { // which is the homepage
         }, 30000)
       }
     });
+    googleAnalytics("appsview-loadchart");
   };
 }
