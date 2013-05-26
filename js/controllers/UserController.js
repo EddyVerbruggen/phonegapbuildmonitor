@@ -61,8 +61,8 @@ function UserController() {
         );
       }
     } else {
-      // TODO remove, it does no harm, but we want to know if this happens (and how)
-      showAlert("[Sorry, debugging] Too many callbacks. Details: " + callbackQueue);
+      // on resume this may happen, but it doesn't really matter
+//      showAlert("[Sorry, debugging] Too many callbacks. Details: " + callbackQueue);
     }
     googleAnalytics("appsview-loadapps");
   };
