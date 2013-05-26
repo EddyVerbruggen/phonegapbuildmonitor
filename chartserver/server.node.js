@@ -4,6 +4,7 @@ var appid = 412598; // 'Hello World' app
 var maxSamplesForClient = 20;
 var buildIntervalMillis = 60000 * 15; // build an app every x minutes (after the build has finished)
 var buildCheckIntervalMillis = 60000; // check the status every minute
+var buildThreshold = 60000 * 30; // after 30 minutes, a build is considered 'hanging'
 
 // an array per platform containing arrays of [starttimestamp, buildtimeseconds]
 var androidBuilds = [];
@@ -24,8 +25,8 @@ http.createServer(function (req, res) {
 // ***** internal pgbuild checker *****
 var lastStartTimeIOS;
 var lastStartTimeAndroid;
-var lastIOSBuildComplete;
-var lastAndroidBuildComplete;
+var lastIOSBuildComplete = true;
+var lastAndroidBuildComplete = true;
 
 var client = require('phonegap-build-api');
 function startPolling() {
@@ -38,8 +39,12 @@ function startPolling() {
 function buildAndCheckStatus(api) {
   console.log('building');
   var now = new Date().getTime();
-  lastStartTimeIOS = now;
-  lastStartTimeAndroid = now;
+  if (lastIOSBuildComplete) {
+    lastStartTimeIOS = now;
+  }
+  if (lastAndroidBuildComplete) {
+    lastStartTimeAndroid = now;
+  }
   lastIOSBuildComplete = false;
   lastAndroidBuildComplete = false;
   api.put('/apps/' + appid, {}, function (e, data) {
@@ -89,6 +94,9 @@ function checkStatus(api) {
         setTimeout(function() {
           buildAndCheckStatus(api);
         }, buildIntervalMillis);
+      } else if (buildTakesLongerThanThreshold(now)) {
+        console.log('restarting long running build');
+        buildAndCheckStatus(api);
       } else {
         setTimeout(function() {
           checkStatus(api);
@@ -96,6 +104,10 @@ function checkStatus(api) {
       }
     }
   })
+}
+
+function buildTakesLongerThanThreshold(now) {
+  return now-lastStartTimeIOS>buildThreshold || now-lastStartTimeAndroid>buildThreshold;
 }
 
 // subtract a random amount of time, smaller than the builCheckInterval
