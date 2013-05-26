@@ -32,8 +32,6 @@ function vibrate() {
 }
 
 function emptyCallback(e) {
-  alert("empty callback");
-  alert(e);
 }
 
 function googleAnalytics(page) {

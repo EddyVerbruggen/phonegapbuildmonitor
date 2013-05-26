@@ -9,7 +9,6 @@ var chartView;
 var gaPlugin;
 
 function GAStartupSuccess() {
-  alert("GA startup!");
   googleAnalytics("startup");
 }
 
