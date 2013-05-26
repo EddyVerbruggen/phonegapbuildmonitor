@@ -25,7 +25,7 @@ function GAStartupSuccess() {
     document.addEventListener("menubutton", function(){alert("testing menu button ;)")}, false);
     if (window.plugins != undefined) {
       gaPlugin = window.plugins.gaPlugin;
-      gaPlugin.init(GAStartupSuccess, emptyCallback, "UA-28850866-7", 5);
+      gaPlugin.init(GAStartupSuccess, emptyCallback, "UA-28850866-8", 5);
     }
   };
 
