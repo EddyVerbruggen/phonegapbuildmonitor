@@ -25,7 +25,7 @@ function AppController() {
     } else if (platform == 'android') {
       return 'https://build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+platform +'?auth_token='+phonegappLogin.token;
     } else {
-      alert("Please notify the admin, as we've encountered an not supported platform.");
+      console.log("Please notify the admin, as we've encountered an not supported platform.");
       return null;
     }
   };

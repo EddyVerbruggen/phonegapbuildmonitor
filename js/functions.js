@@ -1,5 +1,5 @@
 window.onerror = function(message, file, line) {
-  alert('Error gevangen: ' + file + ':' + line + '\n' + JSON.stringify(message));
+  console.log('Error gevangen: ' + file + ':' + line + '\n' + JSON.stringify(message));
 };
 
 function isAndroid() {

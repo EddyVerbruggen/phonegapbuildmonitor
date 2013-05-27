@@ -53,7 +53,7 @@ PhonegapBuildApiProxy._doApiCall = function (type, service, data, phonegappLogin
       if (onSuccessCallback != null) {
         onSuccessCallback(phonegappLogin, data);
       } else {
-        alert("TODO implement callback for this data: " + JSON.stringify(data));
+        console.log("TODO implement callback for this data: " + JSON.stringify(data));
       }
     },
     error: function (xhr) {
@@ -62,7 +62,7 @@ PhonegapBuildApiProxy._doApiCall = function (type, service, data, phonegappLogin
       } else if (xhr.statusText != null && xhr.statusText.indexOf("Service Unavailable")>-1) {
         showAlert("PhoneGap Build is down", "build.phonegap.com seems to be down, so this app stops working as well.. we'll retry automatically in a minute!");
       } else {
-        alert("Error for API service " + service + ", details: " + JSON.stringify(xhr));
+        console.log("Error for API service " + service + ", details: " + JSON.stringify(xhr));
       }
       if (onErrorCallback != null) {
         onErrorCallback(phonegappLogin);
