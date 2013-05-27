@@ -34,6 +34,11 @@ h4, h5 {
   border-top: 0;
 }
 
+.nav {
+  background: url('../img/phonegap.png') no-repeat right;
+  background-size: 168px 142px;
+}
+
 #appTable .iconcolumn {
   width: 72px;
 }
