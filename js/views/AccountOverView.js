@@ -3,6 +3,31 @@
 // silly name coming up :)
 (function AccountOverView() {
 
+  var deleteUserid;
+
+  var showConfirmDeleteDialogue = function() {
+    if (isMobile()) {
+      navigator.notification.confirm(
+          'It was nice having you anyway :)',
+          onConfirmDelete,
+          'Are you sure?',
+          'Yes,No'
+          );
+    } else {
+      if (confirm("Are you sure?")) {
+        onConfirmDelete();
+      }
+    }
+  };
+
+  var onConfirmDelete = function() {
+    userController.delete(deleteUserid);
+    googleAnalytics("accountoverview-delete");
+    showAlert("Success", "Account deleted");
+    // brute force close the modal and refresh
+    refresh();
+  };
+
   var init = function() {
     $(document).ready(function() {
       $('#accountsModal').on('show', function () {
@@ -43,15 +68,8 @@
             .html(content)
             .find(".deletebutton")
             .on('click', function() {
-              if (confirm("Are you sure?")) { // TODO native dialog
-                userController.delete($(this).attr('data-userid'));
-                // reload all data, because apps may be shared between accounts (duplicates), which not may not reappear because they were removed when the app was started
-                userController = new UserController();
-                googleAnalytics("accountoverview-delete");
-                showAlert("Success", "Account deleted");
-                // brute force close the modal and refresh
-                refresh();
-              }
+              deleteUserid = $(this).attr('data-userid');
+              showConfirmDeleteDialogue();
             });
       })
     });
