@@ -8,7 +8,7 @@
   var showConfirmDeleteDialogue = function() {
     if (isMobile()) {
       navigator.notification.confirm(
-          'It was nice having you anyway :)',
+          'Shame, it was a nice account :)',
           onConfirmDelete,
           'Are you sure?',
           'Yes,No'
@@ -20,12 +20,14 @@
     }
   };
 
-  var onConfirmDelete = function() {
-    userController.delete(deleteUserid);
-    googleAnalytics("accountoverview-delete");
-    showAlert("Success", "Account deleted");
-    // brute force close the modal and refresh
-    refresh();
+  var onConfirmDelete = function(buttonIndex) {
+    if (buttonIndex == 1) {
+      userController.delete(deleteUserid);
+      googleAnalytics("accountoverview-delete");
+      showAlert("Success", "Account deleted");
+      // brute force close the modal and refresh
+      refresh();
+    }
   };
 
   var init = function() {
