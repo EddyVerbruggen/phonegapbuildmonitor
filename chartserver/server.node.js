@@ -68,18 +68,12 @@ function checkStatus(api) {
       if (data.status.ios == 'complete' && !lastIOSBuildComplete) {
         lastIOSBuildComplete = true;
         iosBuilds.push([now, (now-lastStartTimeIOS-getRandomBuildTime())/1000/60]);
-        // remove the first item from the array in case the array is now larger than the max
-        if (iosBuilds.length>maxSamplesForClient) {
-          iosBuilds.shift();
-        }
+        removeObsoleteItems(iosBuilds, androidBuilds);
       }
       if (data.status.android == 'complete' && !lastAndroidBuildComplete) {
         lastAndroidBuildComplete = true;
         androidBuilds.push([now, (now-lastStartTimeAndroid-getRandomBuildTime())/1000/60]);
-        // remove the first item from the array in case the array is now larger than the max
-        if (androidBuilds.length>maxSamplesForClient) {
-          androidBuilds.shift();
-        }
+        removeObsoleteItems(androidBuilds, iosBuilds);
       }
       var buildComplete = data.status.ios == 'complete' && data.status.android == 'complete';
       var buildError = data.status.ios == 'error' || data.status.android == 'error';
@@ -104,6 +98,12 @@ function checkStatus(api) {
       }
     }
   })
+}
+
+function removeObsoleteItems(thisArray, otherArray) {
+  while (thisArray.length > maxSamplesForClient && thisArray[0][0] <= otherArray[0][0]) {
+    thisArray.shift();
+  }
 }
 
 function buildTakesLongerThanThreshold(now) {
