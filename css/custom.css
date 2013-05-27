@@ -110,12 +110,16 @@ h4, h5 {
   padding-bottom: 0;
 }
 
+#aboutModal .modal-body sup {
+  font-size: 0.6em;
+}
+
 #accountsModal .modal-body {
   max-height: 500px;
   overflow-y: scroll;
 }
 
-span.phonegapps-icon-updated {
+span.buildmeister-icon-updated {
   font-size: 1.3em;
   color: #d14;
 }

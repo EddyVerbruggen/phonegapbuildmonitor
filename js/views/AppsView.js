@@ -100,7 +100,7 @@ function AppsView() { // which is the homepage
         if (app.build_count == null) {
           content += '    <div class="buildcount">no builds yet</div>';
         } else {
-          content += '    <div class="buildcount">build ' + app.build_count + (app.buildCountDiff > 0 ? '&nbsp;&nbsp;<span class="phonegapps-icon-updated"><i class="icon-'+(app.buildCountDiff > 5 ? 'double-' : '')+'angle-up"></i>' : '') + '</span></div>';
+          content += '    <div class="buildcount">build ' + app.build_count + (app.buildCountDiff > 0 ? '&nbsp;&nbsp;<span class="buildmeister-icon-updated"><i class="icon-'+(app.buildCountDiff > 5 ? 'double-' : '')+'angle-up"></i>' : '') + '</span></div>';
         }
         if (app.private) {
           content += '    <div class="buildfromrepobutton"><i class="icon-eye-open icon-large"></i></div>';
