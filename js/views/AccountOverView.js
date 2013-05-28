@@ -39,7 +39,7 @@
           content += '' +
               '<tr>' +
               '  <td>' +
-              '    <h5>No accounts yet. Don\'t be shy :)</h5>' +
+              '    <h5>No accounts yet. Don\'t be shy, you can add as many as you like ;)</h5>' +
               '  </td>' +
               '</tr>';
         } else {
