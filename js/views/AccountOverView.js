@@ -15,7 +15,7 @@
           );
     } else {
       if (confirm("Are you sure?")) {
-        onConfirmDelete();
+        onConfirmDelete(1);
       }
     }
   };
