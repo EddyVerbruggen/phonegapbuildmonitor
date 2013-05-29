@@ -22,14 +22,12 @@ function GAStartupSuccess() {
     appController = new AppController();
     userController = new UserController();
     userController.init();
-    $(document).bind("menubutton", function(){$('#menu').collapse('toggle')});
+    document.addEventListener("menubutton", function(){$('#menu').collapse('toggle')}, false);
     if (window.plugins != undefined) {
       gaPlugin = window.plugins.gaPlugin;
       gaPlugin.init(GAStartupSuccess, emptyCallback, "UA-28850866-8", 5);
     }
-    setTimeout(preventDim, 2000);
   };
-
 
   var init = function() {
     $(document).ready(function() {
@@ -43,9 +41,3 @@ function GAStartupSuccess() {
 
   init();
 })();
-
-// stoopid test for screen dimming prevention
-function preventDim() {
-  $(document).trigger("menubutton");
-  setTimeout(preventDim, 10000);
-}
