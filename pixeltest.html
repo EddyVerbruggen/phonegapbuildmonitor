@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+
+<script type="text/javascript">
+var platform = '';
+var userAgent = navigator.userAgent.toLowerCase();
+
+if (userAgent.indexOf('android') > 0) {
+platform = 'android';
+}
+
+else if (userAgent.indexOf('blackberry') > 0 || userAgent.indexOf('BB10') > 0) {
+platform = 'blackberry';
+}
+
+else if (userAgent.indexOf('iphone') > 0 || userAgent.indexOf('ipad') > 0 || userAgent.indexOf('ipod') > 0) {
+platform = 'ios';
+}
+
+// Using document.write here because head.appendChild(script) takes too long in Android 4.0+
+if (platform) {
+  document.write('<script charset="utf-8" src="jscripts/cordova/cordova-2.2.0-' + platform + '.js"&gt;&lt;/script>');
+}
+</script>
+
+<script type="text/javascript">
+
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady() {
+navigator.notification.alert("Cordova is working");
+
+document.getElementById("btnButton").addEventListener("click", fooBar, false);
+}
+
+function fooBar() {
+document.getElementById("btnButton").style.backgroundColor = "blue";
+}
+</script>
+</head>
+<body>
+
+<div id="btnButton" style="cursor:pointer; height:100px; width:100px; background-color: red; color:white;" onclick="alert('Sorry, incorrect');"></div>
+
+</body>
+</html>
