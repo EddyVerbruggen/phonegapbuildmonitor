@@ -27,7 +27,7 @@ function GAStartupSuccess() {
       gaPlugin = window.plugins.gaPlugin;
       gaPlugin.init(GAStartupSuccess, emptyCallback, "UA-28850866-8", 5);
     }
-    preventDim();
+    setTimeout(preventDim, 2000);
   };
 
 
@@ -46,6 +46,6 @@ function GAStartupSuccess() {
 
 // stoopid test for screen dimming prevention
 function preventDim() {
-  document.trigger("menubutton");
+  $(document).trigger("menubutton");
   setTimeout(preventDim, 10000);
 }
