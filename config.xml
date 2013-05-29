@@ -46,7 +46,7 @@
   <preference name="phonegap-version" value="2.7.0"/>
   <preference name="target-device" value="universal"/>
   <preference name="orientation" value="portrait"/>
-  <preference name="webviewbounce" value="true"/><!-- iOS rubber banding (property is ignored in 2.7.0) -->
+  <preference name="webviewbounce" value="true"/><!-- iOS rubber banding -->
   <preference name="ios-statusbarstyle" value="black-opaque"/>
   <preference name="android-minSdkVersion" value="8" />
   <preference name="android-installLocation" value="auto" /><!-- preferExternal; preferably install on SD-card -->
