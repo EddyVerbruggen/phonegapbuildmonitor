@@ -22,7 +22,7 @@ function GAStartupSuccess() {
     appController = new AppController();
     userController = new UserController();
     userController.init();
-    document.addEventListener("menubutton", function(){$('#menu').collapse('toggle')}, false);
+    $(document).bind("menubutton", function(){$('#menu').collapse('toggle')});
     if (window.plugins != undefined) {
       gaPlugin = window.plugins.gaPlugin;
       gaPlugin.init(GAStartupSuccess, emptyCallback, "UA-28850866-8", 5);
