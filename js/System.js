@@ -36,6 +36,7 @@ function GAStartupSuccess() {
       } else {
         onDeviceReady();
       }
+      FastClick.attach(document.body);
     });
   };
 
