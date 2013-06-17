@@ -6,11 +6,17 @@ function SettingsController() {
 
   // default settings
   this.settings = {
-    'showGraph' : true
+    'showGraph' : true,
+    'iOSInstallButtonEnabled' : false
   };
 
   this.toggleGraph = function() {
     this.settings.showGraph = !this.settings.showGraph;
+    this.rememberSettings();
+  };
+
+  this.enableIOSInstallButton = function(bool) {
+    this.settings.iOSInstallButtonEnabled = bool;
     this.rememberSettings();
   };
 

@@ -145,8 +145,12 @@ function AppsView() { // which is the homepage
     if (buildStatus == "error") {
       return '<a href="#" role="button" class="btn btn-danger" onclick="showAlert(\'Error\', \''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
     } else if (buildStatus == "complete") {
-      var url = appController.getDownloadLink(app, phonegappLogin, getPlatformName());
-      return '<a href="#" onclick="googleAnalytics(\'appsview-install\'); userController.resetBuildCountDiff(\''+appid+'\'); openWindow(\''+url+'\'); return false"role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install</a>';
+      if (isAndroid() || settingsController.settings.iOSInstallButtonEnabled) {
+        var url = appController.getDownloadLink(app, phonegappLogin, getPlatformName());
+        return '<a href="#" onclick="googleAnalytics(\'appsview-install\'); userController.resetBuildCountDiff(\''+appid+'\'); openWindow(\''+url+'\'); return false" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install</a>';
+      } else {
+        return '<a href="#" role="button" class="btn btn-success"><i class="icon-ok"></i> ready</a>';
+      }
     } else if (buildStatus == "pending") {
       return '<a href="#" onclick="return false" role="button" class="btn btn-info btn-spinner"><i class="icon-spinner icon-spin"></i> pending</a>';
     } else {

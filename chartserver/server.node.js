@@ -1,4 +1,3 @@
-// TODO consider using 2 apps, so Android checks are not slowed down by iOS checks (and vice versa)
 var token = "Rt9jJoTxCgDBQrYfuHLk";
 var appid = 412598; // 'Hello World' app
 var maxSamplesForClient = 20;
@@ -10,15 +9,25 @@ var buildThreshold = 60000 * 30; // after 30 minutes, a build is considered 'han
 var androidBuilds = [];
 var iosBuilds = [];
 
+var fs= require('fs');
+var nconf = require('nconf');
 
 // ***** webserver *****
 var http = require('http');
 http.createServer(function (req, res) {
+  // always refresh the properties
+  nconf.file({file: __dirname + '/chartserver.config.json'});
   res.writeHead(200, {'Content-Type': 'application/json'});
-  res.end(JSON.stringify({
-    android: androidBuilds,
-    ios: iosBuilds
-  }));
+  if (!isIOS(req.headers['user-agent']) || nconf.get("showAllPlatformsOnIOS")) {
+    res.end(JSON.stringify({
+      android: androidBuilds,
+      ios: iosBuilds
+    }));
+  } else {
+    res.end(JSON.stringify({
+      android: androidBuilds
+    }));
+  }
 }).listen(9100);
 
 
@@ -113,6 +122,10 @@ function buildTakesLongerThanThreshold(now) {
 // subtract a random amount of time, smaller than the builCheckInterval
 function getRandomBuildTime() {
   return Math.floor((Math.random()*(buildCheckIntervalMillis-10000)));
+}
+
+function isIOS(what) {
+  return what.match(/(iPad|iPhone|iPod)/i);
 }
 
 // kick off!
