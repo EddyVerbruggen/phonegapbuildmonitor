@@ -113,7 +113,7 @@ function UserController() {
     return null;
   };
 
-  this.signIn = function(email, password, token /* for example: Rt9jJoTxCgDBQrYfuHLk */) {
+  this.signIn = function(email, password, token /* for example: Rt9jJoCyCgDBQrYfuHLk */) {
     if ((email == "" || password == "") && token == "") {
       showAlert("Error", "Please fill in one of the authentication options");
     } else {

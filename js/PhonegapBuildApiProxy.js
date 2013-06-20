@@ -18,11 +18,11 @@ PhonegapBuildApiProxy.doGET = function (service, phonegappLogin, onSuccessCallba
   return this._doApiCall('GET', this.getApiVersion() + service, null, phonegappLogin, onSuccessCallback, onErrorCallback);
 };
 
-PhonegapBuildApiProxy.loginUsernamePassword = function (phonegappLogin, onSuccessCallback) {
-  signInInProgress = true;
-  this._doApiCall('GET', this.getApiVersion() + 'me', null, phonegappLogin, onSuccessCallback, null);
-  signInInProgress = false;
-};
+//PhonegapBuildApiProxy.loginUsernamePassword = function (phonegappLogin, onSuccessCallback) {
+//  signInInProgress = true;
+//  this._doApiCall('GET', this.getApiVersion() + 'me', null, phonegappLogin, onSuccessCallback, null);
+//  signInInProgress = false;
+//};
 
 PhonegapBuildApiProxy.getToken = function (phonegappLogin, onSuccessCallback) {
   signInInProgress = true;

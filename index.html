@@ -73,6 +73,28 @@
   </div>
 </div>
 
+<div id="keysModal" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="keysModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="keysModalLabel"><i class="icon-key"></i> Signing keys</h3>
+    Please select the signing key to build your app with
+  </div>
+  <div class="modal-body">
+    <table class="table" id="keysTable">
+      <tbody id="keysTableBody"></tbody>
+    </table>
+    <div id="certificatePasswordContainer" class="input-prepend" style="display: none">
+      <span class="add-on"><i class="icon-key"></i></span>
+      <input id="certificatePassword" type="password" placeholder="Certificate password"/>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <a href="#" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" id="userKeyButton"><i class="icon-check-sign"></i> Build with selected key</a>
+  </div>
+</div>
+
 <div id="accountsModal" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="accountsModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

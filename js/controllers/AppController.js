@@ -11,6 +11,10 @@ function AppController() {
     PhonegapBuildApiProxy.doPUT('apps/'+appid, data, phonegappLogin, callback);
   };
 
+  this.getSigningKeys = function(phonegappLogin, platform, callback) {
+    PhonegapBuildApiProxy.doGET('keys/'+platform, phonegappLogin, callback);
+  };
+
   this.getBuildStatus = function(app, platform) {
     return eval('app.status.'+platform);
   };

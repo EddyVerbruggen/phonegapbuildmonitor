@@ -93,7 +93,7 @@ function AppsView() { // which is the homepage
             '  <td class="iconcolumn"><img src="'+imgUrl+'" data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" width="72px" height="72px"/></td>' +
             '  <td>' +
             '    <h4>' + app.title + ' <span class="appversion">' + app.version + '</span></h4>';
-        // TODO [future version]: for non-private apps, we could use the downloadlink, but that one includes the auth_token, so warn the user before sending it to others (or use a proxy server)
+        // TODO [future version]: for non-private apps, we could use the downloadlink, but that one includes the auth_token, so warn the user before sending it to others (or use a proxy server) .. or use the download GET service?
         if (!app.private) {
           content += '    <div class="sharebutton"><a href="mailto:?subject='+app.title+' build '+app.build_count+'&body=Click one of these links on your mobile device:%0D%0A%0D%0A%0D%0AiOS: '+appController.getShareLink(app, 'ios')+'%0D%0A%0D%0AAndroid: '+appController.getShareLink(app, 'android')+'" onclick="googleAnalytics(\'appsview-share\')"><i class="icon-share"></i></a></div>';
         }
@@ -143,7 +143,12 @@ function AppsView() { // which is the homepage
     var appid = app.id;
     var buildStatus = appController.getBuildStatus(app, getPlatformName());
     if (buildStatus == "error") {
-      return '<a href="#" role="button" class="btn btn-danger" onclick="showAlert(\'Error\', \''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
+      var errorMsg = appController.getBuildError(app);
+      if (errorMsg.indexOf("signing key is locked") > -1) {
+        return '<a href="#" role="button" class="btn btn-danger" onclick="appsView.showSigningKeyModal(\''+phonegappLogin.user.id+'\')"><i class="icon-warning-sign"></i> error</a><br/>';
+      } else {
+        return '<a href="#" role="button" class="btn btn-danger" onclick="showAlert(\'Error\', \''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
+      }
     } else if (buildStatus == "complete") {
       if (isAndroid() || settingsController.settings.iOSInstallButtonEnabled) {
         var url = appController.getDownloadLink(app, phonegappLogin, getPlatformName());
@@ -157,4 +162,36 @@ function AppsView() { // which is the homepage
       return '';
     }
   };
+
+  this.showSigningKeyModal = function(userid) {
+    $('#keysModal').modal('show');
+    googleAnalytics("signingkeys-show");
+    for (var i=0; i<userController.phonegappLogins.length; i++) {
+      if (userid == userController.phonegappLogins[i].user.id) {
+        var phonegappLogin = userController.getPhonegappLogin(userid);
+        appController.getSigningKeys(phonegappLogin, getPlatformName(), function(pgLogin, data) {
+          var content = '<h5><i class="icon-user"></i> ' + pgLogin.email + '</h5>';
+          $(data.keys).each(function(i, key) {
+            content += '<label class="radio"><input type="radio" data-locked="'+key.locked+'" id="signingkey'+key.id+'" name="signingkey" value="'+key.id+'"/><i class="icon-' + (key.locked ? 'lock' : 'unlock-alt') + ' key_locked_'+key.locked + '"></i> ' + key.title + "</label>";
+          });
+          $("#keysTableBody")
+              .html(content)
+              .find("input")
+              .on('click', function() {
+                if ($(this).attr('data-locked') == "true") {
+                  $("#certificatePasswordContainer").show();
+                } else {
+                  $("#certificatePasswordContainer").hide();
+                }
+              });
+        });
+        break;
+      }
+    }
+  };
+
+  $('#keysModal').on('hide', function () {
+    $("#keysTableBody").html("")
+  });
+
 }
