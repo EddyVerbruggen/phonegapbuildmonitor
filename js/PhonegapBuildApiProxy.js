@@ -61,11 +61,11 @@ PhonegapBuildApiProxy._doApiCall = function (type, service, data, phonegappLogin
         showAlert("Authentication failed", "Invalid credentials.. try again!");
       } else if (xhr.statusText != null && xhr.statusText.indexOf("Service Unavailable")>-1) {
         showAlert("PhoneGap Build is down", "build.phonegap.com seems to be down, so this app stops working as well.. we'll retry automatically in a minute!");
-      } else {
-        console.log("Error for API service " + service + ", details: " + JSON.stringify(xhr));
       }
       if (onErrorCallback != null) {
         onErrorCallback(phonegappLogin);
+      } else {
+        showAlert("Error for API service " + service + ", details: " + JSON.stringify(xhr));
       }
     }
   });

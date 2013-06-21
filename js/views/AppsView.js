@@ -145,7 +145,7 @@ function AppsView() { // which is the homepage
     if (buildStatus == "error") {
       var errorMsg = appController.getBuildError(app);
       if (errorMsg.indexOf("signing key is locked") > -1) {
-        return '<a href="#" role="button" class="btn btn-danger" onclick="appsView.showSigningKeyModal(\''+phonegappLogin.user.id+'\')"><i class="icon-warning-sign"></i> error</a><br/>';
+        return '<a href="#" role="button" class="btn btn-danger" onclick="appsView.showSigningKeyModal(\''+phonegappLogin.user.id+'\', \''+appid+'\')"><i class="icon-warning-sign"></i> error</a><br/>';
       } else {
         return '<a href="#" role="button" class="btn btn-danger" onclick="showAlert(\'Error\', \''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
       }
@@ -163,59 +163,66 @@ function AppsView() { // which is the homepage
     }
   };
 
-  this.showSigningKeyModal = function(userid) {
+  this.showSigningKeyModal = function(userid, appid) {
     $('#keysModal').modal('show');
     // added a timeout, so maybe it behaves a bit better on iPhone 3GS (slow, and scrolling up)
-    setTimeout(function() {
-      googleAnalytics("signingkeys-show");
-      for (var i=0; i<userController.phonegappLogins.length; i++) {
-        if (userid == userController.phonegappLogins[i].user.id) {
-          var phonegappLogin = userController.getPhonegappLogin(userid);
-          appController.getSigningKeys(phonegappLogin, getPlatformName(), function(pgLogin, data) {
-            var content = '<select>';
-            content += '<option></option>';
-            content += '<optgroup label="unlocked">';
-            $(data.keys).each(function(i, key) {
-              if (!key.locked) {
-                content += '<option value="'+key.id+'" data-locked="false">' + key.title + '</option>';
-              }
-            });
-            content += '</optgroup>';
-            content += '<optgroup label="locked">';
-            $(data.keys).each(function(i, key) {
-              if (key.locked) {
-                content += '<option value="'+key.id+'" data-locked="true">' + key.title + '</option>';
-              }
-            });
-            content += '</optgroup>';
-            content += '</select>';
-            $("#keysTableBody")
-                .html(content)
-                .find("select")
-                .on('change', function() {
-                  if ($(this).find('option:selected').attr('data-locked') == "true") {
-                    $("#certificatePasswordContainer").show();
-                  } else {
-                    $("#certificatePasswordContainer").hide();
-                  }
-                });
+    googleAnalytics("signingkeys-show");
+    for (var i=0; i<userController.phonegappLogins.length; i++) {
+      if (userid == userController.phonegappLogins[i].user.id) {
+        var phonegappLogin = userController.getPhonegappLogin(userid);
+        appController.getSigningKeys(phonegappLogin, getPlatformName(), function(pgLogin, data) {
+          var content = '<select>';
+          content += '<option></option>';
+          content += '<optgroup label="unlocked">';
+          $(data.keys).each(function(i, key) {
+            if (!key.locked) {
+              content += '<option value="'+key.id+'" data-locked="false">' + key.title + '</option>';
+            }
           });
-          break;
-        }
+          content += '</optgroup>';
+          content += '<optgroup label="locked">';
+          $(data.keys).each(function(i, key) {
+            if (key.locked) {
+              content += '<option value="'+key.id+'" data-locked="true">' + key.title + '</option>';
+            }
+          });
+          content += '</optgroup>';
+          content += '</select>';
+          $("#keysTableBody")
+              .html(content)
+              .find("select")
+              .on('change', function() {
+                if ($(this).find('option:selected').attr('data-locked') == "true") {
+                  $("#certificatePasswordContainer").show();
+                } else {
+                  $("#certificatePasswordContainer").hide();
+                }
+              });
+        });
+        break;
       }
+    }
 
-      $("#userKeyButton")
-          .unbind("click")
-          .bind("click", function() {
-            var selectedKeyID = $("#keysTableBody").find("option:selected").val();
-            var certPassword = $("#certificatePassword").val();
-            // TODO finish impl
-//            userController.signIn(email, password, token);
-            googleAnalytics("signingkeys-build");
+    $("#userKeyButton")
+        .attr("data-userid", userid)
+        .attr("data-appid", appid)
+        .unbind("click")
+        .bind("click", function() {
+          var certPassword = $("#certificatePassword").val();
+          if (certPassword == "" && $("#keysTableBody").find("option:selected").attr('data-locked') == "true") {
+            alert("The Certificate password is required to unlock the signing key");
+            $("#certificatePassword").focus();
             return false;
-      });
-
-    }, 300);
+          }
+          var selectedKeyID = $("#keysTableBody").find("option:selected").val();
+          var userid = $(this).attr("data-userid");
+          var appid = $(this).attr("data-appid");
+          var phonegappLogin = userController.getPhonegappLogin(userid);
+          appController.buildFromRepoWithSigningKey(phonegappLogin, appid, selectedKeyID, certPassword, userController.loadAppsForUsers);
+          googleAnalytics("signingkeys-build");
+          showAlert("Hang on", "Fetching repo and starting a build with this key..");
+          return true;
+    });
   };
 
   $('#keysModal').on('hide', function () {
