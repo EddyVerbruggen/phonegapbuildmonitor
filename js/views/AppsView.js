@@ -90,7 +90,7 @@ function AppsView() { // which is the homepage
         var imgUrl = app.icon.filename == null ? 'img/default-appicon.png' : 'https://build.phonegap.com/api/v1/apps/'+app.id+'/icon?auth_token='+phonegappLogin.token;
         content += '' +
             '<tr>' +
-            '  <td class="iconcolumn"><img src="'+imgUrl+'" data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" width="72px" height="72px"/></td>' +
+            '  <td class="iconcolumn"><img class="img-rounded" src="'+imgUrl+'" data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" width="72px" height="72px"/></td>' +
             '  <td>' +
             '    <h4>' + app.title + ' <span class="appversion">' + app.version + '</span></h4>';
         // TODO [future version]: for non-private apps, we could use the downloadlink, but that one includes the auth_token, so warn the user before sending it to others (or use a proxy server) .. or use the download GET service?
@@ -165,46 +165,61 @@ function AppsView() { // which is the homepage
 
   this.showSigningKeyModal = function(userid) {
     $('#keysModal').modal('show');
-    googleAnalytics("signingkeys-show");
-    for (var i=0; i<userController.phonegappLogins.length; i++) {
-      if (userid == userController.phonegappLogins[i].user.id) {
-        var phonegappLogin = userController.getPhonegappLogin(userid);
-        appController.getSigningKeys(phonegappLogin, getPlatformName(), function(pgLogin, data) {
-          var content = '<select>';
-          content += '<option></option>';
-          content += '<optgroup label="unlocked">';
-          $(data.keys).each(function(i, key) {
-            if (!key.locked) {
-              content += '<option value="'+key.id+'" data-locked="false">' + key.title + '</option>';
-            }
+    // added a timeout, so maybe it behaves a bit better on iPhone 3GS (slow, and scrolling up)
+    setTimeout(function() {
+      googleAnalytics("signingkeys-show");
+      for (var i=0; i<userController.phonegappLogins.length; i++) {
+        if (userid == userController.phonegappLogins[i].user.id) {
+          var phonegappLogin = userController.getPhonegappLogin(userid);
+          appController.getSigningKeys(phonegappLogin, getPlatformName(), function(pgLogin, data) {
+            var content = '<select>';
+            content += '<option></option>';
+            content += '<optgroup label="unlocked">';
+            $(data.keys).each(function(i, key) {
+              if (!key.locked) {
+                content += '<option value="'+key.id+'" data-locked="false">' + key.title + '</option>';
+              }
+            });
+            content += '</optgroup>';
+            content += '<optgroup label="locked">';
+            $(data.keys).each(function(i, key) {
+              if (key.locked) {
+                content += '<option value="'+key.id+'" data-locked="true">' + key.title + '</option>';
+              }
+            });
+            content += '</optgroup>';
+            content += '</select>';
+            $("#keysTableBody")
+                .html(content)
+                .find("select")
+                .on('change', function() {
+                  if ($(this).find('option:selected').attr('data-locked') == "true") {
+                    $("#certificatePasswordContainer").show();
+                  } else {
+                    $("#certificatePasswordContainer").hide();
+                  }
+                });
           });
-          content += '</optgroup>';
-          content += '<optgroup label="locked">';
-          $(data.keys).each(function(i, key) {
-            if (key.locked) {
-              content += '<option value="'+key.id+'" data-locked="true">' + key.title + '</option>';
-            }
-          });
-          content += '</optgroup>';
-          content += '</select>';
-          $("#keysTableBody")
-              .html(content)
-              .find("select")
-              .on('change', function() {
-                if ($(this).find('option:selected').attr('data-locked') == "true") {
-                  $("#certificatePasswordContainer").show();
-                } else {
-                  $("#certificatePasswordContainer").hide();
-                }
-              });
-        });
-        break;
+          break;
+        }
       }
-    }
+
+      $("#userKeyButton")
+          .unbind("click")
+          .bind("click", function() {
+            var selectedKeyID = $("#keysTableBody").find("option:selected").val();
+            var certPassword = $("#certificatePassword").val();
+            // TODO finish impl
+//            userController.signIn(email, password, token);
+            googleAnalytics("signingkeys-build");
+            return false;
+      });
+
+    }, 300);
   };
 
   $('#keysModal').on('hide', function () {
-    $("#keysTableBody").html("")
+    $("#keysTableBody").html("");
     $("#certificatePasswordContainer").hide();
   });
 
