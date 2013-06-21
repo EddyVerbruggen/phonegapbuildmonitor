@@ -170,15 +170,28 @@ function AppsView() { // which is the homepage
       if (userid == userController.phonegappLogins[i].user.id) {
         var phonegappLogin = userController.getPhonegappLogin(userid);
         appController.getSigningKeys(phonegappLogin, getPlatformName(), function(pgLogin, data) {
-          var content = '<h5><i class="icon-user"></i> ' + pgLogin.email + '</h5>';
+          var content = '<select>';
+          content += '<option></option>';
+          content += '<optgroup label="unlocked">';
           $(data.keys).each(function(i, key) {
-            content += '<label class="radio"><input type="radio" data-locked="'+key.locked+'" id="signingkey'+key.id+'" name="signingkey" value="'+key.id+'"/><i class="icon-' + (key.locked ? 'lock' : 'unlock-alt') + ' key_locked_'+key.locked + '"></i> ' + key.title + "</label>";
+            if (!key.locked) {
+              content += '<option value="'+key.id+'" data-locked="false">' + key.title + '</option>';
+            }
           });
+          content += '</optgroup>';
+          content += '<optgroup label="locked">';
+          $(data.keys).each(function(i, key) {
+            if (key.locked) {
+              content += '<option value="'+key.id+'" data-locked="true">' + key.title + '</option>';
+            }
+          });
+          content += '</optgroup>';
+          content += '</select>';
           $("#keysTableBody")
               .html(content)
-              .find("input")
-              .on('click', function() {
-                if ($(this).attr('data-locked') == "true") {
+              .find("select")
+              .on('change', function() {
+                if ($(this).find('option:selected').attr('data-locked') == "true") {
                   $("#certificatePasswordContainer").show();
                 } else {
                   $("#certificatePasswordContainer").hide();
@@ -192,6 +205,7 @@ function AppsView() { // which is the homepage
 
   $('#keysModal').on('hide', function () {
     $("#keysTableBody").html("")
+    $("#certificatePasswordContainer").hide();
   });
 
 }
