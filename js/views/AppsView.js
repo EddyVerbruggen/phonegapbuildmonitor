@@ -145,7 +145,7 @@ function AppsView() { // which is the homepage
     if (buildStatus == "error") {
       var errorMsg = appController.getBuildError(app);
 //      if (errorMsg.indexOf("signing key is locked") > -1) {
-        return '<a href="#" role="button" class="btn btn-danger" onclick="appsView.showSigningKeyModal(\''+phonegappLogin.user.id+'\', \''+appid+'\', \''+errorMsg+'\')"><i class="icon-warning-sign"></i> error</a><br/>';
+        return '<a href="#" role="button" class="btn btn-danger" onclick="appsView.showSigningKeyModal(\''+phonegappLogin.user.id+'\', \''+appid+'\', \''+errorMsg+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
 //      } else {
 //        return '<a href="#" role="button" class="btn btn-danger" onclick="showAlert(\'Error\', \''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
 //      }
@@ -192,11 +192,7 @@ function AppsView() { // which is the homepage
               .html(content)
               .find("select")
               .on('change', function() {
-                if ($(this).find('option:selected').attr('data-locked') == "true") {
-                  $("#certificatePasswordContainer").show();
-                } else {
-                  $("#certificatePasswordContainer").hide();
-                }
+                $("#certificatePasswordContainer").show();
               });
         });
         break;
@@ -212,7 +208,7 @@ function AppsView() { // which is the homepage
         .bind("click", function() {
           var certPassword = $("#certificatePassword").val();
           if (certPassword == "" && $("#keysTableBody").find("option:selected").attr('data-locked') == "true") {
-            alert("The Certificate password is required to unlock the signing key");
+            showAlert("The Certificate password is required to unlock the signing key");
             $("#certificatePassword").focus();
             return false;
           }
