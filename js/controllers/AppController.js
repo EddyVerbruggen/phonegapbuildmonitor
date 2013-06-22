@@ -11,14 +11,14 @@ function AppController() {
     PhonegapBuildApiProxy.doPUT('apps/'+appid, data, phonegappLogin, callback);
   };
 
-  this.buildFromRepoWithSigningKey = function(phonegappLogin, appid, signingKeyID, certPassword, callback) {
+  this.buildFromRepoWithSigningKey = function(phonegappLogin, appid, signingKeyID, certPassword, callback, errorCallback) {
     var data;
     if (certPassword == null) {
       data = 'data=' + encodeURIComponent('{"keys":{"ios":{"id":'+signingKeyID+'}}, "pull":"true"}');
     } else {
       data = 'data=' + encodeURIComponent('{"keys":{"ios":{"id":'+signingKeyID+', "password":"'+certPassword+'"}}, "pull":"true"}');
     }
-    PhonegapBuildApiProxy.doPUT('apps/'+appid, data, phonegappLogin, callback);
+    PhonegapBuildApiProxy.doPUT('apps/'+appid, data, phonegappLogin, callback, errorCallback);
   };
 
   this.getSigningKeys = function(phonegappLogin, platform, callback) {

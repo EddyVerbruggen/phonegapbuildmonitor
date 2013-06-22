@@ -144,11 +144,11 @@ function AppsView() { // which is the homepage
     var buildStatus = appController.getBuildStatus(app, getPlatformName());
     if (buildStatus == "error") {
       var errorMsg = appController.getBuildError(app);
-      if (errorMsg.indexOf("signing key is locked") > -1) {
-        return '<a href="#" role="button" class="btn btn-danger" onclick="appsView.showSigningKeyModal(\''+phonegappLogin.user.id+'\', \''+appid+'\')"><i class="icon-warning-sign"></i> error</a><br/>';
-      } else {
-        return '<a href="#" role="button" class="btn btn-danger" onclick="showAlert(\'Error\', \''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
-      }
+//      if (errorMsg.indexOf("signing key is locked") > -1) {
+        return '<a href="#" role="button" class="btn btn-danger" onclick="appsView.showSigningKeyModal(\''+phonegappLogin.user.id+'\', \''+appid+'\', \''+errorMsg+'\')"><i class="icon-warning-sign"></i> error</a><br/>';
+//      } else {
+//        return '<a href="#" role="button" class="btn btn-danger" onclick="showAlert(\'Error\', \''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
+//      }
     } else if (buildStatus == "complete") {
       if (isAndroid() || settingsController.settings.iOSInstallButtonEnabled) {
         var url = appController.getDownloadLink(app, phonegappLogin, getPlatformName());
@@ -163,7 +163,7 @@ function AppsView() { // which is the homepage
     }
   };
 
-  this.showSigningKeyModal = function(userid, appid) {
+  this.showSigningKeyModal = function(userid, appid, errorMsg) {
     $('#keysModal').modal('show');
     // added a timeout, so maybe it behaves a bit better on iPhone 3GS (slow, and scrolling up)
     googleAnalytics("signingkeys-show");
@@ -203,6 +203,8 @@ function AppsView() { // which is the homepage
       }
     }
 
+    $("#signingKeyErrorMessageContainer").html("Error message: " + errorMsg);
+
     $("#userKeyButton")
         .attr("data-userid", userid)
         .attr("data-appid", appid)
@@ -218,6 +220,7 @@ function AppsView() { // which is the homepage
           var userid = $(this).attr("data-userid");
           var appid = $(this).attr("data-appid");
           var phonegappLogin = userController.getPhonegappLogin(userid);
+          // TODO send an error handler to deal with the case of an invalid certificate password (AND -prolly wise- use sync API call)
           appController.buildFromRepoWithSigningKey(phonegappLogin, appid, selectedKeyID, certPassword, userController.loadAppsForUsers);
           googleAnalytics("signingkeys-build");
           showAlert("Hang on", "Fetching repo and starting a build with this key..");
