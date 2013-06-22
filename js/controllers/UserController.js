@@ -62,7 +62,6 @@ function UserController() {
       }
     } else {
       // on resume this may happen, but it doesn't really matter
-//      showAlert("[Sorry, debugging] Too many callbacks. Details: " + callbackQueue);
     }
     googleAnalytics("appsview-loadapps");
   };

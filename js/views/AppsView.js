@@ -203,7 +203,7 @@ function AppsView() { // which is the homepage
       }
     }
 
-    $("#signingKeyErrorMessageContainer").html("Error message: " + errorMsg);
+    $("#signingKeyErrorMessageContainer").html("Error: " + errorMsg);
 
     $("#userKeyButton")
         .attr("data-userid", userid)
@@ -220,9 +220,8 @@ function AppsView() { // which is the homepage
           var userid = $(this).attr("data-userid");
           var appid = $(this).attr("data-appid");
           var phonegappLogin = userController.getPhonegappLogin(userid);
-          // TODO send an error handler to deal with the case of an invalid certificate password (AND -prolly wise- use sync API call)
-          appController.buildFromRepoWithSigningKey(phonegappLogin, appid, selectedKeyID, certPassword, userController.loadAppsForUsers);
           googleAnalytics("signingkeys-build");
+          appController.buildFromRepoWithSigningKey(phonegappLogin, appid, selectedKeyID, certPassword, userController.loadAppsForUsers);
           showAlert("Hang on", "Fetching repo and starting a build with this key..");
           return true;
     });
