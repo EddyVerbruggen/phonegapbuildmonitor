@@ -171,7 +171,7 @@ function AppsView() { // which is the homepage
       if (userid == userController.phonegappLogins[i].user.id) {
         var phonegappLogin = userController.getPhonegappLogin(userid);
         appController.getSigningKeys(phonegappLogin, getPlatformName(), function(pgLogin, data) {
-          var content = '<select id="signingKeySelect">';
+          var content = '<select>';
           content += '<option></option>';
           content += '<optgroup label="unlocked">';
           $(data.keys).each(function(i, key) {
@@ -208,8 +208,8 @@ function AppsView() { // which is the homepage
         .bind("click", function() {
           var selectedOption = $("#keysTableBody").find("option:selected");
           if (selectedOption.val() == "") {
-            showAlert("Oops!", "Please select a certificate, or close this window");
-            $("#signingKeySelect").focus();
+            showAlert("Oops!", "Please select a certificate");
+            // not focusing on dropdown here because it looks awkward on mobile
             return false;
           }
           var certPassword = $("#certificatePassword").val();
