@@ -171,7 +171,7 @@ function AppsView() { // which is the homepage
       if (userid == userController.phonegappLogins[i].user.id) {
         var phonegappLogin = userController.getPhonegappLogin(userid);
         appController.getSigningKeys(phonegappLogin, getPlatformName(), function(pgLogin, data) {
-          var content = '<select>';
+          var content = '<select id="signingKeySelect">';
           content += '<option></option>';
           content += '<optgroup label="unlocked">';
           $(data.keys).each(function(i, key) {
@@ -206,9 +206,15 @@ function AppsView() { // which is the homepage
         .attr("data-appid", appid)
         .unbind("click")
         .bind("click", function() {
+          var selectedOption = $("#keysTableBody").find("option:selected");
+          if (selectedOption.val() == "") {
+            showAlert("Oops!", "Please select a certificate, or close this window");
+            $("#signingKeySelect").focus();
+            return false;
+          }
           var certPassword = $("#certificatePassword").val();
-          if (certPassword == "" && $("#keysTableBody").find("option:selected").attr('data-locked') == "true") {
-            showAlert("The Certificate password is required to unlock the signing key");
+          if (certPassword == "" && selectedOption.attr('data-locked') == "true") {
+            showAlert("Oops!", "The Certificate password is required to unlock the signing key");
             $("#certificatePassword").focus();
             return false;
           }
