@@ -72,7 +72,7 @@ function ChartView() { // which is the homepage
                   shadow: false
                 },
                 seriesDefaults: {
-                  lineWidth: 2,
+                  lineWidth: 3,
                   markerOptions: {
                     size: (data.android.length == 1 ? 10 : 0) // if there's only one datapoint, you have an empty chart with size 0 ;)
                   },
