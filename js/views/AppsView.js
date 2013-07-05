@@ -96,9 +96,13 @@ function AppsView() { // which is the homepage
             '    <h4>' + app.title + '<span class="appversion">' + app.version + '</span></h4>';
         // TODO [future version]: for non-private apps, we could use the downloadlink, but that one includes the auth_token, so warn the user before sending it to others (or use a proxy server) .. or use the download GET service?
 
-        if (!app.private) {
-          content += '    <div class="sharebutton"><a href="mailto:?subject='+app.title+' build '+app.build_count+'&body=Click one of these links on your mobile device:%0D%0A%0D%0A%0D%0AiOS: '+appController.getShareLink(app, 'ios')+'%0D%0A%0D%0AAndroid: '+appController.getShareLink(app, 'android')+'" onclick="googleAnalytics(\'appsview-share\')"><i class="icon-share"></i></a></div>';
+        content += '<div class="sharebutton">';
+        if (app.private) {
+          content += '<i class="icon-eye-open" style="color:#999"></i>';
+        } else {
+          content += '<a href="mailto:?subject='+app.title+' build '+app.build_count+'&body=Click one of these links on your mobile device:%0D%0A%0D%0A%0D%0AiOS: '+appController.getShareLink(app, 'ios')+'%0D%0A%0D%0AAndroid: '+appController.getShareLink(app, 'android')+'" onclick="googleAnalytics(\'appsview-share\')"><i class="icon-share"></i></a>';
         }
+        content += '</div>';
         content += '<div class="signingkeybutton"><a href="#" onclick="appsView.showSigningKeyModal(\''+phonegappLogin.user.id+'\', \''+appid+'\')"><i class="icon-key"></i></a></div>';
         if (app.build_count == null) {
           content += '    <div class="buildcount">no builds yet</div>';
@@ -106,7 +110,8 @@ function AppsView() { // which is the homepage
           content += '    <div class="buildcount">build ' + app.build_count + (app.buildCountDiff > 0 ? '&nbsp;&nbsp;<span class="buildmeister-icon-updated"><i class="icon-'+(app.buildCountDiff > 5 ? 'double-' : '')+'angle-up"></i>' : '') + '</span></div>';
         }
         if (app.repo == null) {
-          content += '    <div class="buildfromrepobutton"><i class="icon-eye-open icon-large"></i></div>';
+//          content += '    <div class="buildfromrepobutton"><i class="icon-eye-open icon-large"></i></div>';
+//          content += '    <div class="buildfromrepobutton">zip upload</div>';
         } else {
           content += '    <div class="buildfromrepobutton"><a data-userid="'+phonegappLogin.user.id+'" data-appid="'+appid+'" href="#" role="button" class="btn btn-mini btn-inverse"><i class="'+getPullIcon(app.repo)+'"></i>&nbsp;&nbsp;pull code</a></div>';
         }
