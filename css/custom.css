@@ -92,6 +92,7 @@ h4 {
 
 #appTable .actionbutton .btn {
   min-width: 54px;
+  padding: 4px 8px;
 }
 
 #appTable .actionbutton .btn-spinner {

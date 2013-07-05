@@ -144,4 +144,4 @@ function log(what) {
 }
 
 // kick off!
-//startPolling();
+startPolling();
