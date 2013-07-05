@@ -1,7 +1,7 @@
 var token = "Rt9jJoTxCgDBQrYfuHLk";
 var appid = 412598; // 'Hello World' app
 var maxSamplesForClient = 20;
-var buildIntervalMillis = 60000 * 15; // build an app every x minutes (after the build has finished)
+var buildIntervalMillis = 60000 * 20; // build an app every x minutes (after the build has finished)
 var buildCheckIntervalMillis = 60000; // check the status every minute
 var buildThreshold = 60000 * 30; // after 30 minutes, a build is considered 'hanging'
 
@@ -15,10 +15,8 @@ var nconf = require('nconf');
 // ***** webserver *****
 var http = require('http');
 http.createServer(function (req, res) {
-  // always refresh the properties
-  nconf.file({file: __dirname + '/chartserver.config.json'});
   res.writeHead(200, {'Content-Type': 'application/json'});
-  if (!isIOS(req.headers['user-agent']) || nconf.get("showAllPlatformsOnIOS")) {
+  if (showAllPlatforms(req)) {
     res.end(JSON.stringify({
       android: androidBuilds,
       ios: iosBuilds
@@ -30,6 +28,19 @@ http.createServer(function (req, res) {
   }
 }).listen(9100);
 
+var url = require('url');
+function showAllPlatforms(req) {
+  if (!isIOS(req.headers['user-agent'])) {
+    return true;
+  } else {
+    // check the version of the client (querystring param: ?v=2)
+    var url_parts = url.parse(req.url, true);
+    var v = url_parts.query.v;
+    // always refresh the properties
+    nconf.file({file: __dirname + '/chartserver.config.json'});
+    return nconf.get("showAllPlatformsOnIOS"+(v == undefined ? "" : "_v"+v));
+  }
+}
 
 // ***** internal pgbuild checker *****
 var lastStartTimeIOS;
@@ -39,14 +50,14 @@ var lastAndroidBuildComplete = true;
 
 var client = require('phonegap-build-api');
 function startPolling() {
-  console.log('authenticating');
+  log('authenticating');
   client.auth({token: token}, function (e, api) {
     buildAndCheckStatus(api);
   });
 }
 
 function buildAndCheckStatus(api) {
-  console.log('building');
+  log('building');
   var now = new Date().getTime();
   if (lastIOSBuildComplete) {
     lastStartTimeIOS = now;
@@ -57,7 +68,7 @@ function buildAndCheckStatus(api) {
   lastIOSBuildComplete = false;
   lastAndroidBuildComplete = false;
   api.put('/apps/' + appid, {}, function (e, data) {
-    console.log('built');
+    log('built');
     setTimeout(function() {
       checkStatus(api);
     }, buildCheckIntervalMillis);
@@ -72,7 +83,7 @@ function checkStatus(api) {
         checkStatus(api);
       }, buildCheckIntervalMillis);
     } else {
-      console.log('ios / android status: ' + data.status.ios + ' / ' + data.status.android);
+      log('ios / android status: ' + data.status.ios + ' / ' + data.status.android);
       var now = new Date().getTime();
       if (data.status.ios == 'complete' && !lastIOSBuildComplete) {
         lastIOSBuildComplete = true;
@@ -88,17 +99,17 @@ function checkStatus(api) {
       var buildError = data.status.ios == 'error' || data.status.android == 'error';
       if (buildError) {
         // TODO in case (for example) the iOS key is locked, the chart will no longer get new data! so unlock here :)
-        console.log('build error');
+        log('build error');
         setTimeout(function() {
           buildAndCheckStatus(api);
         }, buildIntervalMillis);
       } else if (buildComplete) {
-        console.log('build complete');
+        log('build complete');
         setTimeout(function() {
           buildAndCheckStatus(api);
         }, buildIntervalMillis);
       } else if (buildTakesLongerThanThreshold(now)) {
-        console.log('restarting long running build');
+        log('restarting long running build');
         buildAndCheckStatus(api);
       } else {
         setTimeout(function() {
@@ -128,5 +139,9 @@ function isIOS(what) {
   return what.match(/(iPad|iPhone|iPod)/i);
 }
 
+function log(what) {
+  console.log(new Date() + " " + what);
+}
+
 // kick off!
-startPolling();
+//startPolling();

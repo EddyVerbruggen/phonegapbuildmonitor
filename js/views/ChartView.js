@@ -24,8 +24,8 @@ function ChartView() { // which is the homepage
   this.refreshChartData = function() {
     $.ajax({
       async: true,
-      url: 'http://www.thumbrater.com:9100',
-//      url: 'http://localhost:9100',
+      url: 'http://www.thumbrater.com:9100?v=2',
+//      url: 'http://localhost:9100?v=2',
       dataType:"json",
       error: chartView.showGraphDownMessage,
       success: function(data) {
@@ -93,7 +93,7 @@ function ChartView() { // which is the homepage
                   border: '0',
                   renderer: $.jqplot.EnhancedLegendRenderer,
                   placement: "insideGrid",
-                  labels: ["ios", "android"],
+                  labels: ["ios", (isIOS() ? "other" /* mentioning other platform names is not allowed by Apple */ : "android")],
                   location: "nw",
                   rowSpacing: "0px",
                   xoffset: 2,

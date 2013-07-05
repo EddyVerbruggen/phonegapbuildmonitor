@@ -85,11 +85,12 @@
     </table>
     <div id="certificatePasswordContainer" class="input-prepend" style="display: none">
       <span class="add-on"><i class="icon-key"></i></span>
-      <input id="certificatePassword" type="password" placeholder="Certificate password" required/>
+      <input id="certificatePassword" type="password" placeholder="Certificate password"/>
     </div>
+    <div id="certificatePasswordHint" style="color: #999; font-size: 10px; display: none">only required for locked keys</div>
   </div>
   <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
     <a href="#" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" id="userKeyButton"><i class="icon-check-sign"></i> Build with selected key</a>
   </div>
 </div>

@@ -52,6 +52,8 @@ h4, h5 {
 #appTable .appversion {
   font-size: 0.7em;
   font-weight: normal;
+  margin-left: 5px;
+  display: none; /* visibile at higher resolutions*/
 }
 
 #appTable .buildfromrepobutton {
@@ -59,13 +61,21 @@ h4, h5 {
   margin-top: 7px;
 }
 
-#appTable .sharebutton {
+#appTable .sharebutton,
+#appTable .signingkeybutton {
   float: right;
   margin-top: -20px;
+  padding: 10px;
+}
+
+#appTable .sharebutton {
+  margin-right: -10px;
 }
 
 #appTable .sharebutton a,
-#appTable .sharebutton a:visited {
+#appTable .sharebutton a:visited,
+#appTable .signingkeybutton a,
+#appTable .signingkeybutton a:visited {
   color:#000;
   text-decoration: none;
 }
@@ -95,6 +105,12 @@ h4, h5 {
   font-size: 7px;
 }
 
+#appTable .builddots .builddots4 {
+  margin-top: 5px;
+  line-height: 13px;
+  font-size: 11px;
+}
+
 #userTable.table {
   margin-bottom: 0;
 }
@@ -112,7 +128,7 @@ h4, h5 {
 }
 
 #keysModal .modal-body {
-  min-height: 100px;
+  min-height: 120px;
 }
 
 #keysModal .key_locked_true {
@@ -155,6 +171,9 @@ span.buildmeister-icon-updated {
   }
   #appTable .builddots {
     margin-left: 10px;
+  }
+  #appTable .appversion {
+    display: inline-block;
   }
 }
 

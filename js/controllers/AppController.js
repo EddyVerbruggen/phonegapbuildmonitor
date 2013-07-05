@@ -6,6 +6,10 @@ function AppController() {
     PhonegapBuildApiProxy.doGET('apps', phonegappLogin, callback, errorCallback);
   };
 
+  this.getAppDetails = function(phonegappLogin, appid, callback) {
+    PhonegapBuildApiProxy.doGET('apps/'+appid, phonegappLogin, callback);
+  };
+
   this.buildFromRepo = function(phonegappLogin, appid, callback) {
     var data = 'data=' + encodeURIComponent('{"pull":"true"}');
     PhonegapBuildApiProxy.doPUT('apps/'+appid, data, phonegappLogin, callback);

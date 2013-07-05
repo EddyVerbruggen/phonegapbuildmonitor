@@ -86,36 +86,53 @@ function AppsView() { // which is the homepage
       theAppUsers.reverse();
       for (var i=0; i<theApps.length; i++) {
         var app = theApps[i];
+        appid = app.id;
         var phonegappLogin = userController.getPhonegappLogin(theAppUsers[i].user.id);
-        var imgUrl = app.icon.filename == null ? 'img/default-appicon.png' : 'https://build.phonegap.com/api/v1/apps/'+app.id+'/icon?auth_token='+phonegappLogin.token;
+        var imgUrl = app.icon.filename == null ? 'img/default-appicon.png' : 'https://build.phonegap.com/api/v1/apps/'+appid+'/icon?auth_token='+phonegappLogin.token;
         content += '' +
             '<tr>' +
-            '  <td class="iconcolumn"><img class="img-rounded" src="'+imgUrl+'" data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" width="72px" height="72px"/></td>' +
+            '  <td class="iconcolumn"><img class="img-rounded" src="'+imgUrl+'" data-userid="'+phonegappLogin.user.id+'" data-appid="'+appid+'" width="72px" height="72px"/></td>' +
             '  <td>' +
-            '    <h4>' + app.title + ' <span class="appversion">' + app.version + '</span></h4>';
+            '    <h4>' + app.title + '<span class="appversion">' + app.version + '</span></h4>';
         // TODO [future version]: for non-private apps, we could use the downloadlink, but that one includes the auth_token, so warn the user before sending it to others (or use a proxy server) .. or use the download GET service?
+
         if (!app.private) {
           content += '    <div class="sharebutton"><a href="mailto:?subject='+app.title+' build '+app.build_count+'&body=Click one of these links on your mobile device:%0D%0A%0D%0A%0D%0AiOS: '+appController.getShareLink(app, 'ios')+'%0D%0A%0D%0AAndroid: '+appController.getShareLink(app, 'android')+'" onclick="googleAnalytics(\'appsview-share\')"><i class="icon-share"></i></a></div>';
         }
+        content += '<div class="signingkeybutton"><a href="#" onclick="appsView.showSigningKeyModal(\''+phonegappLogin.user.id+'\', \''+appid+'\')"><i class="icon-key"></i></a></div>';
         if (app.build_count == null) {
           content += '    <div class="buildcount">no builds yet</div>';
         } else {
           content += '    <div class="buildcount">build ' + app.build_count + (app.buildCountDiff > 0 ? '&nbsp;&nbsp;<span class="buildmeister-icon-updated"><i class="icon-'+(app.buildCountDiff > 5 ? 'double-' : '')+'angle-up"></i>' : '') + '</span></div>';
         }
-        if (app.private) {
+        if (app.repo == null) {
           content += '    <div class="buildfromrepobutton"><i class="icon-eye-open icon-large"></i></div>';
         } else {
-          content += '    <div class="buildfromrepobutton"><a data-userid="'+phonegappLogin.user.id+'" data-appid="'+app.id+'" href="#" role="button" class="btn btn-mini btn-inverse"><i class="icon-github"></i>&nbsp;&nbsp;pull code</a></div>';
+          content += '    <div class="buildfromrepobutton"><a data-userid="'+phonegappLogin.user.id+'" data-appid="'+appid+'" href="#" role="button" class="btn btn-mini btn-inverse"><i class="'+getPullIcon(app.repo)+'"></i>&nbsp;&nbsp;pull code</a></div>';
+        }
+        content += '<div class="builddots">';
+        if (isAndroid() || settingsController.settings.iOSInstallButtonEnabled) {
+          // TODO if in progress (grijs): add class icon-spin
+          content += '' +
+              '    <span class="builddots4">' +
+              '      <i class="'+getBuildStatusSpinClass(app, 'ios')+' icon-apple" style="color:'+getBuildStatusColour(app, 'ios')+'" title="ios"></i>' +
+              '      <i class="'+getBuildStatusSpinClass(app, 'android')+' icon-android" style="color:'+getBuildStatusColour(app, 'android')+'" title="android"></i><br/>' +
+              '      <i class="'+getBuildStatusSpinClass(app, 'winphone')+' icon-windows" style="color:'+getBuildStatusColour(app, 'winphone')+'" title="winphone"></i>' +
+//              '      <i class="'+getBuildStatusSpinClass(app, 'blackberry')+" style="color:'+getBuildStatusColour(app, 'blackberry')+'" title="blackberry">b</i><br/>' +
+              // TODO whenever font awesome supports a proper blackberry icon, use it
+              '      <i class="'+getBuildStatusSpinClass(app, 'blackberry')+' icon-bitcoin" style="color:'+getBuildStatusColour(app, 'blackberry')+'" title="blackberry"></i><br/>' +
+              '    </span>';
+        } else {
+          content += '' +
+              '      <i class="icon-apple" style="color:'+getBuildStatusColour(app, 'ios')+'" title="ios"></i>' +
+              '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'android')+'" title="android"></i><br/>' +
+              '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'winphone')+'" title="winphone"></i>' +
+              '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'blackberry')+'" title="blackberry"></i><br/>' +
+              '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'webos')+'" title="webos"></i>' +
+              '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'symbian')+'" title="symbian"></i>';
         }
         content += '' +
-            '    <div class="builddots">' +
-            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'ios')+'" title="ios"></i>' +
-            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'android')+'" title="android"></i><br/>' +
-            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'winphone')+'" title="winphone"></i>' +
-            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'blackberry')+'" title="blackberry"></i><br/>' +
-            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'webos')+'" title="webos"></i>' +
-            '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'symbian')+'" title="symbian"></i>' +
-            '    </div>' +
+            '      </div>' +
             '    <div class="actionbutton">' + getActionButton(app, phonegappLogin) + '</div>' +
             '  </td>' +
             '</tr>';
@@ -127,8 +144,18 @@ function AppsView() { // which is the homepage
 //    $("#lastCheck").html("Next check in .. seconds. Check now (button)");
   };
 
+  var getPullIcon = function(repoUrl) {
+    if (repoUrl.indexOf("github.com") > -1) {
+      return "icon-github-alt";
+    } else if (repoUrl.indexOf("bitbucket.org") > -1) {
+      return "icon-bitbucket";
+    } else {
+      return "icon-refresh";
+    }
+  };
+
   var getBuildStatusColour = function(app, platform) {
-    var status = appController.getBuildStatus(app, platform)
+    var status = appController.getBuildStatus(app, platform);
     if (status == "complete") {
       return "green";
     } else if (status == "pending") {
@@ -138,10 +165,20 @@ function AppsView() { // which is the homepage
     }
   };
 
+  var getBuildStatusSpinClass = function(app, platform) {
+    var status = appController.getBuildStatus(app, platform);
+    if (status == "pending") {
+      return "icon-spin";
+    } else {
+      return "";
+    }
+  };
+
   // TODO animate button/row when state changes
   var getActionButton = function(app, phonegappLogin) {
     var appid = app.id;
     var buildStatus = appController.getBuildStatus(app, getPlatformName());
+    // TODO always show the option to choose the signing key (maybe as a text/link below the pull button)?
     if (buildStatus == "error") {
       var errorMsg = appController.getBuildError(app);
 //      if (errorMsg.indexOf("signing key is locked") > -1) {
@@ -165,7 +202,6 @@ function AppsView() { // which is the homepage
 
   this.showSigningKeyModal = function(userid, appid, errorMsg) {
     $('#keysModal').modal('show');
-    // added a timeout, so maybe it behaves a bit better on iPhone 3GS (slow, and scrolling up)
     googleAnalytics("signingkeys-show");
     for (var i=0; i<userController.phonegappLogins.length; i++) {
       if (userid == userController.phonegappLogins[i].user.id) {
@@ -188,18 +224,25 @@ function AppsView() { // which is the homepage
           });
           content += '</optgroup>';
           content += '</select>';
-          $("#keysTableBody")
-              .html(content)
-              .find("select")
-              .on('change', function() {
-                $("#certificatePasswordContainer").show();
-              });
+          $("#keysTableBody").html(content);
+          $("#certificatePasswordContainer").show();
+          $("#certificatePasswordHint").show();
+
+          // now that we have a list, we need to know which one is currently selected
+          appController.getAppDetails(pgLogin, appid, function(pgLoginInner, dataInner) {
+            var platformKey = eval('dataInner.keys.'+getPlatformName());
+            if (platformKey != null) {
+              $("#keysTableBody")
+                  .find("select")
+                  .val(platformKey.id);
+            }
+          });
         });
         break;
       }
     }
 
-    $("#signingKeyErrorMessageContainer").html("Error: " + errorMsg);
+    $("#signingKeyErrorMessageContainer").html(errorMsg == undefined ? "" : "Error: " + errorMsg);
 
     $("#userKeyButton")
         .attr("data-userid", userid)
@@ -232,6 +275,7 @@ function AppsView() { // which is the homepage
   $('#keysModal').on('hide', function () {
     $("#keysTableBody").html("");
     $("#certificatePasswordContainer").hide();
+    $("#certificatePasswordHint").hide();
   });
 
 }
