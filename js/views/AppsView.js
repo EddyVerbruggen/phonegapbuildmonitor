@@ -103,7 +103,7 @@ function AppsView() { // which is the homepage
           content += '<a href="mailto:?subject='+app.title+' build '+app.build_count+'&body=Click one of these links on your mobile device:%0D%0A%0D%0A%0D%0AiOS: '+appController.getShareLink(app, 'ios')+'%0D%0A%0D%0AAndroid: '+appController.getShareLink(app, 'android')+'" onclick="googleAnalytics(\'appsview-share\')"><i class="icon-share"></i></a>';
         }
         content += '</div>';
-        content += '<div class="signingkeybutton"><a href="#" onclick="appsView.showSigningKeyModal(\''+phonegappLogin.user.id+'\', \''+appid+'\')"><i class="icon-key"></i></a></div>';
+        content += '<div class="signingkeybutton"><a href="#" onclick="appsView.showSigningKeyModal(\''+phonegappLogin.user.id+'\', \''+appid+'\'); return false"><i class="icon-key"></i></a></div>';
         if (app.build_count == null) {
           content += '    <div class="buildcount">no builds yet</div>';
         } else {
