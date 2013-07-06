@@ -24,8 +24,8 @@ function ChartView() { // which is the homepage
   this.refreshChartData = function() {
     $.ajax({
       async: true,
-      url: 'http://www.thumbrater.com:9100?v=2',
-//      url: 'http://localhost:9100?v=2',
+      url: 'http://www.thumbrater.com:9100/?v=2',
+//      url: 'http://localhost:9100/?v=2',
       dataType:"json",
       error: chartView.showGraphDownMessage,
       success: function(data) {
@@ -82,10 +82,10 @@ function ChartView() { // which is the homepage
                 },
                 series: [
                   {
-                    color: '#0088cc'
+                    color: '#5fbe5f'
                   },
                   {
-                    color: '#c67605'
+                    color: '#0088cc'
                   }
                 ],
                 legend: {
@@ -93,7 +93,7 @@ function ChartView() { // which is the homepage
                   border: '0',
                   renderer: $.jqplot.EnhancedLegendRenderer,
                   placement: "insideGrid",
-                  labels: ["<i class='icon-apple' style='color:#0088cc'></i>", "<i class='icon-android' style='color:#c67605'></i>"],
+                  labels: ["<i class='icon-android' style='color:#5fbe5f'></i>", "<i class='icon-apple' style='color:#0088cc'></i>"],
                   location: "nw",
                   rowSpacing: "0px",
                   xoffset: 2,
