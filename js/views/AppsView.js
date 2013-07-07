@@ -207,6 +207,8 @@ function AppsView() { // which is the homepage
   this.showSigningKeyModal = function(userid, appid, errorMsg) {
     $('#keysModal').modal('show');
     googleAnalytics("signingkeys-show");
+    $("#signingKeyErrorMessageContainer").html(errorMsg == undefined ? "" : "Error: " + errorMsg);
+
     for (var i=0; i<userController.phonegappLogins.length; i++) {
       if (userid == userController.phonegappLogins[i].user.id) {
         var phonegappLogin = userController.getPhonegappLogin(userid);
@@ -240,40 +242,40 @@ function AppsView() { // which is the homepage
                   .find("select")
                   .val(platformKey.id);
             }
+            $("#useKeyButton")
+                .attr("data-userid", userid)
+                .attr("data-appid", appid)
+                .attr("data-hasrepo", dataInner.repo != null)
+                .unbind("click")
+                .bind("click", function() {
+                  var selectedOption = $("#keysTableBody").find("option:selected");
+                  if (selectedOption.val() == "") {
+                    showAlert("Oops!", "Please select a certificate");
+                    // not focusing on dropdown here because it looks awkward on mobile
+                    return false;
+                  }
+                  var certPassword = $("#certificatePassword").val();
+                  if (certPassword == "" && selectedOption.attr('data-locked') == "true") {
+                    showAlert("Oops!", "The Certificate password is required to unlock the signing key");
+                    $("#certificatePassword").focus();
+                    return false;
+                  }
+                  var selectedKeyID = $("#keysTableBody").find("option:selected").val();
+                  var userid = $(this).attr("data-userid");
+                  var appid = $(this).attr("data-appid");
+                  var hasrepo = $(this).attr("data-hasrepo");
+                  var phonegappLogin = userController.getPhonegappLogin(userid);
+                  googleAnalytics("signingkeys-build");
+                  appController.buildWithSigningKey(phonegappLogin, appid, selectedKeyID, certPassword, hasrepo, userController.loadAppsForUsers);
+                  showAlert("Hang on", "Fetching repo and starting a build with this key..");
+                  return true;
+            });
           });
         });
         break;
       }
     }
 
-    $("#signingKeyErrorMessageContainer").html(errorMsg == undefined ? "" : "Error: " + errorMsg);
-
-    $("#userKeyButton")
-        .attr("data-userid", userid)
-        .attr("data-appid", appid)
-        .unbind("click")
-        .bind("click", function() {
-          var selectedOption = $("#keysTableBody").find("option:selected");
-          if (selectedOption.val() == "") {
-            showAlert("Oops!", "Please select a certificate");
-            // not focusing on dropdown here because it looks awkward on mobile
-            return false;
-          }
-          var certPassword = $("#certificatePassword").val();
-          if (certPassword == "" && selectedOption.attr('data-locked') == "true") {
-            showAlert("Oops!", "The Certificate password is required to unlock the signing key");
-            $("#certificatePassword").focus();
-            return false;
-          }
-          var selectedKeyID = $("#keysTableBody").find("option:selected").val();
-          var userid = $(this).attr("data-userid");
-          var appid = $(this).attr("data-appid");
-          var phonegappLogin = userController.getPhonegappLogin(userid);
-          googleAnalytics("signingkeys-build");
-          appController.buildFromRepoWithSigningKey(phonegappLogin, appid, selectedKeyID, certPassword, userController.loadAppsForUsers);
-          showAlert("Hang on", "Fetching repo and starting a build with this key..");
-          return true;
-    });
   };
 
   $('#keysModal').on('hide', function () {
