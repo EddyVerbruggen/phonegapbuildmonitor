@@ -29,7 +29,6 @@ function AppController() {
         dataToEncode = '{"keys":{"'+getPlatformName()+'":{"id":'+signingKeyID+', "password":"'+certPassword+'"}}'+this._getPullOption(doPull, false)+'}';
       }
     }
-    alert(dataToEncode);
     var data = 'data=' + encodeURIComponent(dataToEncode);
     PhonegapBuildApiProxy.doPUT('apps/'+appid, data, phonegappLogin, callback, errorCallback);
   };
