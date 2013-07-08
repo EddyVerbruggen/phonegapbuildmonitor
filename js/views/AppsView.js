@@ -246,7 +246,8 @@ function AppsView() { // which is the homepage
                 .unbind("click")
                 .bind("click", function() {
                   var selectedOption = $("#keysTableBody").find("option:selected");
-                  if (selectedOption.val() == "") {
+                  // a signing key is required for iOS
+                  if (selectedOption.val() == "" && isIOS()) {
                     showAlert("Oops!", "Please select a certificate");
                     // not focusing on dropdown here because it looks awkward on mobile
                     return false;
@@ -257,13 +258,12 @@ function AppsView() { // which is the homepage
                     $("#certificatePassword").focus();
                     return false;
                   }
-                  var selectedKeyID = $("#keysTableBody").find("option:selected").val();
                   var userid = $(this).attr("data-userid");
                   var appid = $(this).attr("data-appid");
                   var hasrepo = $(this).attr("data-hasrepo");
                   var phonegappLogin = userController.getPhonegappLogin(userid);
                   googleAnalytics("signingkeys-build");
-                  appController.buildWithSigningKey(phonegappLogin, appid, selectedKeyID, certPassword, hasrepo, userController.loadAppsForUsers);
+                  appController.buildWithSigningKey(phonegappLogin, appid, selectedOption.val(), certPassword, hasrepo, userController.loadAppsForUsers);
                   showAlert("Hang on", (hasrepo ? "Fetching repo and s" : "S") + "tarting a build with this key..");
                   return true;
             });

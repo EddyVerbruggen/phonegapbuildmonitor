@@ -16,15 +16,21 @@ function AppController() {
   };
 
   this.buildWithSigningKey = function(phonegappLogin, appid, signingKeyID, certPassword, doPull, callback, errorCallback) {
-    var pullOption = doPull=="true" ? ', "pull":"true"' : '';
+    var pullOption = doPull == 'true' ? ', "pull":"true"' : '';
     var dataToEncode;
-    if (certPassword == null) {
-      dataToEncode = '{"keys":{"'+getPlatformName()+'":{"id":'+signingKeyID+'}}'+pullOption+'}';
+    if (signingKeyID == "") {
+      dataToEncode = '{'+this._getPullOption(doPull, true)+'}';
+    } else if (certPassword == null || certPassword == "") {
+      dataToEncode = '{"keys":{"'+getPlatformName()+'":{"id":'+signingKeyID+'}}'+this._getPullOption(doPull, false)+'}';
     } else {
-      dataToEncode = '{"keys":{"'+getPlatformName()+'":{"id":'+signingKeyID+', "password":"'+certPassword+'"}}'+pullOption+'}';
+      dataToEncode = '{"keys":{"'+getPlatformName()+'":{"id":'+signingKeyID+', "password":"'+certPassword+'"}}'+this._getPullOption(doPull, false)+'}';
     }
     var data = 'data=' + encodeURIComponent(dataToEncode);
     PhonegapBuildApiProxy.doPUT('apps/'+appid, data, phonegappLogin, callback, errorCallback);
+  };
+
+  this._getPullOption = function(doPull, isOnlyOption) {
+    return doPull == 'true' ? ((isOnlyOption ? '' : ', ') + '"pull":"true"') : '';
   };
 
   this.getSigningKeys = function(phonegappLogin, platform, callback) {
