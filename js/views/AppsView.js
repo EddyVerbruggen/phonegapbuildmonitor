@@ -225,7 +225,7 @@ function AppsView() { // which is the homepage
             }
           });
           content += '</optgroup>';
-          $("#keysSelection").append(content);
+          $("#keysSelection").html(content);
           $("#certificatePasswordContainer").show();
           $("#certificatePasswordHint").show();
 
