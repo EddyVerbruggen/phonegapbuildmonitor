@@ -67,6 +67,12 @@ h4 {
   float: right;
   margin-top: -28px;
   padding: 8px;
+  border-radius: 4px;
+}
+
+#appTable .sharebutton:hover,
+#appTable .signingkeybutton:hover {
+  background-color: #ddd;
 }
 
 #appTable .sharebutton {
