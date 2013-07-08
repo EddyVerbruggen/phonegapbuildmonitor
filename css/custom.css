@@ -12,10 +12,6 @@ h4 {
   font-size: 17px;
 }
 
-select {
-  line-height: 34px;
-}
-
 .navbar-fixed-top {
   position: fixed !important;
   margin-left: 0 !important;
@@ -144,7 +140,7 @@ select {
 }
 
 #keysModal .modal-body {
-  min-height: 120px;
+  min-height: 130px;
 }
 
 #keysModal .key_locked_true {
