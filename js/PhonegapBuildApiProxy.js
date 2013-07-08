@@ -58,6 +58,8 @@ PhonegapBuildApiProxy._doApiCall = function (type, service, data, phonegappLogin
         showAlert("PhoneGap Build is down", "build.phonegap.com seems to be down, so this app stops working as well.. we'll retry automatically in a minute!");
       } else if (xhr.responseText != null && xhr.responseText.indexOf("unable to clone")>-1) {
         showAlert("Unable to clone repo", "PhoneGap Build had a little error, please try again in a moment!");
+      } else if (xhr.responseText != null && xhr.responseText.indexOf("notified about this issue")>-1) {
+        showAlert("PhoneGap Build troubles", "PhoneGap Build had a little error, and they'll have a look. Try again later.");
       } else if (onErrorCallback != null) {
         onErrorCallback(phonegappLogin, xhr);
       } else {
