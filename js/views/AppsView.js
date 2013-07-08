@@ -210,7 +210,7 @@ function AppsView() { // which is the homepage
       if (userid == userController.phonegappLogins[i].user.id) {
         var phonegappLogin = userController.getPhonegappLogin(userid);
         appController.getSigningKeys(phonegappLogin, getPlatformName(), function(pgLogin, data) {
-          var content = '<select>';
+          var content = '<div class="input-prepend"><span class="add-on"><i class="icon-key"></i></span><select>';
           content += '<option value="">- no key -</option>';
           content += '<optgroup label="unlocked">';
           $(data.keys).each(function(i, key) {
@@ -226,7 +226,7 @@ function AppsView() { // which is the homepage
             }
           });
           content += '</optgroup>';
-          content += '</select>';
+          content += '</select></div>';
           $("#keysTableBody").html(content);
           $("#certificatePasswordContainer").show();
           $("#certificatePasswordHint").show();
