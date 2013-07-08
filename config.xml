@@ -47,7 +47,7 @@
   <preference name="orientation" value="portrait"/>
   <preference name="webviewbounce" value="true"/><!-- iOS rubber banding -->
   <preference name="ios-statusbarstyle" value="black-opaque"/>
-  <preference name="android-minSdkVersion" value="11" /><!-- 3.0 Honeycomb -->
+  <preference name="android-minSdkVersion" value="16" /><!-- 3.0 Honeycomb -->
   <preference name="android-installLocation" value="auto" /><!-- preferExternal; preferably install on SD-card -->
   <preference name="show-splash-screen-spinner" value="false" />
   <preference name="stay-in-webview" value="false" /><!-- external sites -->
