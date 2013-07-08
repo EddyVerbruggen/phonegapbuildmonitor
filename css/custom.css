@@ -71,7 +71,9 @@ h4 {
 }
 
 #appTable .sharebutton:hover,
-#appTable .signingkeybutton:hover {
+#appTable .signingkeybutton:hover,
+#appTable .sharebutton:active,
+#appTable .signingkeybutton:active {
   background-color: #ddd;
 }
 
