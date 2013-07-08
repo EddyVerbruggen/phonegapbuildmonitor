@@ -213,7 +213,7 @@ function AppsView() { // which is the homepage
       if (userid == userController.phonegappLogins[i].user.id) {
         var phonegappLogin = userController.getPhonegappLogin(userid);
         appController.getSigningKeys(phonegappLogin, getPlatformName(), function(pgLogin, data) {
-          var content = '<select class="selectpicker show-tick" data-style="btn-info">';
+          var content = '<select class="btn-info input-xlarge">';
           content += '<option>- no key -</option>';
           content += '<optgroup label="unlocked">';
           $(data.keys).each(function(i, key) {
