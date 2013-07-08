@@ -12,11 +12,6 @@ h4 {
   font-size: 17px;
 }
 
-/* fix for Android showing a very skinny dropdown */
-select {
-  height: 34px !important;
-}
-
 .navbar-fixed-top {
   position: fixed !important;
   margin-left: 0 !important;
@@ -75,8 +70,8 @@ select {
   border-radius: 4px;
 }
 
-#appTable .sharebutton:active,
-#appTable .signingkeybutton:active {
+#appTable .sharebutton:hover,
+#appTable .signingkeybutton:hover {
   background-color: #ddd;
 }
 
