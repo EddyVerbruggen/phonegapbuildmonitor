@@ -227,6 +227,9 @@ function AppsView() { // which is the homepage
           content += '</optgroup>';
           $("#keysSelection").html(content);
           $("#certificatePasswordContainer").show();
+          if (isAndroid()) {
+            $("#keystorePasswordContainer").show();
+          }
           $("#certificatePasswordHint").show();
 
           // now that we have a list, we need to know which one is currently selected
@@ -250,9 +253,9 @@ function AppsView() { // which is the homepage
                     return false;
                   }
                   var certPassword = $("#certificatePassword").val();
-                  if (certPassword == "" && selectedOption.attr('data-locked') == "true") {
-                    showAlert("Oops!", "The Certificate password is required to unlock the signing key");
-                    $("#certificatePassword").focus();
+                  var keystorePassword = $("#keystorePassword").val();
+                  if ((certPassword == "" || (isAndroid() && keystorePassword == "")) && selectedOption.attr('data-locked') == "true") {
+                    showAlert("Oops!", "Password is required to unlock the signing key");
                     return false;
                   }
                   var userid = $(this).attr("data-userid");
@@ -260,7 +263,7 @@ function AppsView() { // which is the homepage
                   var hasrepo = $(this).attr("data-hasrepo");
                   var phonegappLogin = userController.getPhonegappLogin(userid);
                   googleAnalytics("signingkeys-build");
-                  appController.buildWithSigningKey(phonegappLogin, appid, selectedOption.val(), certPassword, hasrepo, userController.loadAppsForUsers);
+                  appController.buildWithSigningKey(phonegappLogin, appid, selectedOption.val(), certPassword, keystorePassword, hasrepo, userController.loadAppsForUsers);
                   showAlert("Hang on", (hasrepo ? "Fetching repo and s" : "S") + "tarting a build with this key..");
                   return true;
             });
@@ -275,6 +278,7 @@ function AppsView() { // which is the homepage
   $('#keysModal').on('hide', function () {
     $("#keysTableBody").html("");
     $("#certificatePasswordContainer").hide();
+    $("#keystorePasswordContainer").hide();
     $("#certificatePasswordHint").hide();
   });
 

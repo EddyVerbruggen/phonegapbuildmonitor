@@ -15,7 +15,7 @@ function AppController() {
     PhonegapBuildApiProxy.doPUT('apps/'+appid, data, phonegappLogin, callback);
   };
 
-  this.buildWithSigningKey = function(phonegappLogin, appid, signingKeyID, certPassword, doPull, callback, errorCallback) {
+  this.buildWithSigningKey = function(phonegappLogin, appid, signingKeyID, certPassword, keystorePassword, doPull, callback, errorCallback) {
     var pullOption = doPull == 'true' ? ', "pull":"true"' : '';
     var dataToEncode;
     if (signingKeyID == "") {
@@ -23,8 +23,13 @@ function AppController() {
     } else if (certPassword == null || certPassword == "") {
       dataToEncode = '{"keys":{"'+getPlatformName()+'":{"id":'+signingKeyID+'}}'+this._getPullOption(doPull, false)+'}';
     } else {
-      dataToEncode = '{"keys":{"'+getPlatformName()+'":{"id":'+signingKeyID+', "password":"'+certPassword+'"}}'+this._getPullOption(doPull, false)+'}';
+      if (isAndroid()) {
+        dataToEncode = '{"keys":{"'+getPlatformName()+'":{"id":'+signingKeyID+', "key_pw":"'+certPassword+'", "keystore_pw":"'+keystorePassword+'"}}'+this._getPullOption(doPull, false)+'}';
+      } else {
+        dataToEncode = '{"keys":{"'+getPlatformName()+'":{"id":'+signingKeyID+', "password":"'+certPassword+'"}}'+this._getPullOption(doPull, false)+'}';
+      }
     }
+    alert(dataToEncode);
     var data = 'data=' + encodeURIComponent(dataToEncode);
     PhonegapBuildApiProxy.doPUT('apps/'+appid, data, phonegappLogin, callback, errorCallback);
   };

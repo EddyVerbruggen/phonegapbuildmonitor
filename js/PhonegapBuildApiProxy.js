@@ -18,13 +18,8 @@ PhonegapBuildApiProxy.doGET = function (service, phonegappLogin, onSuccessCallba
   return this._doApiCall('GET', this.getApiVersion() + service, null, phonegappLogin, onSuccessCallback, onErrorCallback);
 };
 
-//PhonegapBuildApiProxy.loginUsernamePassword = function (phonegappLogin, onSuccessCallback) {
-//  signInInProgress = true;
-//  this._doApiCall('GET', this.getApiVersion() + 'me', null, phonegappLogin, onSuccessCallback, null);
-//  signInInProgress = false;
-//};
-
 PhonegapBuildApiProxy.getToken = function (phonegappLogin, onSuccessCallback) {
+  //noinspection JSUnusedAssignment
   signInInProgress = true;
   this._doApiCall('POST', "token", null, phonegappLogin, onSuccessCallback, null);
   signInInProgress = false;
@@ -61,6 +56,10 @@ PhonegapBuildApiProxy._doApiCall = function (type, service, data, phonegappLogin
         showAlert("Authentication failed", "Invalid credentials.. try again!");
       } else if (xhr.statusText != null && xhr.statusText.indexOf("Service Unavailable")>-1) {
         showAlert("PhoneGap Build is down", "build.phonegap.com seems to be down, so this app stops working as well.. we'll retry automatically in a minute!");
+      } else if (xhr.responseText != null && xhr.responseText.indexOf("something went wrong (500)")>-1) {
+        showAlert("PhoneGap Build error", "PhoneGap Build had a little error, they have been notified. Please try again later.");
+      } else if (xhr.responseText != null && xhr.responseText.indexOf("unable to clone")>-1) {
+        showAlert("Unable to clone repo", "PhoneGap Build had a little error, please try again in a moment!");
       } else if (onErrorCallback != null) {
         onErrorCallback(phonegappLogin, xhr);
       } else {
