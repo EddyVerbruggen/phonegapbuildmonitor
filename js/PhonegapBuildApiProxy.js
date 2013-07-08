@@ -56,8 +56,6 @@ PhonegapBuildApiProxy._doApiCall = function (type, service, data, phonegappLogin
         showAlert("Authentication failed", "Invalid credentials.. try again!");
       } else if (xhr.statusText != null && xhr.statusText.indexOf("Service Unavailable")>-1) {
         showAlert("PhoneGap Build is down", "build.phonegap.com seems to be down, so this app stops working as well.. we'll retry automatically in a minute!");
-      } else if (xhr.responseText != null && xhr.responseText.indexOf("something went wrong (500)")>-1) {
-        showAlert("PhoneGap Build error", "PhoneGap Build had a little error, they have been notified. Please try again later.");
       } else if (xhr.responseText != null && xhr.responseText.indexOf("unable to clone")>-1) {
         showAlert("Unable to clone repo", "PhoneGap Build had a little error, please try again in a moment!");
       } else if (onErrorCallback != null) {

@@ -236,8 +236,7 @@ function AppsView() { // which is the homepage
           appController.getAppDetails(pgLogin, appid, function(pgLoginInner, dataInner) {
             var platformKey = eval('dataInner.keys.'+getPlatformName());
             if (platformKey != null) {
-              $("#keysSelection")
-                  .val(platformKey.id);
+              $("#keysSelection").val(platformKey.id);
             }
             $("#useKeyButton")
                 .attr("data-userid", userid)
@@ -265,6 +264,8 @@ function AppsView() { // which is the homepage
                   googleAnalytics("signingkeys-build");
                   appController.buildWithSigningKey(phonegappLogin, appid, selectedOption.val(), certPassword, keystorePassword, hasrepo, userController.loadAppsForUsers);
                   showAlert("Hang on", (hasrepo ? "Fetching repo and s" : "S") + "tarting a build with this key..");
+                  $("#certificatePassword").val("");
+                  $("#keystorePassword").val("");
                   return true;
             });
           });
