@@ -95,15 +95,12 @@ function AppsView() { // which is the homepage
             '  <td>' +
             '    <h4>' + app.title + '<span class="appversion">' + app.version + '</span></h4>';
         // TODO [future version]: for non-private apps, we could use the downloadlink, but that one includes the auth_token, so warn the user before sending it to others (or use a proxy server) .. or use the download GET service?
-
-        content += '<div class="sharebutton">';
         if (app.private) {
-          content += '<i class="icon-eye-open" style="color:#999"></i>';
+          content += '<div class="sharebutton"><i class="icon-eye-open" style="color:#999"></i></div>';
         } else {
-          content += '<a href="mailto:?subject='+app.title+' build '+app.build_count+'&body=Click one of these links on your mobile device:%0D%0A%0D%0A%0D%0AiOS: '+appController.getShareLink(app, 'ios')+'%0D%0A%0D%0AAndroid: '+appController.getShareLink(app, 'android')+'" onclick="googleAnalytics(\'appsview-share\')"><i class="icon-share"></i></a>';
+          content += '<div class="sharebutton" onclick="googleAnalytics(\'appsview-share\'); location.href=\'mailto:?subject='+app.title+' build '+app.build_count+'&body=Click one of these links on your mobile device:%0D%0A%0D%0A%0D%0AiOS: '+appController.getShareLink(app, 'ios')+'%0D%0A%0D%0AAndroid: '+appController.getShareLink(app, 'android')+'\'"><i class="icon-share"></i></div>';
         }
-        content += '</div>';
-        content += '<div class="signingkeybutton"><a href="#" onclick="appsView.showSigningKeyModal(\''+phonegappLogin.user.id+'\', \''+appid+'\'); return false"><i class="icon-key"></i></a></div>';
+        content += '<div class="signingkeybutton" onclick="appsView.showSigningKeyModal(\''+phonegappLogin.user.id+'\', \''+appid+'\'); return false"><i class="icon-key"></i></div>';
         if (app.build_count == null) {
           content += '    <div class="buildcount">no builds yet</div>';
         } else {
