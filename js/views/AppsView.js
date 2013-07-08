@@ -213,8 +213,8 @@ function AppsView() { // which is the homepage
       if (userid == userController.phonegappLogins[i].user.id) {
         var phonegappLogin = userController.getPhonegappLogin(userid);
         appController.getSigningKeys(phonegappLogin, getPlatformName(), function(pgLogin, data) {
-          var content = '<select>';
-          content += '<option></option>';
+          var content = '<select class="selectpicker show-tick" data-style="btn-info">';
+          content += '<option>- no key -</option>';
           content += '<optgroup label="unlocked">';
           $(data.keys).each(function(i, key) {
             if (!key.locked) {
@@ -267,10 +267,11 @@ function AppsView() { // which is the homepage
                   var phonegappLogin = userController.getPhonegappLogin(userid);
                   googleAnalytics("signingkeys-build");
                   appController.buildWithSigningKey(phonegappLogin, appid, selectedKeyID, certPassword, hasrepo, userController.loadAppsForUsers);
-                  showAlert("Hang on", "Fetching repo and starting a build with this key..");
+                  showAlert("Hang on", (hasrepo ? "Fetching repo and s" : "S") + "tarting a build with this key..");
                   return true;
             });
           });
+          $('.selectpicker').selectpicker();
         });
         break;
       }
