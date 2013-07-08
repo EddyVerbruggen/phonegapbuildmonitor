@@ -210,8 +210,7 @@ function AppsView() { // which is the homepage
       if (userid == userController.phonegappLogins[i].user.id) {
         var phonegappLogin = userController.getPhonegappLogin(userid);
         appController.getSigningKeys(phonegappLogin, getPlatformName(), function(pgLogin, data) {
-          var content = '<div class="input-prepend"><span class="add-on"><i class="icon-key"></i></span><select>';
-          content += '<option value="">- no key -</option>';
+          var content = '<option value="">- no key -</option>';
           content += '<optgroup label="unlocked">';
           $(data.keys).each(function(i, key) {
             if (!key.locked) {
@@ -226,8 +225,7 @@ function AppsView() { // which is the homepage
             }
           });
           content += '</optgroup>';
-          content += '</select></div>';
-          $("#keysTableBody").html(content);
+          $("#keysSelection").append(content);
           $("#certificatePasswordContainer").show();
           $("#certificatePasswordHint").show();
 
@@ -235,8 +233,7 @@ function AppsView() { // which is the homepage
           appController.getAppDetails(pgLogin, appid, function(pgLoginInner, dataInner) {
             var platformKey = eval('dataInner.keys.'+getPlatformName());
             if (platformKey != null) {
-              $("#keysTableBody")
-                  .find("select")
+              $("#keysSelection")
                   .val(platformKey.id);
             }
             $("#useKeyButton")
@@ -245,7 +242,7 @@ function AppsView() { // which is the homepage
                 .attr("data-hasrepo", dataInner.repo != null)
                 .unbind("click")
                 .bind("click", function() {
-                  var selectedOption = $("#keysTableBody").find("option:selected");
+                  var selectedOption = $("#keysSelection").find("option:selected");
                   // a signing key is required for iOS
                   if (selectedOption.val() == "" && isIOS()) {
                     showAlert("Oops!", "Please select a certificate");
@@ -268,7 +265,6 @@ function AppsView() { // which is the homepage
                   return true;
             });
           });
-          $('.selectpicker').selectpicker();
         });
         break;
       }
