@@ -14,7 +14,7 @@ h4 {
 
 /* fix for Android showing a very skinny dropdown */
 select {
-  height: 34px;
+  height: 34px !important;
 }
 
 .navbar-fixed-top {
