@@ -1,17 +1,26 @@
+// used to switch between iOS and Android for desktop development
+var desktopIsAndroid = true;
+
 window.onerror = function(message, file, line) {
 //  alert('Error gevangen: ' + file + ':' + line + '\n' + JSON.stringify(message));
 };
 
 function isAndroid() {
-  return navigator.userAgent.toLowerCase().indexOf("android") > -1;
+  return navigator.userAgent.toLowerCase().indexOf("android") > -1 ||
+      (isDesktop() && desktopIsAndroid);
 }
 
 function isIOS() {
-  return navigator.userAgent.match(/(iPad|iPhone|iPod)/i);
+  return navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ||
+      (isDesktop() && !desktopIsAndroid);
 }
 
 function isMobile() {
-  return isIOS() || isAndroid();
+  return navigator.userAgent.match(/(iPad|iPhone|iPod)/i) || navigator.userAgent.toLowerCase().indexOf("android") > -1;
+}
+
+function isDesktop() {
+  return !isMobile();
 }
 
 function getPlatformName() {
