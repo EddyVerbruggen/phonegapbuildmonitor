@@ -24,11 +24,11 @@ function UserController() {
   };
 
   this.init = function() {
-    var loadedUsers = JSON.parse(localStorage.getItem(LSKEY_PHONEGAPPLOGINS));
+    var loadedUsers = localStorage.getItem(LSKEY_PHONEGAPPLOGINS);
     if (loadedUsers == null || loadedUsers == "") {
       appsView.displayNoUsersContent();
     } else {
-      this.phonegappLogins = loadedUsers;
+      this.phonegappLogins = JSON.parse(loadedUsers);
       // reset builddiff
       for (var i=0; i<this.phonegappLogins.length; i++) {
         if (this.phonegappLogins[i].apps != null) {

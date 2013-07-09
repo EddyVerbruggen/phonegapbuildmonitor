@@ -26,9 +26,9 @@ function SettingsController() {
 
   // override any defaults with user values
   this._initSettings = function() {
-    var userSettings = JSON.parse(localStorage.getItem(LSKEY_SETTINGS));
+    var userSettings = localStorage.getItem(LSKEY_SETTINGS);
     if (userSettings != null) {
-      this.settings = userSettings;
+      this.settings = JSON.parse(userSettings);
     }
   };
 
