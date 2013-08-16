@@ -113,7 +113,6 @@ function AppsView() { // which is the homepage
         }
         content += '<div class="builddots">';
         if (isAndroid() || settingsController.settings.iOSInstallButtonEnabled) {
-          // TODO if in progress (grijs): add class icon-spin
           content += '' +
               '    <span class="builddots4">' +
               '      <i class="'+getBuildStatusSpinClass(app, 'ios')+' icon-apple" style="color:'+getBuildStatusColour(app, 'ios')+'" title="ios"></i>' +

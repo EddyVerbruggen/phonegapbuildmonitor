@@ -18,6 +18,7 @@ function AppController() {
   this.buildWithSigningKey = function(phonegappLogin, appid, signingKeyID, certPassword, keystorePassword, doPull, callback, errorCallback) {
     var pullOption = doPull == 'true' ? ', "pull":"true"' : '';
     var dataToEncode;
+    // TODO set to no signing key (for Android at least), but no idea how (setting to null doesn't seem to work)...
     if (signingKeyID == "") {
       dataToEncode = '{'+this._getPullOption(doPull, true)+'}';
     } else if (certPassword == null || certPassword == "") {
