@@ -42,6 +42,9 @@
 
   <gap:plugin name="GAPlugin" />
 
+  <gap:platform name="ios"/>
+  <gap:platform name="android"/>
+
   <preference name="phonegap-version" value="2.9.0"/>
   <preference name="target-device" value="universal"/>
   <preference name="orientation" value="portrait"/>
