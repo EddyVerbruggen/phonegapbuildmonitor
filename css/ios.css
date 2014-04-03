@@ -1,3 +1,7 @@
 .navbar-fixed-top {
   padding-top: 20px;
 }
+
+#chartdiv {
+  margin-top: 20px;
+}

@@ -93,7 +93,7 @@ function ChartView() { // which is the homepage
                   border: '0',
                   renderer: $.jqplot.EnhancedLegendRenderer,
                   placement: "insideGrid",
-                  labels: ["<i class='icon-android' style='color:#5fbe5f'></i>", "<i class='icon-apple' style='color:#0088cc'></i>"],
+                  labels: ["<i class='fa fa-android' style='color:#5fbe5f'></i>", "<i class='fa fa-apple' style='color:#0088cc'></i>"],
                   location: "nw",
                   rowSpacing: "0px",
                   xoffset: 2,

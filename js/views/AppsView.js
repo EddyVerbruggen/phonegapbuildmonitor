@@ -96,15 +96,15 @@ function AppsView() { // which is the homepage
             '    <h4>' + app.title + '<span class="appversion">' + app.version + '</span></h4>';
         // TODO [future version]: for non-private apps, we could use the downloadlink, but that one includes the auth_token, so warn the user before sending it to others (or use a proxy server) .. or use the download GET service?
         if (app.private) {
-          content += '<div class="sharebutton"><i class="icon-eye-open" style="color:#999"></i></div>';
+          content += '<div class="sharebutton"><i class="fa fa-eye" style="color:#999"></i></div>';
         } else {
-          content += '<div class="sharebutton" onclick="googleAnalytics(\'appsview-share\'); location.href=\'mailto:?subject='+app.title+' build '+app.build_count+'&body=Click one of these links on your mobile device:%0D%0A%0D%0A%0D%0AiOS: '+appController.getShareLink(app, 'ios')+'%0D%0A%0D%0AAndroid: '+appController.getShareLink(app, 'android')+'\'"><i class="icon-share"></i></div>';
+          content += '<div class="sharebutton" onclick="googleAnalytics(\'appsview-share\'); location.href=\'mailto:?subject='+app.title+' build '+app.build_count+'&body=Click one of these links on your mobile device:%0D%0A%0D%0A%0D%0AiOS: '+appController.getShareLink(app, 'ios')+'%0D%0A%0D%0AAndroid: '+appController.getShareLink(app, 'android')+'\'"><i class="fa fa-share-square-o"></i></div>';
         }
-        content += '<div class="signingkeybutton" onclick="appsView.showSigningKeyModal(\''+phonegappLogin.user.id+'\', \''+appid+'\'); return false"><i class="icon-key"></i></div>';
+        content += '<div class="signingkeybutton" onclick="appsView.showSigningKeyModal(\''+phonegappLogin.user.id+'\', \''+appid+'\'); return false"><i class="fa fa-key"></i></div>';
         if (app.build_count == null) {
           content += '    <div class="buildcount">no builds yet</div>';
         } else {
-          content += '    <div class="buildcount">build ' + app.build_count + (app.buildCountDiff > 0 ? '&nbsp;&nbsp;<span class="buildmeister-icon-updated"><i class="icon-'+(app.buildCountDiff > 5 ? 'double-' : '')+'angle-up"></i>' : '') + '</span></div>';
+          content += '    <div class="buildcount">build ' + app.build_count + (app.buildCountDiff > 0 ? '&nbsp;&nbsp;<span class="buildmeister-icon-updated"><i class="fa fa-angle-'+(app.buildCountDiff > 3 ? 'double-' : '')+'up"></i>' : '') + '</span></div>';
         }
         if (app.repo == null) {
           content += '    <div class="buildfromrepobutton"><a href="#" onclick="return false" role="button" class="btn btn-xs">zip upload</a></div>';
@@ -115,21 +115,17 @@ function AppsView() { // which is the homepage
         if (isAndroid() || settingsController.settings.iOSInstallButtonEnabled) {
           content += '' +
               '    <span class="builddots4">' +
-              '      <i class="'+getBuildStatusSpinClass(app, 'ios')+' icon-apple" style="color:'+getBuildStatusColour(app, 'ios')+'" title="ios"></i>' +
-              '      <i class="'+getBuildStatusSpinClass(app, 'android')+' icon-android" style="color:'+getBuildStatusColour(app, 'android')+'" title="android"></i><br/>' +
-              '      <i class="'+getBuildStatusSpinClass(app, 'winphone')+' icon-windows" style="color:'+getBuildStatusColour(app, 'winphone')+'" title="winphone"></i>' +
-//              '      <i class="'+getBuildStatusSpinClass(app, 'blackberry')+" style="color:'+getBuildStatusColour(app, 'blackberry')+'" title="blackberry">b</i><br/>' +
-              // TODO whenever font awesome supports a proper blackberry icon, use it
-              '      <i class="'+getBuildStatusSpinClass(app, 'blackberry')+' icon-bitcoin" style="color:'+getBuildStatusColour(app, 'blackberry')+'" title="blackberry"></i><br/>' +
+              '      <i class="fa '+getBuildStatusSpinClass(app, 'ios')+' fa-apple" style="color:'+getBuildStatusColour(app, 'ios')+'" title="ios"></i>' +
+              '      <i class="fa '+getBuildStatusSpinClass(app, 'android')+' fa-android" style="color:'+getBuildStatusColour(app, 'android')+'" title="android"></i><br/>' +
+              '      <i class="fa '+getBuildStatusSpinClass(app, 'winphone')+' fa-windows" style="color:'+getBuildStatusColour(app, 'winphone')+'" title="winphone"></i>' +
+//              '      <i class="'+getBuildStatusSpinClass(app, 'blackberry')+' icon-bitcoin" style="color:'+getBuildStatusColour(app, 'blackberry')+'" title="blackberry"></i><br/>' +
               '    </span>';
         } else {
           content += '' +
-              '      <i class="icon-apple" style="color:'+getBuildStatusColour(app, 'ios')+'" title="ios"></i>' +
-              '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'android')+'" title="android"></i><br/>' +
-              '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'winphone')+'" title="winphone"></i>' +
-              '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'blackberry')+'" title="blackberry"></i><br/>' +
-              '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'webos')+'" title="webos"></i>' +
-              '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'symbian')+'" title="symbian"></i>';
+              '      <i class="fa fa-apple" style="color:'+getBuildStatusColour(app, 'ios')+'" title="ios"></i>' +
+              '      <i class="fa fa-circle" style="color:'+getBuildStatusColour(app, 'android')+'" title="android"></i><br/>' +
+              '      <i class="fa fa-circle" style="color:'+getBuildStatusColour(app, 'winphone')+'" title="winphone"></i>';
+//              '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'symbian')+'" title="symbian"></i>';
         }
         content += '' +
             '      </div>' +
@@ -146,11 +142,11 @@ function AppsView() { // which is the homepage
 
   var getPullIcon = function(repoUrl) {
     if (repoUrl.indexOf("github.com") > -1) {
-      return "icon-github-alt";
+      return "fa fa-github-alt";
     } else if (repoUrl.indexOf("bitbucket.org") > -1) {
-      return "icon-bitbucket";
+      return "fa fa-bitbucket";
     } else {
-      return "icon-refresh";
+      return "fa fa-refresh";
     }
   };
 
@@ -168,7 +164,7 @@ function AppsView() { // which is the homepage
   var getBuildStatusSpinClass = function(app, platform) {
     var status = appController.getBuildStatus(app, platform);
     if (status == "pending") {
-      return "icon-spin";
+      return "fa-spin";
     } else {
       return "";
     }
@@ -182,19 +178,19 @@ function AppsView() { // which is the homepage
     if (buildStatus == "error") {
       var errorMsg = appController.getBuildError(app);
 //      if (errorMsg.indexOf("signing key is locked") > -1) {
-        return '<a href="#" role="button" class="btn btn-danger" onclick="appsView.showSigningKeyModal(\''+phonegappLogin.user.id+'\', \''+appid+'\', \''+errorMsg+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
+        return '<a href="#" role="button" class="btn btn-danger" onclick="appsView.showSigningKeyModal(\''+phonegappLogin.user.id+'\', \''+appid+'\', \''+errorMsg+'\'); return false"><i class="fa fa-exclamation-triangle"></i> error</a><br/>';
 //      } else {
 //        return '<a href="#" role="button" class="btn btn-danger" onclick="showAlert(\'Error\', \''+appController.getBuildError(app)+'\'); return false"><i class="icon-warning-sign"></i> error</a><br/>';
 //      }
     } else if (buildStatus == "complete") {
       if (isAndroid() || settingsController.settings.iOSInstallButtonEnabled) {
         var url = appController.getDownloadLink(app, phonegappLogin, getPlatformName());
-        return '<a href="#" onclick="googleAnalytics(\'appsview-install\'); userController.resetBuildCountDiff(\''+appid+'\'); openWindow(\''+url+'\'); return false" role="button" class="btn btn-success"><i class="icon-cloud-download"></i> install</a>';
+        return '<a href="#" onclick="googleAnalytics(\'appsview-install\'); userController.resetBuildCountDiff(\''+appid+'\'); openWindow(\''+url+'\'); return false" role="button" class="btn btn-success"><i class="fa fa-cloud-download"></i> install</a>';
       } else {
-        return '<a href="#" role="button" class="btn btn-success"><i class="icon-ok"></i> ready</a>';
+        return '<a href="#" role="button" class="btn btn-success"><i class="fa fa-check"></i> ready</a>';
       }
     } else if (buildStatus == "pending") {
-      return '<a href="#" onclick="return false" role="button" class="btn btn-info btn-spinner"><i class="icon-spinner icon-spin"></i> pending</a>';
+      return '<a href="#" onclick="return false" role="button" class="btn btn-info btn-spinner"><i class="fa fa-spinner fa-spin"></i> pending</a>';
     } else {
       return '';
     }

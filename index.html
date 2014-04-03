@@ -31,9 +31,9 @@
   <div id="menu" class="nav-collapse collapse">
     <ul class="nav navbar-nav">
       <li>&nbsp;</li><!-- extra space -->
-      <li><a href="#aboutModal" onclick="$('#menu').collapse('toggle'); googleAnalytics('menu-about')" data-toggle="modal"><i class="icon-info-sign"></i>&nbsp;&nbsp;About</a></li>
-      <li><a href="mailto:info@x-services.nl?subject=Buildmeister" onclick="$('#menu').collapse('toggle'); googleAnalytics('menu-contact')"><i class="icon-envelope"></i>&nbsp;&nbsp;Contact</a></li>
-      <li><a href="#" onclick="settingsController.toggleGraph(); googleAnalytics('menu-graphtoggle'); refresh()"><i class="icon-bar-chart"></i>&nbsp;&nbsp;Toggle graph</a></li>
+      <li><a href="#aboutModal" onclick="$('#menu').collapse('toggle'); googleAnalytics('menu-about')" data-toggle="modal"><i class="fa fa-info-circle"></i>&nbsp;&nbsp;About</a></li>
+      <li><a href="mailto:info@x-services.nl?subject=Buildmeister" onclick="$('#menu').collapse('toggle'); googleAnalytics('menu-contact')"><i class="fa fa-envelope"></i>&nbsp;&nbsp;Contact</a></li>
+      <li><a href="#" onclick="settingsController.toggleGraph(); googleAnalytics('menu-graphtoggle'); refresh()"><i class="fa fa-bar-chart-o"></i>&nbsp;&nbsp;Toggle graph</a></li>
       <!--<li><a href="#"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-half-full"></i>&nbsp;&nbsp;Rate us</a></li>-->
     </ul>
   </div>
@@ -45,7 +45,7 @@
     <tbody id="appTableBody">
       <tr>
         <td style="text-align: center; padding-top: 100px">
-          <h4><i class="icon-spinner icon-spin"></i>&nbsp;&nbsp;loading</h4>
+          <h4><i class="fa fa-spinner fa-spin"></i>&nbsp;&nbsp;loading</h4>
         </td>
       </tr>
     </tbody>
@@ -57,7 +57,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 class="modal-title"><i class="icon-info-sign"></i> About</h3>
+        <h3 class="modal-title"><i class="fa fa-info-circle"></i> About</h3>
       </div>
       <div class="modal-body">
         <p>
@@ -84,7 +84,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 class="modal-title"><i class="icon-key"></i> Signing keys</h3>
+        <h3 class="modal-title"><i class="fa fa-key"></i> Signing keys</h3>
         <span id="signingKeyErrorMessageContainer" class="text-error"></span>
       </div>
       <div class="modal-body">
@@ -95,18 +95,18 @@
           <br/><br/>
         </div>
         <div id="certificatePasswordContainer" class="input-group" style="display: none">
-          <span class="input-group-addon"><i class="icon-key"></i></span>
+          <span class="input-group-addon"><i class="fa fa-key"></i></span>
           <input id="certificatePassword" type="password" placeholder="Certificate password" class="input-lg"/>
         </div>
         <div id="keystorePasswordContainer" class="input-group" style="display: none">
-          <span class="input-group-addon"><i class="icon-key"></i></span>
+          <span class="input-group-addon"><i class="fa fa-key"></i></span>
           <input id="keystorePassword" type="password" placeholder="Keystore password" class="input-lg"/>
         </div>
         <div id="certificatePasswordHint" style="color: #999; font-size: 10px; display: none">password is only required for locked keys</div>
       </div>
       <div class="modal-footer">
         <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <a href="#" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" id="useKeyButton"><i class="icon-check-sign"></i> Build with selected key</a>
+        <a href="#" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" id="useKeyButton"><i class="fa fa-check-square-o"></i> Build with selected key</a>
       </div>
     </div>
   </div>
@@ -117,7 +117,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 class="modal-title"><i class="icon-group"></i> Accounts</h3>
+        <h3 class="modal-title"><i class="fa fa-users"></i> Accounts</h3>
       </div>
       <div class="modal-body">
         <table class="table" id="userTable">
@@ -126,7 +126,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-default" data-dismiss="modal">Close</button>
-        <a href="#addAccountModal" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"><i class="icon-plus-sign"></i> Add account</a>
+        <a href="#addAccountModal" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"><i class="fa fa-plus-square-o"></i> Add account</a>
       </div>
     </div>
   </div>
@@ -137,17 +137,17 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 class="modal-title"><i class="icon-user"></i> Add account</h3>
+        <h3 class="modal-title"><i class="fa fa-user"></i> Add account</h3>
       </div>
       <div class="modal-body">
         <fieldset>
           <div>Signing in with Email or Adobeid?</div>
           <div class="input-group input-block-level">
-            <span class="input-group-addon"><i class="icon-envelope"></i></span>
+            <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
             <input id="addAccount_Email" type="email" placeholder="Email / Adobeid" class="input-lg">
           </div>
           <div class="input-group">
-            <span class="input-group-addon"><i class="icon-key"></i></span>
+            <span class="input-group-addon"><i class="fa fa-key"></i></span>
             <input id="addAccount_Password" type="password" placeholder="Password" class="input-lg">
           </div>
         </fieldset>
@@ -156,14 +156,14 @@
           <div>Signing in with a Github account?</div>
           <div style="color: #bbb">see your account setings in pgbuild</div>
           <div class="input-group">
-            <span class="input-group-addon"><i class="icon-shield"></i></span>
+            <span class="input-group-addon"><i class="fa fa-shield"></i></span>
             <input id="addAccount_Token" type="text" placeholder="Authentication Token" class="input-lg">
           </div>
         </fieldset>
       </div>
       <div class="modal-footer">
         <button class="btn btn-default" data-dismiss="modal">Close</button>
-        <button class="btn btn-primary" id="signInButton"><i class="icon-signin"></i>&nbsp;&nbsp;Sign in</button>
+        <button class="btn btn-primary" id="signInButton"><i class="fa fa-sign-in"></i>&nbsp;&nbsp;Sign in</button>
       </div>
     </div>
   </div>
