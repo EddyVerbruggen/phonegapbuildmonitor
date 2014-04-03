@@ -109,7 +109,7 @@ function AppsView() { // which is the homepage
         if (app.repo == null) {
           content += '    <div class="buildfromrepobutton"><a href="#" onclick="return false" role="button" class="btn btn-xs">zip upload</a></div>';
         } else {
-          content += '    <div class="buildfromrepobutton"><a data-userid="'+phonegappLogin.user.id+'" data-appid="'+appid+'" href="#" role="button" class="btn btn-xs btn-inverse"><i class="'+getPullIcon(app.repo)+'"></i>&nbsp;&nbsp;pull code</a></div>';
+          content += '    <div class="buildfromrepobutton"><a data-userid="'+phonegappLogin.user.id+'" data-appid="'+appid+'" href="#" role="button" class="btn btn-xs btn-default"><i class="'+getPullIcon(app.repo)+'"></i>&nbsp;&nbsp;pull code</a></div>';
         }
         content += '<div class="builddots">';
         if (isAndroid() || settingsController.settings.iOSInstallButtonEnabled) {
