@@ -47,7 +47,7 @@
   <gap:plugin name="com.phonegap.plugin.statusbar" />
   <gap:plugin name="com.adobe.plugins.gaplugin" />
   <gap:plugin name="nl.x-services.plugins.toast" />
-  <!--<gap:plugin name="nl.x-services.plugins.ioswebviewcolor" />-->
+  <gap:plugin name="nl.x-services.plugins.ioswebviewcolor" />
 
   <gap:platform name="ios"/>
   <gap:platform name="android"/>
