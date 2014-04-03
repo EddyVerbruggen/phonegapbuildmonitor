@@ -42,7 +42,8 @@
 
   <gap:plugin name="org.apache.cordova.device" />
   <gap:plugin name="org.apache.cordova.dialogs" />
-  <gap:plugin name="org.apache.cordova.splashscreen"/>
+  <gap:plugin name="org.apache.cordova.splashscreen" />
+  <gap:plugin name="org.apache.cordova.inappbrowser" />
 
   <gap:plugin name="com.phonegap.plugin.statusbar" />
   <gap:plugin name="com.adobe.plugins.gaplugin" />

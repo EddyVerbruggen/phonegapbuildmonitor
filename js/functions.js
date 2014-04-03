@@ -1,4 +1,4 @@
-// used to switch between iOS and Android for desktop development
+// use to switch between iOS and Android for desktop development
 var desktopIsAndroid = true;
 
 window.onerror = function(message, file, line) {

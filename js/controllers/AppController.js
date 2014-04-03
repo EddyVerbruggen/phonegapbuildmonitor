@@ -54,9 +54,7 @@ function AppController() {
     if (platform == 'ios') {
       // use username/pwd if we have it, because that prolly works better for multi-account usage
       if (phonegappLogin.password != null && phonegappLogin.password != "") {
-        var url = 'https://'+encodeURIComponent(phonegappLogin.email)+':'+encodeURIComponent(phonegappLogin.password)+'@build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+platform;
-        alert(url);
-        return url;
+        return 'https://'+encodeURIComponent(phonegappLogin.email)+':'+encodeURIComponent(phonegappLogin.password)+'@build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+platform;
       } else {
         return 'https://build.phonegap.com/apps/'+app.id+'/download/'+platform+'?auth_token='+phonegappLogin.token;
       }
