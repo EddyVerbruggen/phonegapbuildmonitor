@@ -33,6 +33,7 @@
   var init = function() {
     $(document).ready(function() {
       $('#accountsModal').on('show', function () {
+        alert('showing');
         googleAnalytics("accountoverview-show");
         var content = '';
         if (userController.phonegappLogins.length == 0) {

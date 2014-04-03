@@ -222,6 +222,9 @@ span.buildmeister-icon-updated {
 }
 .carousel-caption {
   position: static;
+  background-color: black;
+  margin-bottom: 14px;
+  padding-bottom: 30px;
 }
 
 .carousel img {
