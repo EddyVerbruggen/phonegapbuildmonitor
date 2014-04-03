@@ -271,7 +271,7 @@ function AppsView() { // which is the homepage
 
   };
 
-  $('#keysModal').on('hide', function () {
+  $('#keysModal').on('hidden.bs.modal', function () {
     $("#keysTableBody").html("");
     $("#certificatePasswordContainer").hide();
     $("#keystorePasswordContainer").hide();

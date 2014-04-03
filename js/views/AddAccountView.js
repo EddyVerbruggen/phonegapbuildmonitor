@@ -5,10 +5,10 @@
   var init = function() {
     $(document).ready(function() {
       $('#addAccountModal')
-          .on('show', function () {
+          .on('shown.bs.modal', function () {
             googleAnalytics("accountadd-show");
           })
-          .on('hide', function () {
+          .on('hidden.bs.modal', function () {
             // clear all fields
             $("#addAccount_Email").val("");
             $("#addAccount_Password").val("");

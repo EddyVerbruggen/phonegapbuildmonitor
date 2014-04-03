@@ -32,8 +32,7 @@
 
   var init = function() {
     $(document).ready(function() {
-      $('#accountsModal').on('show', function () {
-        alert('showing');
+      $('#accountsModal').on('shown.bs.modal', function () {
         googleAnalytics("accountoverview-show");
         var content = '';
         if (userController.phonegappLogins.length == 0) {
