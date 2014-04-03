@@ -37,18 +37,27 @@
   <gap:splash src="res/screen/ios/screen-ipad-portrait.png" gap:platform="ios" width="768" height="1004"/>
   <gap:splash src="res/screen/ios/screen-ipad-portrait-2x.png" gap:platform="ios" width="1536" height="2008"/>
 
-  <feature name="http://api.phonegap.com/1.0/network"/>
-  <feature name="http://api.phonegap.com/1.0/file"/>
+  <!--<feature name="http://api.phonegap.com/1.0/network"/>-->
+  <!--<feature name="http://api.phonegap.com/1.0/file"/>-->
 
-  <gap:plugin name="GAPlugin" />
+  <gap:plugin name="org.apache.cordova.device" />
+  <gap:plugin name="org.apache.cordova.dialogs" />
+
+  <gap:plugin name="com.phonegap.plugin.statusbar" />
+  <gap:plugin name="com.adobe.plugins.gaplugin" />
+  <gap:plugin name="nl.x-services.plugins.toast" />
+  <!--<gap:plugin name="nl.x-services.plugins.ioswebviewcolor" />-->
 
   <gap:platform name="ios"/>
   <gap:platform name="android"/>
 
-  <preference name="phonegap-version" value="2.9.0"/>
+  <preference name="permissions" value="none"/>
+  <preference name="phonegap-version" value="3.3.0"/>
   <preference name="target-device" value="universal"/>
   <preference name="orientation" value="portrait"/>
-  <preference name="webviewbounce" value="true"/><!-- iOS rubber banding -->
+  <preference name="webviewbounce" value="true"/>
+  <preference name="UIWebViewBounce" value="true" />
+  <preference name="DisallowOverscroll" value="false"/>
   <preference name="ios-statusbarstyle" value="black-opaque"/>
   <preference name="android-minSdkVersion" value="11" /><!-- 8 = 2.2; 11 = 3.0 -->
   <preference name="android-installLocation" value="auto" /><!-- preferExternal; preferably install on SD-card -->
@@ -57,6 +66,8 @@
   <preference name="prerendered-icon" value="true" /><!-- gloss effect on iOS (false=add) -->
   <preference name="auto-hide-splash-screen" value="true" /><!-- hide with js or not -->
   <preference name="exit-on-suspend" value="false" />
+  <preference name="KeyboardDisplayRequiresUserAction" value="false" />
+  <preference name="StatusBarOverlaysWebView" value="true" />
 
   <!-- allow loading any url in the webview -->
   <access origin="*" />
