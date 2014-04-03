@@ -4,6 +4,11 @@ body {
   padding-right: 14px !important;
 }
 
+.container {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 h4, h5 {
   margin: 0;
 }
