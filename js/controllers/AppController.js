@@ -50,13 +50,16 @@ function AppController() {
     return eval('app.error.'+getPlatformName());
   };
 
-  // TODO use username/pwd if we have it, because that prolly works better for multi-account usage
   this.getDownloadLink = function(app, phonegappLogin, platform) {
     if (platform == 'ios') {
-//      return 'https://build.phonegap.com/apps/'+app.id+'/download/'+platform+'?auth_token='+phonegappLogin.token;
-      var url = 'https://'+encodeURIComponent(phonegappLogin.email)+':'+encodeURIComponent(phonegappLogin.password)+'@build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+platform;
-      alert(url);
-      return url;
+      // use username/pwd if we have it, because that prolly works better for multi-account usage
+      if (phonegappLogin.password != null && phonegappLogin.password != "") {
+        var url = 'https://'+encodeURIComponent(phonegappLogin.email)+':'+encodeURIComponent(phonegappLogin.password)+'@build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+platform;
+        alert(url);
+        return url;
+      } else {
+        return 'https://build.phonegap.com/apps/'+app.id+'/download/'+platform+'?auth_token='+phonegappLogin.token;
+      }
     } else if (platform == 'android') {
       return 'https://build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+platform +'?auth_token='+phonegappLogin.token;
     } else {

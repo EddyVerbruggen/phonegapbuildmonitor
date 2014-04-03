@@ -18,8 +18,12 @@ select {
 
 .navbar-fixed-top {
   position: fixed !important;
-  margin-left: 0 !important;
+  padding-left: 10px !important;
   margin-right: 0 !important;
+}
+
+.navbar-fixed-top .btn-primary {
+  margin-top: 9px;
 }
 
 #chartdiv {
