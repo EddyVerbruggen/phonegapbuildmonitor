@@ -57,7 +57,7 @@ function AppsView() { // which is the homepage
       var phonegappLogin = userController.getPhonegappLogin(userid);
       appController.buildFromRepo(phonegappLogin, appid, userController.loadAppsForUsers);
       googleAnalytics("appsview-pullcode");
-      showAlert("Hang on", "Fetching repo and starting a build..");
+      showToast("Fetching repo and starting a build..");
       return false;
     });
   };
@@ -262,7 +262,7 @@ function AppsView() { // which is the homepage
                   var phonegappLogin = userController.getPhonegappLogin(userid);
                   googleAnalytics("signingkeys-build");
                   appController.buildWithSigningKey(phonegappLogin, appid, selectedOption.val(), certPassword, keystorePassword, hasrepo, userController.loadAppsForUsers);
-                  showAlert("Hang on", (hasrepo ? "Fetching repo and s" : "S") + "tarting a build with this key..");
+                  showToast((hasrepo ? "Fetching repo and s" : "S") + "tarting a build..");
                   $("#certificatePassword").val("");
                   $("#keystorePassword").val("");
                   return true;

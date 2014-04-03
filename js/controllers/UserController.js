@@ -169,7 +169,7 @@ function UserController() {
       this.phonegappLogins.push(phonegappLogin);
     }
     this.persistUsers();
-    showAlert("Success", "sign in succeeded");
+    showToast("Sign in succeeded");
   };
 
   this.persistUsers = function() {

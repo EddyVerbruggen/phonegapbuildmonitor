@@ -26,6 +26,16 @@ function GAStartupSuccess() {
     if (window.plugins != undefined) {
       gaPlugin = window.plugins.gaPlugin;
       gaPlugin.init(GAStartupSuccess, emptyCallback, "UA-28850866-8", 5);
+      if (isIOS()) {
+        setTimeout(function () {
+          StatusBar.styleLightContent();
+          StatusBar.overlaysWebView(true);
+          window.plugins.webviewcolor.change('#ededea');
+          setTimeout(function () {
+            navigator.splashscreen.hide();
+          }, 250);
+        }, 500);
+      }
     }
   };
 

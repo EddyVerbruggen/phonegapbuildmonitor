@@ -56,3 +56,11 @@ function showAlert(title, txt) {
     alert(title + "\n\n" + txt);
   }
 }
+
+function showToast(msg) {
+  if (isMobile()) {
+    window.plugins.toast.showShortBottom(msg);
+  } else {
+    alert(msg);
+  }
+}

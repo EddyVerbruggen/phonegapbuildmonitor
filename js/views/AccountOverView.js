@@ -24,7 +24,7 @@
     if (buttonIndex == 1) {
       userController.delete(deleteUserid);
       googleAnalytics("accountoverview-delete");
-      showAlert("Success", "Account deleted");
+      showToast("Account deleted");
       // brute force close the modal and refresh
       refresh();
     }
