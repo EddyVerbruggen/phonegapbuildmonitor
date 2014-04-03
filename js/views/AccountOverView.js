@@ -60,7 +60,7 @@
             content += '' +
                 '    </div>' +
                 '    <div class="deletebuttoncolumn">' +
-                '      <a class="btn btn-danger deletebutton" data-userid="' + phonegappLogin.user.id + '" href="#" role="button"><i class="icon-trash"></i>&nbsp;&nbsp;del</a>' +
+                '      <a class="btn btn-danger deletebutton" data-userid="' + phonegappLogin.user.id + '" href="#" role="button"><i class="fa fa-trash-o"></i>&nbsp;&nbsp;del</a>' +
                 '    </div>' +
                 '  </td>' +
                 '</tr>';

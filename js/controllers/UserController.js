@@ -134,7 +134,8 @@ function UserController() {
   this.onTokenRequestSuccess = function(phonegappLogin, data) {
     userController.signIn(
         phonegappLogin.email,
-        isIOS() ? phonegappLogin.password : "", // do not store passwords in the app on Android (not needed)
+//        isIOS() ? phonegappLogin.password : "", // do not store passwords in the app on Android (not needed)
+        "", // do not store passwords in the app
         data.token);
   };
 

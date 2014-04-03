@@ -53,11 +53,11 @@ function AppController() {
   this.getDownloadLink = function(app, phonegappLogin, platform) {
     if (platform == 'ios') {
       // use username/pwd if we have it, because that prolly works better for multi-account usage
-      if (phonegappLogin.password != null && phonegappLogin.password != "") {
-        return 'https://'+encodeURIComponent(phonegappLogin.email)+':'+encodeURIComponent(phonegappLogin.password)+'@build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+platform;
-      } else {
-        return 'https://build.phonegap.com/apps/'+app.id+'/download/'+platform+'?auth_token='+phonegappLogin.token;
-      }
+//      if (phonegappLogin.password != null && phonegappLogin.password != "") {
+//        return 'https://'+encodeURIComponent(phonegappLogin.email)+':'+encodeURIComponent(phonegappLogin.password)+'@build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+platform;
+//      } else {
+        return 'https://build.phonegap.com/apps/'+app.id+'/download/'+platform+'?auth_token='+phonegappLogin.token+'&ts='+new Date().getTime();
+//      }
     } else if (platform == 'android') {
       return 'https://build.phonegap.com/'+PhonegapBuildApiProxy.getApiVersion()+'apps/'+app.id+'/'+platform +'?auth_token='+phonegappLogin.token;
     } else {
