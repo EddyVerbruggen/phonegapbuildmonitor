@@ -15,8 +15,8 @@ function ChartView() { // which is the homepage
 
   this.initChart = function() {
     $("#graphContainer")
-        .html('<div id="charttitle">Recent global build durations (minutes)</div>' +
-            '<div id="chartdiv" style="height:130px;width:100%"></div>')
+//        .html('<div id="charttitle">Recent global build durations (minutes)</div>' +
+        .html('<div id="chartdiv" style="height:130px;width:100%"></div>')
         .show();
     this.refreshChartData();
   };
