@@ -1,5 +1,5 @@
 body {
-  margin-top: 60px; /* 160px to make the container go all the way to the bottom of the topbar */
+  margin-top: 54px;
   padding-left: 14px !important;
   padding-right: 14px !important;
 }
@@ -21,14 +21,32 @@ select {
   height: 38px;
 }
 
+.navbar {
+  height: 44px;
+  min-height: 44px;
+}
+
+.navbar .btn-link {
+  margin-top: 5px;
+  color: #fff;
+}
+
+.navbar .navbar-toggle {
+  margin-top: 6px;
+}
+
+.navbar .btn-link:hover {
+  text-decoration: none;
+}
+
+.navbar .navbar-toggle {
+  border: none;
+}
+
 .navbar-fixed-top {
   position: fixed !important;
   padding-left: 10px !important;
   margin-right: 0 !important;
-}
-
-.navbar-fixed-top .btn-primary {
-  margin-top: 9px;
 }
 
 #chartdiv {
