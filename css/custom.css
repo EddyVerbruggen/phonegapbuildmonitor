@@ -28,8 +28,13 @@ select {
 
 .navbar .btn-link {
   padding-left: 5px;
-  margin-top: 8px;
+  margin-top: 6px;
   color: #fff;
+  font-size: 16px;
+}
+
+.margin-bottom-sm {
+  margin-bottom: 8px;
 }
 
 .navbar .navbar-toggle {

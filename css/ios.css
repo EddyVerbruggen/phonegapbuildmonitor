@@ -1,10 +1,10 @@
 body {
-  margin-top: 78px;
+  margin-top: 80px;
 }
 
 .navbar {
-  height: 60px;
-  min-height: 60px;
+  height: 62px;
+  min-height: 62px;
 }
 
 .navbar .btn-link {
@@ -12,5 +12,9 @@ body {
 }
 
 .navbar .navbar-toggle {
-  margin-top: 24px;
+  margin-top: 26px;
+}
+
+.modal-dialog {
+  margin-top: 20px;
 }
