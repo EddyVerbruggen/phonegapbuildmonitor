@@ -122,10 +122,12 @@ function AppsView() { // which is the homepage
               '    </span>';
         } else {
           content += '' +
+              '    <span class="builddots4">' +
               '      <i class="fa fa-apple" style="color:'+getBuildStatusColour(app, 'ios')+'" title="ios"></i>' +
               '      <i class="fa fa-circle" style="color:'+getBuildStatusColour(app, 'android')+'" title="android"></i><br/>' +
-              '      <i class="fa fa-circle" style="color:'+getBuildStatusColour(app, 'winphone')+'" title="winphone"></i>';
+              '      <i class="fa fa-circle" style="color:'+getBuildStatusColour(app, 'winphone')+'" title="winphone"></i>' +
 //              '      <i class="icon-circle" style="color:'+getBuildStatusColour(app, 'symbian')+'" title="symbian"></i>';
+              '    </span>';
         }
         content += '' +
             '      </div>' +

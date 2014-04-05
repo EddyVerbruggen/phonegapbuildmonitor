@@ -60,7 +60,11 @@ function ChartView() { // which is the homepage
                     }
                   },
                   yaxis: {
-                    min: 0
+                    min: 0,
+                    numberTicks: 3,
+                    tickOptions: {
+                      formatString: '%s min'
+                    }
                   }
                 },
                 grid: {
