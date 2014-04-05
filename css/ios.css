@@ -11,5 +11,6 @@ body {
 }
 
 .navbar .navbar-toggle {
-  margin-top: 36px;
+  padding-top: 28px;
+  padding-bottom: 4px;
 }
