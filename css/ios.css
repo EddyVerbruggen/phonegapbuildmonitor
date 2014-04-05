@@ -3,7 +3,6 @@ body {
 }
 
 .navbar {
-  height: 62px;
   min-height: 62px;
 }
 
@@ -12,9 +11,5 @@ body {
 }
 
 .navbar .navbar-toggle {
-  margin-top: 26px;
-}
-
-.modal-dialog {
-  margin-top: 20px;
+  padding-top: 26px;
 }

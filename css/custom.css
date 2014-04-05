@@ -21,14 +21,8 @@ select {
   height: 38px;
 }
 
-.navbar {
-  height: 48px;
-  min-height: 48px;
-}
-
 .navbar .btn-link {
-  padding-left: 4px;
-  margin-top: 6px;
+  margin-top: 7px;
   color: #fff;
   font-size: 16px;
 }
@@ -38,8 +32,8 @@ select {
 }
 
 .navbar .navbar-toggle {
-  padding-right: 2px;
   margin-top: 9px;
+  padding-bottom: 0;
 }
 
 .navbar .btn-link:hover {
@@ -84,8 +78,7 @@ select {
 
 #appTable .buildcount,
 #userTable .appcount {
-  font-size: 0.85em;
-  color: #aaa;
+  color: #777;
 }
 
 #appTable .appversion {
@@ -228,6 +221,13 @@ span.buildmeister-icon-updated {
   }
   #appTable .appversion {
     display: inline-block;
+  }
+}
+
+@media (max-width: 360px) {
+  #appTable .buildcount,
+  #userTable .appcount {
+    font-size: 0.85em;
   }
 }
 
