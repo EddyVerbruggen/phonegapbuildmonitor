@@ -106,9 +106,9 @@ function AppsView() { // which is the homepage
         } else {
           content += '    <div class="buildcount">build ' + app.build_count + (app.buildCountDiff > 0 ? '&nbsp;&nbsp;<span class="buildmeister-icon-updated"><i class="fa fa-angle-'+(app.buildCountDiff > 3 ? 'double-' : '')+'up"></i>' : '') + '</span></div>';
         }
-        if (app.repo == null) {
-          content += '    <div class="buildfromrepobutton"><a href="#" onclick="return false" role="button" class="btn btn-xs">zip upload</a></div>';
-        } else {
+        if (app.repo != null) {
+//          content += '    <div class="buildfromrepobutton"><a href="#" onclick="return false" role="button" class="btn btn-xs">zip upload</a></div>';
+//        } else {
           content += '    <div class="buildfromrepobutton"><a data-userid="'+phonegappLogin.user.id+'" data-appid="'+appid+'" href="#" role="button" class="btn btn-xs btn-default"><i class="'+getPullIcon(app.repo)+'"></i>&nbsp;&nbsp;pull code</a></div>';
         }
         content += '<div class="builddots">';
