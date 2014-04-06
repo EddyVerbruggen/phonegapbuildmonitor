@@ -25,6 +25,9 @@
   <icon src="res/icon/ios/icon-72.png" gap:platform="ios" width="72" height="72"/>
   <icon src="res/icon/ios/icon-57-2x.png" gap:platform="ios" width="114" height="114"/>
   <icon src="res/icon/ios/icon-72-2x.png" gap:platform="ios" width="144" height="144"/>
+  <icon src="res/icon/ios/icon-76.png"    gap:platform="ios" width="76" height="76"/>
+  <icon src="res/icon/ios/icon-76-2x.png" gap:platform="ios" width="152" height="152"/>
+  <icon src="res/icon/ios/icon-120.png"   gap:platform="ios" width="120" height="120"/>
 
   <!-- splashscreens -->
   <gap:splash src="res/screen/android/screen-ldpi-portrait.png" gap:platform="android" gap:density="ldpi"/>
