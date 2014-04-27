@@ -2,7 +2,7 @@
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0"
         id="nl.x-services.buildmeister"
-        version="1.4.SNAPSHOT">
+        version="1.3">
 
   <name>Buildmeister</name><!-- is also the name of the icon on the device -->
 
