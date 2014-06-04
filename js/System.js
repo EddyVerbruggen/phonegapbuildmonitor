@@ -26,6 +26,11 @@ function GAStartupSuccess() {
     if (window.plugins != undefined) {
       gaPlugin = window.plugins.gaPlugin;
       gaPlugin.init(GAStartupSuccess, emptyCallback, "UA-28850866-8", 5);
+      // Testing iOS*
+      setTimeout(function() {
+        alert(navigator);
+        alert(navigator.userAgent);
+      }, 4000);
       if (isIOS()) {
         setTimeout(function () {
           StatusBar.styleLightContent();

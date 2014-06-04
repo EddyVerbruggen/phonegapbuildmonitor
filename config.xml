@@ -66,7 +66,7 @@
   <preference name="show-splash-screen-spinner" value="false" />
   <preference name="stay-in-webview" value="false" /><!-- external sites -->
   <preference name="prerendered-icon" value="true" /><!-- gloss effect on iOS (false=add) -->
-  <preference name="auto-hide-splash-screen" value="false"/>
+  <preference name="auto-hide-splash-screen" value="true"/> <!-- Testing for iOS8 -->
   <preference name="splash-screen-duration" value="1000"/>
   <preference name="FadeSplashScreen" value="true"/>
   <preference name="FadeSplashScreenDuration" value=".25"/>
