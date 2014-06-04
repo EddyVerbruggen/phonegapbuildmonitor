@@ -31,6 +31,7 @@ function GAStartupSuccess() {
         alert(navigator);
         alert(navigator.userAgent);
       }, 4000);
+      /*
       if (isIOS()) {
         setTimeout(function () {
           StatusBar.styleLightContent();
@@ -41,6 +42,7 @@ function GAStartupSuccess() {
           }, 250);
         }, 500);
       }
+      */
     }
   };
 
